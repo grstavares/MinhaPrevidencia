@@ -136,8 +136,7 @@
 				A1829C2021DD5F0F00CA903B /* AppManagemnt */,
 				A1829C1F21DD5F0500CA903B /* AppModel */,
 				A1829C1E21DD5EF500CA903B /* AppProtocols */,
-				A1829C4521DD605C00CA903B /* AppFunctions */,
-				A164701D21DD3FFA0016A8B3 /* ViewController.swift */,
+				A18DD1B221DD64C20066E179 /* AppFunctions */,
 				A164702221DD3FFB0016A8B3 /* Assets.xcassets */,
 				A1829C3321DD5F6C00CA903B /* Main.storyboard */,
 				A164702421DD3FFB0016A8B3 /* LaunchScreen.storyboard */,
@@ -204,9 +203,10 @@
 			path = AppManagemnt;
 			sourceTree = "<group>";
 		};
-		A1829C4521DD605C00CA903B /* AppFunctions */ = {
+		A18DD1B221DD64C20066E179 /* AppFunctions */ = {
 			isa = PBXGroup;
 			children = (
+				A164701D21DD3FFA0016A8B3 /* ViewController.swift */,
 			);
 			path = AppFunctions;
 			sourceTree = "<group>";
