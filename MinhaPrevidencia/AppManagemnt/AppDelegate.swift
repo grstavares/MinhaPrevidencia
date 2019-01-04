@@ -12,16 +12,22 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mainCoordinator: AppCoordinator = MainCoordinator();
+    var mainCoordinator: AppCoordinator!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds);
-        self.window?.rootViewController = self.mainCoordinator.initialVC();
-        self.window?.makeKeyAndVisible();
-        
+
+        let injector = AppInjector()
+        let initial = injector.initialData()
+        let state = AppState(injector: injector, data: initial)
+        let coordinator = MainCoordinator(injector: injector, appState: state)
+
+        self.mainCoordinator = coordinator
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = self.mainCoordinator.initialVC()
+        self.window?.makeKeyAndVisible()
+
         return true
-        
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -46,6 +52,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

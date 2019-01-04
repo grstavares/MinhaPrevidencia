@@ -11,9 +11,9 @@ import UIKit
 protocol AppCoordinatorAction { }
 
 protocol AppCoordinator {
-    
-    func initialVC() -> UIViewController;
-    func perform(action: AppCoordinatorAction, from: UIViewController) -> Void;
-    func perform(action: AppCoordinatorAction, from: UIViewController, with: (Bool) -> Void) -> Void;
-    
+
+    func initialVC() -> UIViewController
+    func perform(action: AppCoordinatorAction, from: UIViewController)
+    func perform(action: AppCoordinatorAction, from: UIViewController, with: (Bool) -> Void)
+
 }

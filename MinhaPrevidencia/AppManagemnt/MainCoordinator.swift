@@ -9,15 +9,24 @@
 import UIKit
 class MainCoordinator: AppCoordinator {
 
-    public func initialVC() -> UIViewController {
-        
-        let sb = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc = sb.instantiateViewController(withIdentifier: "ViewController")
-        return vc
-        
+    let injector: AppInjector
+    let appState: AppState
+
+    init(injector: AppInjector, appState: AppState) {
+        self.injector = injector
+        self.appState = appState
     }
 
-    func perform(action: AppCoordinatorAction, from vc: UIViewController) { }
-    
-    func perform(action: AppCoordinatorAction, from vc: UIViewController, with closure: (Bool) -> Void) -> Void {}
+    public func initialVC() -> UIViewController {
+
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        return viewController
+
+    }
+
+    func perform(action: AppCoordinatorAction, from viewController: UIViewController) { }
+
+    func perform(action: AppCoordinatorAction, from viewController: UIViewController, with closure: (Bool) -> Void) {}
+
 }
