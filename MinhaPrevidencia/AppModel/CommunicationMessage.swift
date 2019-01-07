@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct ComunicationMessage {
+struct CommunicationMessage {
 
     let uuid: String
     let title: String
@@ -19,7 +19,7 @@ struct ComunicationMessage {
 
 }
 
-extension ComunicationMessage: Hashable, Equatable, JsonConvertible {
+extension CommunicationMessage: Hashable, Equatable, JsonConvertible {
 
     init?(from data: Data) {
 

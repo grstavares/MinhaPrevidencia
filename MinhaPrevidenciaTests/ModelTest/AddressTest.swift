@@ -48,6 +48,32 @@ class AddressTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Address(from: data)
+        XCTAssertNotNil(object, "Object not Parsed")
+
+        XCTAssertEqual(object?.country, self.mockCountry, "UUID not Equal")
+        XCTAssertEqual(object?.region, self.mockRegion, "Name not Equal")
+        XCTAssertEqual(object?.city, self.mockCity, "UUID not Equal")
+        XCTAssertEqual(object?.postalCode, self.mockPostal, "Name not Equal")
+        XCTAssertEqual(object?.streetAddress, self.mockStreet, "UUID not Equal")
+        XCTAssertEqual(object?.streetNumber, self.mockNumber, "Name not Equal")
+        XCTAssertEqual(object?.buildName, self.mockBuild, "UUID not Equal")
+        XCTAssertEqual(object?.unityNumber, self.mockUnity, "Name not Equal")
+        XCTAssertEqual(object?.isMain, self.mockIsMain, "Name not Equal")
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = CommunicationMessageTest().encodeRaw()
+        let object = Address(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -56,7 +82,7 @@ class AddressTest: XCTestCase {
         }
     }
 
-    private func getRawObject() -> RawAddress {
+    func getRawObject() -> RawAddress {
 
         return RawAddress(
             country: self.mockCountry, region: self.mockRegion, city: self.mockCity,
@@ -66,6 +92,15 @@ class AddressTest: XCTestCase {
             latitude: self.mockLat, longitude: self.mockLong,
             isMain: self.mockIsMain
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

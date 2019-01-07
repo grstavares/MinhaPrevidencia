@@ -61,6 +61,32 @@ class DocumentTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Document(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        XCTAssertEqual(object?.uuid, uuid, "UUID not Equal")
+        XCTAssertEqual(object?.title, title, "Title not Equal")
+        XCTAssertEqual(object?.summary, content, "Summary not Equal")
+        XCTAssertEqual(object?.url.absoluteString, mockUrl, "Url not Equal")
+
+        XCTAssert(mockCreation.compare(notnil.dateCreation) == .orderedSame, "DateCreation not Equal")
+        if let receptionNotNil = object?.lastUpdate {
+            XCTAssert(mockReception.compare(receptionNotNil) == .orderedSame, "LastUpdate Date not Equal")
+        } else {XCTFail("LastUpdate Date not Parsed")}
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = CommunicationMessageTest().encodeRaw()
+        let object = Document(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -79,6 +105,15 @@ class DocumentTest: XCTestCase {
             lastUpdate: mockReception.timeIntervalSince1970,
             url: mockUrl
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

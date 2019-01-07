@@ -1,5 +1,5 @@
 //
-//  NewsMessageTest.swift
+//  NewsReportTest.swift
 //  MinhaPrevidenciaTests
 //
 //  Created by Gustavo Tavares on 03/01/2019.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import MinhaPrevidencia
 
-class NewsMessageTest: XCTestCase {
+class NewsReportTest: XCTestCase {
 
     let secondsInDay: Double = 1 * 24 * 60 * 60
     let mockUuid = "MockUUID"
@@ -42,7 +42,7 @@ class NewsMessageTest: XCTestCase {
     func testObjectCreationFromRaw() {
 
         let rawObject = self.getRawObject()
-        let object = NewsMessage(from: rawObject)
+        let object = NewsReport(from: rawObject)
         guard let notnil = object else {XCTFail("Object not Parsed"); return}
 
         XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
@@ -60,17 +60,43 @@ class NewsMessageTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = NewsReport(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
+        XCTAssertEqual(object?.title, mockTitle, "Title not Equal")
+        XCTAssertEqual(object?.contents, self.mockContent, "Content not Equal")
+        XCTAssertEqual(object?.url?.absoluteString, mockUrl, "URL not Equal")
+
+        XCTAssert(mockCreation.compare(notnil.dateCreation) == .orderedSame, "DateCreation not Equal")
+        if let updateNotNil = object?.lastUpdate {
+            XCTAssert(mockReception.compare(updateNotNil) == .orderedSame, "LastUpdate Date not Equal")
+        } else {XCTFail("LastUpdate Date not Parsed")}
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = RetirementTest().encodeRaw()
+        let object = NewsReport(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
             let rawObject = self.getRawObject()
-            _ = NewsMessage(from: rawObject)
+            _ = NewsReport(from: rawObject)
         }
     }
 
-    private func getRawObject() -> RawNewsMessage {
+    private func getRawObject() -> RawNewsReport {
 
-        return RawNewsMessage(
+        return RawNewsReport(
             uuid: self.mockUuid,
             title: self.mockTitle,
             contents: self.mockContent,
@@ -78,6 +104,15 @@ class NewsMessageTest: XCTestCase {
             lastUpdate: mockReception.timeIntervalSince1970,
             url: mockUrl
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

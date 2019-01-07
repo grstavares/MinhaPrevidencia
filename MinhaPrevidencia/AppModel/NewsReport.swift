@@ -1,5 +1,5 @@
 //
-//  NewsMessage.swift
+//  NewsReport.swift
 //  AppReference
 //
 //  Created by Gustavo Tavares on 02/01/2019.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct NewsMessage {
+struct NewsReport {
 
     let uuid: String
     let title: String
@@ -18,17 +18,17 @@ struct NewsMessage {
 
 }
 
-extension NewsMessage: Hashable, Equatable, JsonConvertible {
+extension NewsReport: Hashable, Equatable, JsonConvertible {
 
     init?(from data: Data) {
 
         let decoder = JSONDecoder()
-        guard let decoded = try? decoder.decode(RawNewsMessage.self, from: data) else { return nil }
+        guard let decoded = try? decoder.decode(RawNewsReport.self, from: data) else { return nil }
         self.init(from: decoded)
 
     }
 
-    init?(from raw: RawNewsMessage) {
+    init?(from raw: RawNewsReport) {
 
         var dateUpdate: Date?
         var urlValue: URL?
@@ -53,12 +53,12 @@ extension NewsMessage: Hashable, Equatable, JsonConvertible {
 
     }
 
-    func raw() -> RawNewsMessage {
+    func raw() -> RawNewsReport {
 
         let dateCreation = self.dateCreation.timeIntervalSince1970
         let dateUpdate = self.lastUpdate?.timeIntervalSince1970
 
-        let raw = RawNewsMessage(
+        let raw = RawNewsReport(
             uuid: self.uuid, title: self.title, contents: self.contents,
             dateCreation: dateCreation, lastUpdate: dateUpdate,
             url: self.url?.absoluteString
@@ -70,7 +70,7 @@ extension NewsMessage: Hashable, Equatable, JsonConvertible {
 
 }
 
-struct RawNewsMessage: Codable, Hashable, Equatable {
+struct RawNewsReport: Codable, Hashable, Equatable {
 
     let uuid: String
     let title: String

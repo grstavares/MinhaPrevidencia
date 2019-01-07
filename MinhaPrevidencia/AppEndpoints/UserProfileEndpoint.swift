@@ -1,21 +1,21 @@
 //
-//  InstitutionEndpoint.swift
+//  UserProfileEndpoint.swift
 //  MinhaPrevidencia
 //
-//  Created by Gustavo Tavares on 03/01/2019.
+//  Created by Gustavo Tavares on 04/01/2019.
 //  Copyright © 2019 brClouders. All rights reserved.
 //
 
 import Foundation
 
-enum InstitutionApi {
+enum UserProfileApi {
     case get(uuid: String)
-    case update(object: Institution)
+    case update(object: UserProfile)
 }
 
-extension InstitutionApi: RemoteEndpoint {
+extension UserProfileApi: RemoteEndpoint {
 
-    var resourcePath: String { return "institution" }
+    var resourcePath: String { return "userprofile" }
 
     var path: URL {
 

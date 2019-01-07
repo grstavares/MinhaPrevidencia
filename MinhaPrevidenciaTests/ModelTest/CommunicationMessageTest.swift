@@ -35,7 +35,7 @@ class CommunicationMessageTest: XCTestCase {
     func testObjectCreationFromRaw() {
 
         let rawObject = self.getRawObject()
-        let object = ComunicationMessage(from: rawObject)
+        let object = CommunicationMessage(from: rawObject)
         guard let notnil = object else {XCTFail("Object not Parsed"); return}
 
         XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
@@ -51,15 +51,39 @@ class CommunicationMessageTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = CommunicationMessage(from: data)
+        guard let notnil = object else {XCTFail("Object not Decoded"); return}
+
+        XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
+        XCTAssertEqual(object?.title, mockTitle, "Title not Equal")
+        XCTAssertEqual(object?.summary, mockSummary, "Summary not Equal")
+        XCTAssertEqual(object?.content, mockContent, "Content not Equal")
+        XCTAssertEqual(object?.userOrigin, mockOrigin, "Origin not Equal")
+        XCTAssertEqual(object?.recipients, mockDestiny, "Recipients not Equal")
+        XCTAssert(mockCreation.compare(notnil.dateCreation) == .orderedSame, "DateCreation not Equal")
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = ComplaintTest().encodeRaw()
+        let object = CommunicationMessage(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
             let rawObject = self.getRawObject()
-            _ = ComunicationMessage(from: rawObject)
+            _ = CommunicationMessage(from: rawObject)
         }
     }
 
-    private func getRawObject() -> RawComunicationMessage {
+    func getRawObject() -> RawComunicationMessage {
 
         return RawComunicationMessage(
             uuid: self.mockUuid,
@@ -70,6 +94,15 @@ class CommunicationMessageTest: XCTestCase {
             userOrigin: self.mockOrigin,
             recipients: self.mockDestiny
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

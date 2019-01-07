@@ -45,6 +45,27 @@ class WithdrawalTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Withdrawal(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
+        XCTAssertEqual(notnil.value, mockValue, accuracy: 0.1)
+        XCTAssertEqual(object?.reference, mockReference, "Reference not Equal")
+        XCTAssert(mockDate.compare(notnil.date) == .orderedSame, "Date not Equal")
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = AddressTest().encodeRaw()
+        let object = Withdrawal(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -56,6 +77,15 @@ class WithdrawalTest: XCTestCase {
     func getRawObject() -> RawWithdrawal {
 
         return RawWithdrawal(uuid: mockUuid, date: mockDate.timeIntervalSince1970, value: mockValue, reference: mockReference)
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

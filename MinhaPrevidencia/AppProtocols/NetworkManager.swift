@@ -22,14 +22,14 @@ public protocol JsonConvertible {
 
 }
 
-public protocol RemoteRouter {
+public protocol NetworkManager {
 
     func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion)
     func cancel()
 
 }
 
-public extension RemoteRouter {
+public extension NetworkManager {
 
     func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         switch response.statusCode {
@@ -58,25 +58,7 @@ public enum RemoteEnvironment {
     case development, staging, quality, production
 }
 
-public extension RemoteEndpoint {
-
-    var environment: RemoteEnvironment {
-
-        #if DEBUG
-        return RemoteEnvironment.development
-        #elseif QA
-        return RemoteEnvironment.quality
-        #elseif STAGE
-        return RemoteEnvironment.staging
-        #else
-        return RemoteEnvironment.production
-        #endif
-
-    }
-
-}
-
-public typealias Parameters = [String: Any]
+public typealias HTTPParameters = [String: Any]
 public typealias HTTPHeaders = [String: String]
 
 public enum HTTPMethod: String {
@@ -90,8 +72,8 @@ public enum HTTPMethod: String {
 public enum HTTPTask {
 
     case request
-    case requestWithParameters(urlParameters: Parameters?, additionHeaders: HTTPHeaders?)
-    case requestWithBody(body: JsonConvertible?, urlParameters: Parameters?, additionHeaders: HTTPHeaders?)
+    case requestWithParameters(urlParameters: HTTPParameters?, additionHeaders: HTTPHeaders?)
+    case requestWithBody(body: JsonConvertible?, urlParameters: HTTPParameters?, additionHeaders: HTTPHeaders?)
 
 }
 

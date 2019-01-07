@@ -12,6 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+
+    var appInjector: AppInjector?
+    var appState: AppState?
     var mainCoordinator: AppCoordinator!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,7 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let state = AppState(injector: injector, data: initial)
         let coordinator = MainCoordinator(injector: injector, appState: state)
 
+        self.appInjector = injector
+        self.appState = state
         self.mainCoordinator = coordinator
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = self.mainCoordinator.initialVC()
         self.window?.makeKeyAndVisible()
@@ -31,8 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+
+        self.appState?.persistInLocalStorage()
+        self.appState?.pauseObservables()
+
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -41,7 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+
+        self.appState?.startObservables()
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

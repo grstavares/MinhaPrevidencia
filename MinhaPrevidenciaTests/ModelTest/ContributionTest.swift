@@ -45,6 +45,27 @@ class ContributionTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Contribution(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        XCTAssertEqual(object?.uuid, mockUuid, "UUID not Equal")
+        XCTAssertEqual(object?.source, mockSource, "Source not Equal")
+        XCTAssertEqual(object?.value, mockValue, "Value not Equal")
+        XCTAssert(mockCreation.compare(notnil.reference) == .orderedSame, "Date not Equal")
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = CommunicationMessageTest().encodeRaw()
+        let object = Contribution(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -56,6 +77,15 @@ class ContributionTest: XCTestCase {
     func getRawObject() -> RawContribution {
 
         return RawContribution(uuid: self.mockUuid, source: self.mockSource, reference: mockCreation.timeIntervalSince1970, value: mockValue)
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

@@ -16,21 +16,6 @@ enum DocumentApi {
 
 extension DocumentApi: RemoteEndpoint {
 
-    var baseURL: URL {
-
-        var stringUrl: String
-        switch self.environment {
-        case .development: stringUrl = "https://dev.endpoint.com"
-        case .quality: stringUrl = "https://dev.endpoint.com"
-        case .staging: stringUrl = "https://dev.endpoint.com"
-        case .production: stringUrl = "https://dev.endpoint.com"
-        }
-
-        if let url = URL(string: stringUrl) {return url
-        } else { fatalError("RemoteEndpoint Not Configured! \(#file), \(#line)") }
-
-    }
-
     var path: URL {
 
         switch self {

@@ -51,6 +51,31 @@ class UserProfileTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = UserProfile(from: data)
+        XCTAssertNotNil(object, "Object not Parsed")
+
+        XCTAssertEqual(object?.uuid, self.mockUuid, "UUID not Equal")
+        XCTAssertEqual(object?.firstName, self.mockFirst, "FirstName not Equal")
+        XCTAssertEqual(object?.lastName, self.mockLast, "Lastname not Equal")
+        XCTAssertEqual(object?.username, self.mockUsername, "Username not Equal")
+        XCTAssertEqual(object?.genre, self.mockGenre, "Genre not Equal")
+        if let birthNotNil = object?.birthDate {
+            XCTAssert(self.mockBirth.compare(birthNotNil) == .orderedSame, "BirthDate Date not Equal")
+        } else {XCTFail("BirthDate Date not Parsed")}
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = WithdrawalTest().encodeRaw()
+        let object = UserProfile(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -62,6 +87,15 @@ class UserProfileTest: XCTestCase {
     private func getRawObject() -> RawUserProfile {
 
         return RawUserProfile(uuid: mockUuid, firstName: mockFirst, lastName: mockLast, username: mockUsername, birthDate: mockBirth.timeIntervalSince1970, genre: mockGenre)
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

@@ -58,6 +58,31 @@ class RetirementTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Retirement(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        let parsedContributions = self.mockContributions.compactMap { (raw) in Contribution(from: raw) }
+        let parsedWithDrawals = self.mockWithDrawals.compactMap { (raw) in Withdrawal(from: raw) }
+
+        XCTAssertEqual(object?.uuid, self.mockUuid, "UUID not Equal")
+        XCTAssertEqual(object?.contributions, parsedContributions, "Title not Equal")
+        XCTAssertEqual(object?.withdrawals, parsedWithDrawals, "Content not Equal")
+        XCTAssert(self.mockStart.compare(notnil.startDate) == .orderedSame, "DateCreation not Equal")
+        XCTAssert(self.mockEnd.compare(notnil.endDate) == .orderedSame, "DateCreation not Equal")
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = CommunicationMessageTest().encodeRaw()
+        let object = Retirement(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -75,6 +100,15 @@ class RetirementTest: XCTestCase {
             contributions: mockContributions,
             withdrawals: mockWithDrawals
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

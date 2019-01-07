@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class AppRouter: RemoteRouter {
+class AppRouter: NetworkManager {
 
     private var session: URLSession
     private var task: URLSessionTask?
@@ -84,7 +84,7 @@ class AppRouter: RemoteRouter {
         let timeout: TimeInterval
         var method: HTTPMethod?
         var headers: HTTPHeaders = [:]
-        var urlParameters: Parameters = [:]
+        var urlParameters: HTTPParameters = [:]
         var body: Data?
 
         init(url: URL, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) {
@@ -103,7 +103,7 @@ class AppRouter: RemoteRouter {
             return self
         }
 
-        func withParameters(_ newParams: Parameters?) -> URLRequestBuilder {
+        func withParameters(_ newParams: HTTPParameters?) -> URLRequestBuilder {
             if let params = newParams { self.urlParameters = params }
             return self
         }

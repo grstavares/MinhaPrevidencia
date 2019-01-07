@@ -59,6 +59,32 @@ class ComplaintTest: XCTestCase {
 
     }
 
+    func testObjectCreationFromData() {
+
+        let data = self.encodeRaw()
+        let object = Complaint(from: data)
+        guard let notnil = object else {XCTFail("Object not Parsed"); return}
+
+        XCTAssertEqual(object?.uuid, uuid, "UUID not Equal")
+        XCTAssertEqual(object?.title, title, "Title not Equal")
+        XCTAssertEqual(object?.content, content, "Content not Equal")
+        XCTAssertEqual(object?.status.rawValue, status, "Status not Equal")
+
+        XCTAssert(mockCreation.compare(notnil.dateCreation) == .orderedSame, "DateCreation not Equal")
+        if let receptionNotNil = object?.dateReception {
+            XCTAssert(mockReception.compare(receptionNotNil) == .orderedSame, "DateReception not Equal")
+        } else {XCTFail("DateReception not Parsed")}
+
+    }
+
+    func testObjectCreationFromDataWithFailure() {
+
+        let data = CommunicationMessageTest().encodeRaw()
+        let object = Complaint(from: data)
+        XCTAssertNil(object, "Wrong Data parsed in Object")
+
+    }
+
     func testObjectParsingPerformance() {
 
         self.measure {
@@ -67,7 +93,7 @@ class ComplaintTest: XCTestCase {
         }
     }
 
-    private func getRawObject() -> RawComplaint {
+    func getRawObject() -> RawComplaint {
 
         return RawComplaint(
             uuid: uuid,
@@ -77,6 +103,15 @@ class ComplaintTest: XCTestCase {
             dateReception: mockReception.timeIntervalSince1970,
             status: status
         )
+
+    }
+
+    func encodeRaw() -> Data {
+
+        let object = self.getRawObject()
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {return data
+        } else {fatalError("Test Object can not be encoded")}
 
     }
 

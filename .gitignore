@@ -68,3 +68,8 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 .DS_Store
+*Secrets*.*
+*secrets*.*
+*/*secrets*.*
+*/*Secrets*.*
+MinhaPrevidencia/AppManagemnt/AppSecrets.swift
