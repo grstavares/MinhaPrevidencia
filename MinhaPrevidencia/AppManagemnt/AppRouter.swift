@@ -10,7 +10,6 @@ import Foundation
 class AppRouter: NetworkManager {
 
     private var session: URLSession
-    private var task: URLSessionTask?
     private var cachePolicy: URLRequest.CachePolicy
     private var timeout: TimeInterval
     private var defaultHeaders: HTTPHeaders = [:]
@@ -23,22 +22,17 @@ class AppRouter: NetworkManager {
 
     }
 
-    func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion) {
+    func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion) throws -> URLSessionTask {
 
-        do {
+        let request = try self.buildRequest(from: route)
+        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+            completion(data, response, error)
+        })
 
-            let request = try self.buildRequest(from: route)
-            self.task = session.dataTask(with: request, completionHandler: { data, response, error in
-                completion(data, response, error)
-            })
-
-        } catch { completion(nil, nil, error) }
-
-        self.task?.resume()
+        task.resume()
+        return task
 
     }
-
-    func cancel() { self.task?.cancel() }
 
     private func buildRequest(from route: RemoteEndpoint) throws -> URLRequest {
 

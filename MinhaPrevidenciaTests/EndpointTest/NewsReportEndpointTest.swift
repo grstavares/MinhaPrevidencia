@@ -30,12 +30,12 @@ class NewsReportEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetAll() {
+    func testGetAll() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(NewsReportApi.getAll) { (data, response, error) in
+        _ = try router.request(NewsReportApi.getAll(authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -49,12 +49,12 @@ class NewsReportEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb)) { (data, response, error) in
+        _ = try router.request(NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -68,12 +68,12 @@ class NewsReportEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(NewsReportApi.get(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(NewsReportApi.get(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -87,13 +87,13 @@ class NewsReportEndpointTest: XCTestCase {
 
     }
 
-    func testMarRead_returning201HttpResponse_Created() {
+    func testMarRead_returning201HttpResponse_Created() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 201 Status Code Return")
         let mockObject = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
-        router.request(NewsReportApi.markReaded(object: mockObject)) { (data, response, error) in
+        _ = try router.request(NewsReportApi.markReaded(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -111,9 +111,9 @@ class NewsReportEndpointTest: XCTestCase {
     private func stubbedData() -> [URL: Data] {
 
         return [
-            NewsReportApi.getAll.path: NewsReportEndpointTest.objectA.asJsonData()!,
-            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb).path: NewsReportEndpointTest.objectA.asJsonData()!,
-            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidBOnDb).path: NewsReportEndpointTest.objectB.asJsonData()!
+            NewsReportApi.getAll(authToken: nil).path: NewsReportEndpointTest.objectA.asJsonData()!,
+            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb, authToken: nil).path: NewsReportEndpointTest.objectA.asJsonData()!,
+            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidBOnDb, authToken: nil).path: NewsReportEndpointTest.objectB.asJsonData()!
         ]
 
     }

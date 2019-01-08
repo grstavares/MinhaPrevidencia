@@ -10,13 +10,13 @@ import Foundation
 
 enum CommunicationMessageApi {
 
-    case getAll
-    case get(uuid: String)
-    case create(object: CommunicationMessage)
-    case update(object: CommunicationMessage)
-    case delete(object: CommunicationMessage)
-    case send(object: CommunicationMessage)
-    case archive(object: CommunicationMessage)
+    case getAll(authToken: String?)
+    case get(uuid: String, authToken: String?)
+    case create(object: CommunicationMessage, authToken: String?)
+    case update(object: CommunicationMessage, authToken: String?)
+    case delete(object: CommunicationMessage, authToken: String?)
+    case send(object: CommunicationMessage, authToken: String?)
+    case archive(object: CommunicationMessage, authToken: String?)
 
 }
 
@@ -33,7 +33,7 @@ extension CommunicationMessageApi: RemoteEndpoint {
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
 
-        case .get(let uuid):
+        case .get(let uuid, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
@@ -44,26 +44,26 @@ extension CommunicationMessageApi: RemoteEndpoint {
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
 
-        case .update(let object):
+        case .update(let object, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
                 .appendingPathComponent(object.uuid)
 
-        case .delete(let object):
+        case .delete(let object, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
                 .appendingPathComponent(object.uuid)
 
-        case .send(let object):
+        case .send(let object, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
                 .appendingPathComponent(object.uuid)
                 .appendingPathComponent("status")
 
-        case .archive(let object):
+        case .archive(let object, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
@@ -98,11 +98,11 @@ extension CommunicationMessageApi: RemoteEndpoint {
 
             return .request
 
-        case .create(let object):
+        case .create(let object, _):
 
             return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
 
-        case .update(let object):
+        case .update(let object, _):
 
             return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
 

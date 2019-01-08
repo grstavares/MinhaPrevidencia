@@ -9,7 +9,7 @@
 import Foundation
 
 enum RetirementApi {
-    case getByUser(uuid: String)
+    case getByUser(uuid: String, authToken: String?)
 }
 
 extension RetirementApi: RemoteEndpoint {
@@ -19,7 +19,7 @@ extension RetirementApi: RemoteEndpoint {
     var path: URL {
 
         switch self {
-        case .getByUser(let uuid):
+        case .getByUser(let uuid, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)

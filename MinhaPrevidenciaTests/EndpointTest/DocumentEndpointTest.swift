@@ -30,12 +30,12 @@ class DocumentEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetAll() {
+    func testGetAll() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(DocumentApi.getAll) { (data, response, error) in
+        _ = try router.request(DocumentApi.getAll(authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -49,12 +49,12 @@ class DocumentEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb)) { (data, response, error) in
+        _ = try router.request(DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -68,12 +68,12 @@ class DocumentEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(DocumentApi.get(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(DocumentApi.get(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -87,12 +87,12 @@ class DocumentEndpointTest: XCTestCase {
 
     }
 
-    func testGetContent_returning200HttpResponse_OK() {
+    func testGetContent_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(DocumentApi.getContent(document: DocumentEndpointTest.objectA)) { (data, response, error) in
+        _ = try router.request(DocumentApi.getContent(document: DocumentEndpointTest.objectA, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -106,13 +106,13 @@ class DocumentEndpointTest: XCTestCase {
 
     }
 
-    func testGetContent_returning404HttpResponse_NotFound() {
+    func testGetContent_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
         let inexistentObject = Document(uuid: "InvalidUUID", title: "Title", summary: "summary", dateCreation: Date(), lastUpdate: nil, url: URL(string: "https://documentInexistent.com")!)
-        router.request(DocumentApi.getContent(document: inexistentObject)) { (data, response, error) in
+        _ = try router.request(DocumentApi.getContent(document: inexistentObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -129,9 +129,9 @@ class DocumentEndpointTest: XCTestCase {
     private func stubbedData() -> [URL: Data] {
 
         return [
-            DocumentApi.getAll.path: DocumentEndpointTest.objectA.asJsonData()!,
-            DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb).path: DocumentEndpointTest.objectA.asJsonData()!,
-            DocumentApi.get(uuid: DocumentEndpointTest.uuidBOnDb).path: DocumentEndpointTest.objectB.asJsonData()!,
+            DocumentApi.getAll(authToken: nil).path: DocumentEndpointTest.objectA.asJsonData()!,
+            DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb, authToken: nil).path: DocumentEndpointTest.objectA.asJsonData()!,
+            DocumentApi.get(uuid: DocumentEndpointTest.uuidBOnDb, authToken: nil).path: DocumentEndpointTest.objectB.asJsonData()!,
             URL(string: "https://document.com")!: DocumentEndpointTest.objectB.asJsonData()!
         ]
 

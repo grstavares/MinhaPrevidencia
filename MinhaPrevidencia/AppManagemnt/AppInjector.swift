@@ -11,10 +11,14 @@ import SwiftSugarKit
 
 class AppInjector {
 
+    private lazy var _appRouter: NetworkManager = AppRouter(session: URLSession.shared)
+
     func settings() -> SettingsManager? { return nil }
     func remoteStore() -> DataStoreManager? { return nil }
     func localStore() -> DataStoreManager? { return nil }
     func cacheStore() -> DataStoreManager? { return nil }
+    func authManager() -> AuthenticationManager? { return nil }
+    func appRouter() -> NetworkManager? { return self._appRouter }
 
     //Synchronous Function to be returned with Initial Data from Settings, Cache or Stup in the caso of first execution
     func initialData() -> InitialData {

@@ -9,9 +9,9 @@
 import Foundation
 
 enum ComplaintApi {
-    case getAll
-    case get(uuid: String)
-    case create(object: Complaint)
+    case getAll(authToken: String?)
+    case get(uuid: String, authToken: String?)
+    case create(object: Complaint, authToken: String?)
 }
 
 extension ComplaintApi: RemoteEndpoint {
@@ -22,7 +22,7 @@ extension ComplaintApi: RemoteEndpoint {
 
         switch self {
         case .getAll: return self.baseURL.appendingPathComponent(self.resourcePath)
-        case .get(let uuid): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(uuid)
+        case .get(let uuid, _): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(uuid)
         case .create: return self.baseURL.appendingPathExtension(self.resourcePath)
         }
 
@@ -40,10 +40,16 @@ extension ComplaintApi: RemoteEndpoint {
         switch self {
         case .getAll: return .request
         case .get: return .request
-        case .create(let object): return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
+        case .create(let object, _): return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
         }
     }
 
     var headers: HTTPHeaders? { return nil }
+
+    typealias Model = Complaint
+
+    func parse(data: Data) -> Model? { return Complaint(from: data) }
+
+    func parseCollection(data: Data) -> [Model] { return [] }
 
 }

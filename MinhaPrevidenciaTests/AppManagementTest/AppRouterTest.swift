@@ -15,7 +15,7 @@ class AppRouterTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testMockApiGet() {
+    func testMockApiGet() throws {
 
         let validator: (URLRequest) -> (Data?, URLResponse?, Error?) = {request in
 
@@ -32,7 +32,7 @@ class AppRouterTest: XCTestCase {
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
-        router.request(TestApi.get) { (data, response, error) in
+        _ = try router.request(TestApi.get) { (data, response, error) in
 
             if error != nil {XCTFail("Error is Not Nil")}
             if data == nil { XCTFail("Data is not equal original") }
@@ -45,7 +45,7 @@ class AppRouterTest: XCTestCase {
 
     }
 
-    func testMockApiPost() {
+    func testMockApiPost() throws {
 
         let validator: (URLRequest) -> (Data?, URLResponse?, Error?) = {request in
 
@@ -62,7 +62,7 @@ class AppRouterTest: XCTestCase {
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
-        router.request(TestApi.post) { (data, response, error) in
+        _ = try router.request(TestApi.post) { (data, response, error) in
 
             if error != nil {XCTFail("Error is Not Nil")}
             if data == nil { XCTFail("Data is not equal original") }
@@ -75,7 +75,7 @@ class AppRouterTest: XCTestCase {
 
     }
 
-    func testMockApiPut() {
+    func testMockApiPut() throws {
 
         let validator: (URLRequest) -> (Data?, URLResponse?, Error?) = {request in
 
@@ -92,7 +92,7 @@ class AppRouterTest: XCTestCase {
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
-        router.request(TestApi.put) { (data, response, error) in
+        _ = try router.request(TestApi.put) { (data, response, error) in
 
             if error != nil {XCTFail("Error is Not Nil")}
             if data == nil { XCTFail("Data is not equal original") }
@@ -105,7 +105,7 @@ class AppRouterTest: XCTestCase {
 
     }
 
-    func testMockApiDelete() {
+    func testMockApiDelete() throws {
 
         let validator: (URLRequest) -> (Data?, URLResponse?, Error?) = {request in
 
@@ -122,7 +122,7 @@ class AppRouterTest: XCTestCase {
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
-        router.request(TestApi.delete) { (data, response, error) in
+        _ = try router.request(TestApi.delete) { (data, response, error) in
 
             if error != nil {XCTFail("Error is Not Nil")}
             if data == nil { XCTFail("Data is not equal original") }

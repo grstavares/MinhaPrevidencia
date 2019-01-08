@@ -9,9 +9,9 @@
 import Foundation
 
 enum DocumentApi {
-    case getAll
-    case get(uuid: String)
-    case getContent(document: Document)
+    case getAll(authToken: String?)
+    case get(uuid: String, authToken: String?)
+    case getContent(document: Document, authToken: String?)
 }
 
 extension DocumentApi: RemoteEndpoint {
@@ -20,8 +20,8 @@ extension DocumentApi: RemoteEndpoint {
 
         switch self {
         case .getAll: return self.baseURL
-        case .get(let uuid): return self.baseURL.appendingPathComponent(uuid)
-        case .getContent(let document): return document.url
+        case .get(let uuid, _): return self.baseURL.appendingPathComponent(uuid)
+        case .getContent(let document, _): return document.url
         }
 
     }

@@ -30,12 +30,12 @@ class UserProfileEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(UserProfileApi.get(uuid: UserProfileEndpointTest.uuidAOnDb)) { (data, response, error) in
+        _ = try router.request(UserProfileApi.get(uuid: UserProfileEndpointTest.uuidAOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -49,12 +49,12 @@ class UserProfileEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(UserProfileApi.get(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(UserProfileApi.get(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -68,13 +68,13 @@ class UserProfileEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning200HttpResponse_Ok() {
+    func testUpdate_returning200HttpResponse_Ok() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectPut = expectation(description: "Get 200 Status Code Return")
         let mockObject = UserProfile(uuid: UserProfileEndpointTest.uuidAOnDb, firstName: "First and Middle", lastName: "second middle and Last", username: "username", birthDate: Date(), genre: "U")
-        router.request(UserProfileApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(UserProfileApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -88,13 +88,13 @@ class UserProfileEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning404HttpResponse_NotFound() {
+    func testUpdate_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectPut = expectation(description: "Get 404 Status Code Return")
         let mockObject = UserProfile(uuid: "invalidUUID", firstName: "Frist", lastName: "Last", username: "username", birthDate: Date(), genre: "U")
-        router.request(UserProfileApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(UserProfileApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data when must return nil"); return }
@@ -111,8 +111,8 @@ class UserProfileEndpointTest: XCTestCase {
     private func stubbedData() -> [URL: Data] {
 
         return [
-            UserProfileApi.get(uuid: UserProfileEndpointTest.uuidAOnDb).path: UserProfileEndpointTest.objectA.asJsonData()!,
-            UserProfileApi.get(uuid: UserProfileEndpointTest.uuidBOnDb).path: UserProfileEndpointTest.objectB.asJsonData()!
+            UserProfileApi.get(uuid: UserProfileEndpointTest.uuidAOnDb, authToken: nil).path: UserProfileEndpointTest.objectA.asJsonData()!,
+            UserProfileApi.get(uuid: UserProfileEndpointTest.uuidBOnDb, authToken: nil).path: UserProfileEndpointTest.objectB.asJsonData()!
         ]
 
     }

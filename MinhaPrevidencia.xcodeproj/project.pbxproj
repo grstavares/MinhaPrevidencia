@@ -72,7 +72,8 @@
 		A1B15DC921E3D52C008C313D /* SwiftSugarKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1B15DC521E3D512008C313D /* SwiftSugarKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1B15DCF21E3DE09008C313D /* AppInjectorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DCE21E3DE09008C313D /* AppInjectorTest.swift */; };
 		A1B15DD121E3EB2B008C313D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DD021E3EB2B008C313D /* AuthenticationManager.swift */; };
-		A1B15DDE21E3FBE0008C313D /* AppSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DDD21E3FBE0008C313D /* AppSecrets.swift */; };
+		A1B15DE321E4023B008C313D /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DE221E4023B008C313D /* ResultType.swift */; };
+		A1DFAA8A21E51F8D00FC5A05 /* Data+JsonConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */; };
 		A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -282,7 +283,8 @@
 		A1B15DBF21E3D511008C313D /* SwiftSugarKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftSugarKit.xcodeproj; path = ../../../../../Commons/Swift/SwiftSugarKit/SwiftSugarKit.xcodeproj; sourceTree = "<group>"; };
 		A1B15DCE21E3DE09008C313D /* AppInjectorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInjectorTest.swift; sourceTree = "<group>"; };
 		A1B15DD021E3EB2B008C313D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		A1B15DDD21E3FBE0008C313D /* AppSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSecrets.swift; sourceTree = "<group>"; };
+		A1B15DE221E4023B008C313D /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
+		A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+JsonConvertible.swift"; sourceTree = "<group>"; };
 		A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMockTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -421,6 +423,8 @@
 		A17FFC6221DE803700B64090 /* AppExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				A1B15DE221E4023B008C313D /* ResultType.swift */,
+				A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */,
 			);
 			path = AppExtensions;
 			sourceTree = "<group>";
@@ -463,7 +467,6 @@
 				A1829C2221DD5F4400CA903B /* AppDelegate.swift */,
 				A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */,
 				A17FFC8A21DEDA3000B64090 /* AppRouter.swift */,
-				A1B15DDD21E3FBE0008C313D /* AppSecrets.swift */,
 				A1829C2321DD5F4400CA903B /* AppState.swift */,
 				A1829C2121DD5F4400CA903B /* MainCoordinator.swift */,
 			);
@@ -786,7 +789,6 @@
 				A12F83B721E00ECC001B1B18 /* ComunicationMessageEndpoint.swift in Sources */,
 				A17FFC8B21DEDA3000B64090 /* AppRouter.swift in Sources */,
 				A1829C4121DD5F7900CA903B /* Withdrawal.swift in Sources */,
-				A1B15DDE21E3FBE0008C313D /* AppSecrets.swift in Sources */,
 				A12F83AD21E00E69001B1B18 /* RetirementEndpoint.swift in Sources */,
 				A17FFC3D21DE5DFA00B64090 /* AppInjector.swift in Sources */,
 				A1829C4221DD5F7900CA903B /* Complaint.swift in Sources */,
@@ -795,6 +797,7 @@
 				A17FFC5C21DE738E00B64090 /* ComplaintEndpoint.swift in Sources */,
 				A1829C4421DD5F7900CA903B /* Retirement.swift in Sources */,
 				A17FFC8921DED7B700B64090 /* NetworkManager.swift in Sources */,
+				A1B15DE321E4023B008C313D /* ResultType.swift in Sources */,
 				A12F83B321E00E93001B1B18 /* NewsReportEndpoint.swift in Sources */,
 				A17FFC5E21DE73FD00B64090 /* DocumentEndpoint.swift in Sources */,
 				A1829C2E21DD5F5600CA903B /* DeviceManager.swift in Sources */,
@@ -805,6 +808,7 @@
 				A1829C3F21DD5F7900CA903B /* NewsReport.swift in Sources */,
 				A17FFC8521DEB44900B64090 /* InstitutionEndpoint.swift in Sources */,
 				A1829C4021DD5F7900CA903B /* CommunicationMessage.swift in Sources */,
+				A1DFAA8A21E51F8D00FC5A05 /* Data+JsonConvertible.swift in Sources */,
 				A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */,
 				A1829C2421DD5F4400CA903B /* MainCoordinator.swift in Sources */,
 				A1829C3E21DD5F7900CA903B /* UserProfile.swift in Sources */,

@@ -9,8 +9,8 @@
 import Foundation
 
 enum InstitutionApi {
-    case get(uuid: String)
-    case update(object: Institution)
+    case get(uuid: String, authToken: String?)
+    case update(object: Institution, authToken: String?)
 }
 
 extension InstitutionApi: RemoteEndpoint {
@@ -20,8 +20,8 @@ extension InstitutionApi: RemoteEndpoint {
     var path: URL {
 
         switch self {
-        case .get(let uuid): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(uuid)
-        case .update(let object): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(object.uuid)
+        case .get(let uuid, _): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(uuid)
+        case .update(let object, _): return self.baseURL.appendingPathComponent(self.resourcePath).appendingPathComponent(object.uuid)
         }
 
     }
@@ -39,7 +39,7 @@ extension InstitutionApi: RemoteEndpoint {
 
         switch self {
         case .get: return .request
-        case .update(let object):  return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
+        case .update(let object, _):  return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
         }
 
     }

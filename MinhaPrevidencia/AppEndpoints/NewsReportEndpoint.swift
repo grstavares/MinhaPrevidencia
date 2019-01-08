@@ -9,9 +9,9 @@
 import Foundation
 
 enum NewsReportApi {
-    case getAll
-    case get(uuid: String)
-    case markReaded(object: NewsReport)
+    case getAll(authToken: String?)
+    case get(uuid: String, authToken: String?)
+    case markReaded(object: NewsReport, authToken: String?)
 }
 
 extension NewsReportApi: RemoteEndpoint {
@@ -26,13 +26,13 @@ extension NewsReportApi: RemoteEndpoint {
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
 
-        case .get(let uuid):
+        case .get(let uuid, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
                 .appendingPathComponent(uuid)
 
-        case .markReaded(let object):
+        case .markReaded(let object, _):
 
             return self.baseURL
                 .appendingPathComponent(self.resourcePath)
@@ -57,7 +57,7 @@ extension NewsReportApi: RemoteEndpoint {
         switch self {
         case .getAll: return .request
         case .get: return .request
-        case .markReaded(let object): return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
+        case .markReaded(let object, _): return .requestWithBody(body: object, urlParameters: nil, additionHeaders: nil)
         }
     }
 

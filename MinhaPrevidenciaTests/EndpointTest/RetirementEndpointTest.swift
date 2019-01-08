@@ -30,12 +30,12 @@ class RetirementEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb)) { (data, response, error) in
+        _ = try router.request(RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -49,12 +49,12 @@ class RetirementEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(RetirementApi.getByUser(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(RetirementApi.getByUser(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -68,7 +68,7 @@ class RetirementEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] { return [RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb).path: RetirementEndpointTest.object.asJsonData()! ] }
+    private func stubbedData() -> [URL: Data] { return [RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb, authToken: nil).path: RetirementEndpointTest.object.asJsonData()! ] }
 
     private static let uuidOnDb = "123akj121107f654shuaa43"
     private static let object = Retirement(uuid: RetirementEndpointTest.uuidOnDb, startDate: Date(), endDate: Date(), contributions: [], withdrawals: [])

@@ -33,12 +33,12 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetAll() {
+    func testGetAll() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(CommunicationMessageApi.getAll) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.getAll(authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -52,12 +52,12 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -71,12 +71,12 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(CommunicationMessageApi.get(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.get(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -90,13 +90,13 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testCreate_returning201HttpResponse_Created() {
+    func testCreate_returning201HttpResponse_Created() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 201 Status Code Return")
         let mockObject = CommunicationMessage(uuid: "NewId", title: "Title", summary: "Summary", content: "Content", dateCreation: Date(), userOrigin: "origin", recipients: ["recipient"])
-        router.request(CommunicationMessageApi.create(object: mockObject)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.create(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -111,13 +111,13 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning200HttpResponse_Ok() {
+    func testUpdate_returning200HttpResponse_Ok() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
         let mockObject = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidAOnDb, title: "Title", summary: "Summary", content: "Content", dateCreation: Date(), userOrigin: "origin", recipients: ["recipient"])
-        router.request(CommunicationMessageApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -131,13 +131,13 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning404HttpResponse_NotFound() {
+    func testUpdate_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
         let mockObject = CommunicationMessage(uuid: "InvalidUUID", title: "Title", summary: "Summary", content: "Content", dateCreation: Date(), userOrigin: "origin", recipients: ["recipient"])
-        router.request(CommunicationMessageApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data when must return nil"); return }
@@ -151,13 +151,13 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testDelete_returning200HttpResponse_Ok() {
+    func testDelete_returning200HttpResponse_Ok() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
         let mockObject = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidAOnDb, title: "Title", summary: "Summary", content: "Content", dateCreation: Date(), userOrigin: "origin", recipients: ["recipient"])
-        router.request(CommunicationMessageApi.delete(object: mockObject)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.delete(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data when must return nil"); return }
@@ -171,13 +171,13 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    func testDelete_returning404HttpResponse_NotFound() {
+    func testDelete_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
         let mockObject = CommunicationMessage(uuid: "InvalidUUID", title: "Title", summary: "Summary", content: "Content", dateCreation: Date(), userOrigin: "origin", recipients: ["recipient"])
-        router.request(CommunicationMessageApi.delete(object: mockObject)) { (data, response, error) in
+        _ = try router.request(CommunicationMessageApi.delete(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data when must return nil"); return }
@@ -194,9 +194,9 @@ class CommunicationMessageEndpointTest: XCTestCase {
     private func stubbedData() -> [URL: Data] {
 
         return [
-            CommunicationMessageApi.getAll.path: CommunicationMessageEndpointTest.objectB.asJsonData()!,
-            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb).path: CommunicationMessageEndpointTest.objectA.asJsonData()!,
-            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidBOnDb).path: CommunicationMessageEndpointTest.objectB.asJsonData()!
+            CommunicationMessageApi.getAll(authToken: nil).path: CommunicationMessageEndpointTest.objectB.asJsonData()!,
+            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb, authToken: nil).path: CommunicationMessageEndpointTest.objectA.asJsonData()!,
+            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidBOnDb, authToken: nil).path: CommunicationMessageEndpointTest.objectB.asJsonData()!
         ]
 
     }

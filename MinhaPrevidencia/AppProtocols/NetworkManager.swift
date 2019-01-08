@@ -8,11 +8,6 @@
 
 import Foundation
 
-public enum Result<String> {
-    case success
-    case failure(String)
-}
-
 public typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
 
 public protocol JsonConvertible {
@@ -24,22 +19,32 @@ public protocol JsonConvertible {
 
 public protocol NetworkManager {
 
-    func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion)
-    func cancel()
+    func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion) throws -> URLSessionTask
 
 }
 
 public extension NetworkManager {
 
-    func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
-        switch response.statusCode {
-        case 200...299: return .success
-        case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)
-        case 501...599: return .failure(NetworkResponse.badRequest.rawValue)
-        case 600: return .failure(NetworkResponse.outdated.rawValue)
-        default: return .failure(NetworkResponse.failed.rawValue)
+    // swiftlint:disable cyclomatic_complexity
+    func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<Bool, HTTPError> {
+
+        let statusCode = response.statusCode
+        switch statusCode {
+        case 200...299: return Result.value(true)
+        case 400: return Result.error(HTTPError.badRequest(statusCode: statusCode))
+        case 401: return Result.error(HTTPError.unauthorized(statusCode: statusCode))
+        case 402: return Result.error(HTTPError.paymentRequired(statusCode: statusCode))
+        case 403: return Result.error(HTTPError.forbidden(statusCode: statusCode))
+        case 404: return Result.error(HTTPError.notFound(statusCode: statusCode))
+        case 405: return Result.error(HTTPError.methodNotAllowed(statusCode: statusCode))
+        case 406...499: return Result.error(HTTPError.clientError(statusCode: statusCode))
+        case 500...502: return Result.error(HTTPError.serverError(statusCode: statusCode))
+        case 503: return Result.error(HTTPError.dependencyUnavailable(statusCode: statusCode))
+        case 504...599: return Result.error(HTTPError.serverError(statusCode: statusCode))
+        default: return Result.error(HTTPError.undefined(statusCode: statusCode))
         }
     }
+
 }
 
 public protocol RemoteEndpoint {
@@ -75,6 +80,20 @@ public enum HTTPTask {
     case requestWithParameters(urlParameters: HTTPParameters?, additionHeaders: HTTPHeaders?)
     case requestWithBody(body: JsonConvertible?, urlParameters: HTTPParameters?, additionHeaders: HTTPHeaders?)
 
+}
+
+public enum HTTPError: Error, Equatable {
+    case unreachable(statusCode: Int)
+    case badRequest(statusCode: Int)
+    case unauthorized(statusCode: Int)
+    case paymentRequired(statusCode: Int)
+    case forbidden(statusCode: Int)
+    case notFound(statusCode: Int)
+    case methodNotAllowed(statusCode: Int)
+    case clientError(statusCode: Int)
+    case serverError(statusCode: Int)
+    case dependencyUnavailable(statusCode: Int)
+    case undefined(statusCode: Int)
 }
 
 public enum NetworkResponse: String {

@@ -30,12 +30,12 @@ class InstitutionEndpointTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetById_returning200HttpResponse_OK() {
+    func testGetById_returning200HttpResponse_OK() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 200 Status Code Return")
-        router.request(InstitutionApi.get(uuid: InstitutionEndpointTest.uuidAOnDb)) { (data, response, error) in
+        _ = try router.request(InstitutionApi.get(uuid: InstitutionEndpointTest.uuidAOnDb, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -49,12 +49,12 @@ class InstitutionEndpointTest: XCTestCase {
 
     }
 
-    func testGetById_returning404HttpResponse_NotFound() {
+    func testGetById_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 404 Status Code Return")
-        router.request(InstitutionApi.get(uuid: "InvalidUUID")) { (data, response, error) in
+        _ = try router.request(InstitutionApi.get(uuid: "InvalidUUID", authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data With a 404 Response"); return }
@@ -68,13 +68,13 @@ class InstitutionEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning200HttpResponse_Ok() {
+    func testUpdate_returning200HttpResponse_Ok() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectPut = expectation(description: "Get 200 Status Code Return")
         let mockObject = Institution(uuid: InstitutionEndpointTest.uuidAOnDb, name: "Updated Name")
-        router.request(InstitutionApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(InstitutionApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data != nil else { XCTFail("AppRouter Returned Nil Data"); return }
@@ -88,13 +88,13 @@ class InstitutionEndpointTest: XCTestCase {
 
     }
 
-    func testUpdate_returning404HttpResponse_NotFound() {
+    func testUpdate_returning404HttpResponse_NotFound() throws {
 
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectPut = expectation(description: "Get 404 Status Code Return")
         let mockObject = Institution(uuid: "invalidUUID", name: "NewName")
-        router.request(InstitutionApi.update(object: mockObject)) { (data, response, error) in
+        _ = try router.request(InstitutionApi.update(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
             guard data == nil else { XCTFail("AppRouter Returned Data when must return nil"); return }
@@ -111,8 +111,8 @@ class InstitutionEndpointTest: XCTestCase {
     private func stubbedData() -> [URL: Data] {
 
         return [
-            InstitutionApi.get(uuid: InstitutionEndpointTest.uuidAOnDb).path: InstitutionEndpointTest.objectA.asJsonData()!,
-            InstitutionApi.get(uuid: InstitutionEndpointTest.uuidBOnDb).path: InstitutionEndpointTest.objectB.asJsonData()!
+            InstitutionApi.get(uuid: InstitutionEndpointTest.uuidAOnDb, authToken: nil).path: InstitutionEndpointTest.objectA.asJsonData()!,
+            InstitutionApi.get(uuid: InstitutionEndpointTest.uuidBOnDb, authToken: nil).path: InstitutionEndpointTest.objectB.asJsonData()!
         ]
 
     }
