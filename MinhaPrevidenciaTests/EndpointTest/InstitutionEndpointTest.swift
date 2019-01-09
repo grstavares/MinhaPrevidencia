@@ -108,7 +108,7 @@ class InstitutionEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+     func stubbedData() -> [URL: Data] {
 
         return [
             InstitutionApi.get(uuid: InstitutionEndpointTest.uuidAOnDb, authToken: nil).path: InstitutionEndpointTest.objectA.asJsonData()!,
@@ -117,9 +117,9 @@ class InstitutionEndpointTest: XCTestCase {
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = Institution(uuid: uuidAOnDb, name: "InstitutionA")
-    private static let objectB = Institution(uuid: uuidBOnDb, name: "InstitutionA")
+     static let uuidAOnDb = AppDelegate.institutionId
+     static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+     static let objectA = Institution(uuid: uuidAOnDb, name: "InstitutionA")
+     static let objectB = Institution(uuid: uuidBOnDb, name: "InstitutionA")
 
 }

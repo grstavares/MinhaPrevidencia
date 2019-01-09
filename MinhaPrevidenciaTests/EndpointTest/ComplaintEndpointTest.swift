@@ -108,19 +108,27 @@ class ComplaintEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+     func stubbedData() -> [URL: Data] {
 
-        return [
-            ComplaintApi.getAll(authToken: nil).path: ComplaintEndpointTest.objectA.asJsonData()!,
-            ComplaintApi.get(uuid: ComplaintEndpointTest.uuidAOnDb, authToken: nil).path: ComplaintEndpointTest.objectA.asJsonData()!,
-            ComplaintApi.get(uuid: ComplaintEndpointTest.uuidBOnDb, authToken: nil).path: ComplaintEndpointTest.objectB.asJsonData()!
-        ]
+        let encoder = JSONEncoder()
+
+        var stubbed: [URL: Data] = [:]
+
+        let array = [ComplaintEndpointTest.objectA.raw(), ComplaintEndpointTest.objectB.raw()]
+        if let encoded = try? encoder.encode(array) {
+            stubbed[ComplaintApi.getAll(authToken: nil).path] = encoded
+        }
+
+        stubbed[ComplaintApi.get(uuid: ComplaintEndpointTest.uuidAOnDb, authToken: nil).path] = ComplaintEndpointTest.objectA.asJsonData()!
+        stubbed[ComplaintApi.get(uuid: ComplaintEndpointTest.uuidBOnDb, authToken: nil).path] = ComplaintEndpointTest.objectB.asJsonData()!
+
+        return stubbed
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = Complaint(uuid: ComplaintEndpointTest.uuidAOnDb, title: "Test", content: "sbrubbles", dateCreation: Date(), dateReception: nil, status: .open)
-    private static let objectB = Complaint(uuid: ComplaintEndpointTest.uuidBOnDb, title: "Test", content: "sbrubbles", dateCreation: Date(), dateReception: nil, status: .open)
+     static let uuidAOnDb = "123akj121ahsfkjdshu6543"
+     static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+     static let objectA = Complaint(uuid: ComplaintEndpointTest.uuidAOnDb, title: "Test", content: "sbrubbles", dateCreation: Date(), dateReception: nil, status: .open)
+     static let objectB = Complaint(uuid: ComplaintEndpointTest.uuidBOnDb, title: "Test", content: "sbrubbles", dateCreation: Date(), dateReception: nil, status: .open)
 
 }

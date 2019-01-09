@@ -191,19 +191,27 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+    func stubbedData() -> [URL: Data] {
 
-        return [
-            CommunicationMessageApi.getAll(authToken: nil).path: CommunicationMessageEndpointTest.objectB.asJsonData()!,
-            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb, authToken: nil).path: CommunicationMessageEndpointTest.objectA.asJsonData()!,
-            CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidBOnDb, authToken: nil).path: CommunicationMessageEndpointTest.objectB.asJsonData()!
-        ]
+        let encoder = JSONEncoder()
+
+        var stubbed: [URL: Data] = [:]
+
+        let array = [CommunicationMessageEndpointTest.objectA.raw(), CommunicationMessageEndpointTest.objectB.raw()]
+        if let encoded = try? encoder.encode(array) {
+            stubbed[CommunicationMessageApi.getAll(authToken: nil).path] = encoded
+        }
+
+        stubbed[CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidAOnDb, authToken: nil).path] = CommunicationMessageEndpointTest.objectA.asJsonData()!
+        stubbed[CommunicationMessageApi.get(uuid: CommunicationMessageEndpointTest.uuidBOnDb, authToken: nil).path] = CommunicationMessageEndpointTest.objectB.asJsonData()!
+
+        return stubbed
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidAOnDb, title: "Title", summary: "Summary", content: "content", dateCreation: Date(), userOrigin: "origin", recipients: ["first"])
-    private static let objectB = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidBOnDb, title: "Title", summary: "Summary", content: "content", dateCreation: Date(), userOrigin: "origin", recipients: ["first"])
+    static let uuidAOnDb = "123akj121ahsfkjdshu6543"
+    static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+    static let objectA = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidAOnDb, title: "Title", summary: "Summary", content: "content", dateCreation: Date(), userOrigin: "origin", recipients: ["first"])
+    static let objectB = CommunicationMessage(uuid: CommunicationMessageEndpointTest.uuidBOnDb, title: "Title", summary: "Summary", content: "content", dateCreation: Date(), userOrigin: "origin", recipients: ["first"])
 
 }

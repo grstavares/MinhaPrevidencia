@@ -68,9 +68,9 @@ class RetirementEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] { return [RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb, authToken: nil).path: RetirementEndpointTest.object.asJsonData()! ] }
+     func stubbedData() -> [URL: Data] { return [RetirementApi.getByUser(uuid: RetirementEndpointTest.uuidOnDb, authToken: nil).path: RetirementEndpointTest.object.asJsonData()! ] }
 
-    private static let uuidOnDb = "123akj121107f654shuaa43"
-    private static let object = Retirement(uuid: RetirementEndpointTest.uuidOnDb, startDate: Date(), endDate: Date(), contributions: [], withdrawals: [])
+     static let uuidOnDb = UserProfileEndpointTest.uuidAOnDb // In the database, the retirment id will always be the same Id of the user
+     static let object = Retirement(uuid: RetirementEndpointTest.uuidOnDb, startDate: Date(), endDate: Date(), contributions: [], withdrawals: [])
 
 }

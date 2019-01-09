@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         let injector = AppInjector()
-        let initial = injector.initialData()
-        let state = AppState(injector: injector, data: initial)
+        let state = AppState(injector: injector)
         let coordinator = MainCoordinator(injector: injector, appState: state)
 
         self.appInjector = injector

@@ -32,22 +32,22 @@ class AppState: StateManager {
             case .invalidHttpRequest(let apiName): return "InvalidHttpRequest" + apiName
             case .invalidHttpResponse(let expected, let received): return "InvalidHttpResponse(expected: \(expected), received: \(received)"
             case .invalidObjectData(let type, let data): return "InvalidObjectData(forType: \(type), received: \(String(data: data, encoding: .utf8) ?? "NullValue")"
-            case .networkError(let error): return "NetworkError -> \(error.localizedDescription)"
+            case .networkError(let error): return "NetworkError -> \(error)"
             case .routerUnavailable: return "RouterUnavailable"
             }
         }
     }
 
-    let bag: DisposeBag = DisposeBag()
-    var taskBag: [String: (Date, URLSessionTask?)] = [:]
+    private let bag: DisposeBag = DisposeBag()
+    private var taskBag: [String: (Date, URLSessionTask?)] = [:]
 
-    let injector: AppInjector
-    let router: NetworkManager?
-    let circuitBreakLimit: TimeInterval = 3 * 60
-    let poolingInterval: TimeInterval = 6 * 50
-    var poolingTimer: Timer?
+    private let injector: AppInjector
+    private let router: NetworkManager?
+    private let circuitBreakLimit: TimeInterval
+    private let poolingInterval: TimeInterval
+    private var poolingTimer: Timer?
 
-    var userSession: UserSession? = nil {
+    private var userSession: UserSession? = nil {
         didSet { if oldValue != userSession { self.refresh(tokenChanged: true) } }
     }
 
@@ -59,12 +59,20 @@ class AppState: StateManager {
     let complaints: BehaviorSubject<[Complaint]>
     let retirement: BehaviorSubject<Retirement>
 
-    var areObservablesActive: Bool = false
-
-    init(injector: AppInjector, data: InitialData) {
+    init(injector: AppInjector) {
 
         self.injector = injector
         self.router = injector.appRouter()
+
+        if let settings = injector.settings() {
+            self.circuitBreakLimit = settings.networkTimeOut
+            self.poolingInterval = settings.poolingInterval
+        } else {
+            self.circuitBreakLimit = 3 * 60
+            self.poolingInterval = 6 * 50
+        }
+
+        let data = injector.initialData()
 
         self.institution = BehaviorSubject(value: data.institution)
         self.userInfo = BehaviorSubject(value: data.userInfo)
@@ -82,8 +90,6 @@ class AppState: StateManager {
 
         }
 
-        self.refresh()
-
     }
 
     public func refresh(tokenChanged: Bool = false) {
@@ -96,7 +102,7 @@ class AppState: StateManager {
         self.refreshRetirement(tokenChanged: tokenChanged)
     }
 
-    public func refreshInstitution(tokenChanged: Bool) {
+    public func refreshInstitution(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyInstitution
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -117,7 +123,7 @@ class AppState: StateManager {
 
     }
 
-    public func refreshUserInfo(tokenChanged: Bool) {
+    public func refreshUserInfo(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyUserInfo
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -138,7 +144,7 @@ class AppState: StateManager {
 
     }
 
-    public func refreshMessages(tokenChanged: Bool) {
+    public func refreshMessages(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyMessages
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -157,7 +163,7 @@ class AppState: StateManager {
 
     }
 
-    public func refreshDocuments(tokenChanged: Bool) {
+    public func refreshDocuments(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyDocuments
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -176,7 +182,7 @@ class AppState: StateManager {
 
     }
 
-    public func refreshNews(tokenChanged: Bool) {
+    public func refreshNews(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyNews
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -195,7 +201,7 @@ class AppState: StateManager {
 
     }
 
-    public func refreshComplaints(tokenChanged: Bool) {
+    public func refreshComplaints(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyComplaints
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
@@ -214,24 +220,12 @@ class AppState: StateManager {
 
     }
 
-    public func refreshRetirement(tokenChanged: Bool) {
+    public func refreshRetirement(tokenChanged: Bool = false) {
 
         let taskKey = AppState.keyRetirement
         guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
 
         guard let uuid = self.userSession?.uuid else { return }
-
-        if let runningTask = self.taskBag[taskKey] {
-
-            if tokenChanged { runningTask.1?.cancel()
-            } else {
-
-                if self.taskExecutionTimeIsUnderCircuitBreakLimit(taskStart: runningTask.0) { runningTask.1?.cancel()
-                } else { return }
-
-            }
-
-        }
 
         let api = RetirementApi.getByUser(uuid: uuid, authToken: self.userSession?.token)
         let task = self.refreshObject(api: api, objectType: Retirement.self) { (result) in
@@ -249,16 +243,16 @@ class AppState: StateManager {
 
     public func startObservables() {
 
-        guard areObservablesActive == false else { return }
-        self.poolingTimer = Timer(timeInterval: self.poolingInterval, repeats: true, block: { _ in self.refresh() })
-        self.areObservablesActive = true
+        guard self.poolingTimer == nil else { return }
+        self.poolingTimer = Timer.scheduledTimer(withTimeInterval: self.poolingInterval, repeats: true, block: { _ in self.refresh() })
 
     }
 
     public func pauseObservables() {
 
+        guard self.poolingTimer != nil else { return }
         self.poolingTimer?.invalidate()
-        self.areObservablesActive = false
+        self.poolingTimer = nil
 
     }
 

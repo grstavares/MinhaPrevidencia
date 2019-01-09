@@ -33,28 +33,27 @@ class URLSessionMock: URLSession {
     }
 
     typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
-    typealias RequestValidator = (URLRequest) -> (Data?, URLResponse?, Error?)
-    typealias URLValidator = (URL) -> (Data?, URLResponse?, Error?)
+    typealias RequestMatcher = (URLRequest) -> (Data?, URLResponse?, Error?)
+    typealias URLMatcher = (URL) -> (Data?, URLResponse?, Error?)
 
     var data: Data?
     var response: HTTPURLResponse?
     var error: Error?
-    var requestValidator: RequestValidator?
-    var urlValidator: URLValidator?
+    var requestMatcher: RequestMatcher?
+    var urlMatcher: URLMatcher?
 
-    init(validator: @escaping RequestValidator) {
-        self.requestValidator = validator
+    init(validator: @escaping RequestMatcher) {
+        self.requestMatcher = validator
     }
 
-    init(validator: @escaping URLValidator) {
-        self.urlValidator = validator
+    init(validator: @escaping URLMatcher) {
+        self.urlMatcher = validator
     }
 
     override func dataTask(with url: URL, completionHandler: @escaping CompletionHandler ) -> URLSessionDataTask {
 
         return URLSessionDataTaskMock {
-            if let result = self.urlValidator?(url) {
-                print("result valid")
+            if let result = self.urlMatcher?(url) {
                 let (data, response, error) = result
                 completionHandler(data, response, error)
             } else { completionHandler(nil, nil, nil) }
@@ -66,8 +65,7 @@ class URLSessionMock: URLSession {
 
         return URLSessionDataTaskMock {
 
-            if let result = self.requestValidator?(request) {
-                print("result valid")
+            if let result = self.requestMatcher?(request) {
                 let (data, response, error) = result
                 completionHandler(data, response, error)
             } else { completionHandler(nil, nil, nil) }

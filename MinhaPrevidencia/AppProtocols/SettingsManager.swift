@@ -7,4 +7,11 @@
 //
 
 import Foundation
-protocol SettingsManager { }
+protocol SettingsManager {
+
+    var institutionId: String { get }
+
+    var poolingInterval: TimeInterval { get }
+    var networkTimeOut: TimeInterval { get }
+
+}

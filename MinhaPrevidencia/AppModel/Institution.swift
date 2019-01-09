@@ -54,3 +54,11 @@ struct RawInstitution: Codable, Equatable, Hashable {
     let name: String
 
 }
+
+struct InstitutionBuilder {
+
+    let uuid: String
+    let name: String
+    func build() -> Institution { return Institution(uuid: uuid, name: name) }
+
+}

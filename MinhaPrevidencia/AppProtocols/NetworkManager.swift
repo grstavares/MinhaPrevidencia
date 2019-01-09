@@ -82,7 +82,8 @@ public enum HTTPTask {
 
 }
 
-public enum HTTPError: Error, Equatable {
+public enum HTTPError: Error, Equatable, CustomStringConvertible {
+
     case unreachable(statusCode: Int)
     case badRequest(statusCode: Int)
     case unauthorized(statusCode: Int)
@@ -94,6 +95,23 @@ public enum HTTPError: Error, Equatable {
     case serverError(statusCode: Int)
     case dependencyUnavailable(statusCode: Int)
     case undefined(statusCode: Int)
+
+    public var description: String {
+        switch self {
+        case .unreachable(let statusCode): return "Http Status Code \(statusCode) - Unreachable"
+        case .badRequest(let statusCode): return "Http Status Code \(statusCode) - BadRequest"
+        case .unauthorized(let statusCode): return "Http Status Code \(statusCode) - Unauthorized"
+        case .paymentRequired(let statusCode): return "Http Status Code \(statusCode) - PaymentRequired"
+        case .forbidden(let statusCode): return "Http Status Code \(statusCode) - Forbidden"
+        case .notFound(let statusCode): return "Http Status Code \(statusCode) - NotFound"
+        case .methodNotAllowed(let statusCode): return "Http Status Code \(statusCode) - MethodNotAllowed"
+        case .clientError(let statusCode): return "Http Status Code \(statusCode) - ClientError"
+        case .serverError(let statusCode): return "Http Status Code \(statusCode) - ServerError"
+        case .dependencyUnavailable(let statusCode): return "Http Status Code \(statusCode) - Dependency Unavailable"
+        case .undefined(let statusCode): return "Http Status Code \(statusCode) - Undefined"
+        }
+    }
+
 }
 
 public enum NetworkResponse: String {

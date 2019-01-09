@@ -126,20 +126,28 @@ class DocumentEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+     func stubbedData() -> [URL: Data] {
 
-        return [
-            DocumentApi.getAll(authToken: nil).path: DocumentEndpointTest.objectA.asJsonData()!,
-            DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb, authToken: nil).path: DocumentEndpointTest.objectA.asJsonData()!,
-            DocumentApi.get(uuid: DocumentEndpointTest.uuidBOnDb, authToken: nil).path: DocumentEndpointTest.objectB.asJsonData()!,
-            URL(string: "https://document.com")!: DocumentEndpointTest.objectB.asJsonData()!
-        ]
+        let encoder = JSONEncoder()
+
+        var stubbed: [URL: Data] = [:]
+
+        let array = [DocumentEndpointTest.objectA.raw(), DocumentEndpointTest.objectB.raw()]
+        if let encoded = try? encoder.encode(array) {
+            stubbed[DocumentApi.getAll(authToken: nil).path] = encoded
+        }
+
+        stubbed[DocumentApi.get(uuid: DocumentEndpointTest.uuidAOnDb, authToken: nil).path] = DocumentEndpointTest.objectA.asJsonData()!
+        stubbed[DocumentApi.get(uuid: DocumentEndpointTest.uuidBOnDb, authToken: nil).path] = DocumentEndpointTest.objectB.asJsonData()!
+        stubbed[URL(string: "https://document.com")!] = DocumentEndpointTest.objectB.asJsonData()!
+
+        return stubbed
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = Document(uuid: DocumentEndpointTest.uuidAOnDb, title: "Title", summary: "summary", dateCreation: Date(), lastUpdate: nil, url: URL(string: "https://document.com")!)
-    private static let objectB = Document(uuid: DocumentEndpointTest.uuidBOnDb, title: "Title", summary: "summary", dateCreation: Date(), lastUpdate: nil, url: URL(string: "https://document.com")!)
+     static let uuidAOnDb = "123akj121ahsfkjdshu6543"
+     static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+     static let objectA = Document(uuid: DocumentEndpointTest.uuidAOnDb, title: "Title", summary: "summary", dateCreation: Date(), lastUpdate: nil, url: URL(string: "https://document.com")!)
+     static let objectB = Document(uuid: DocumentEndpointTest.uuidBOnDb, title: "Title", summary: "summary", dateCreation: Date(), lastUpdate: nil, url: URL(string: "https://document.com")!)
 
 }

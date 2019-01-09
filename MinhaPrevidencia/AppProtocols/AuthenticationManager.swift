@@ -8,11 +8,12 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 protocol AuthenticationManager {
 
     var session: BehaviorSubject<UserSession> { get }
-    var isLogged: Variable<Bool> { get }
+    var isLogged: BehaviorRelay<Bool> { get }
     func currentUser() -> UserProfile?
     func signIn(username: String, password: String)
     func signUp(userProfile: UserProfile, password: String)

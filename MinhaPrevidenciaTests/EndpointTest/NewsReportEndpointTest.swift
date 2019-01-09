@@ -108,19 +108,27 @@ class NewsReportEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+     func stubbedData() -> [URL: Data] {
 
-        return [
-            NewsReportApi.getAll(authToken: nil).path: NewsReportEndpointTest.objectA.asJsonData()!,
-            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb, authToken: nil).path: NewsReportEndpointTest.objectA.asJsonData()!,
-            NewsReportApi.get(uuid: NewsReportEndpointTest.uuidBOnDb, authToken: nil).path: NewsReportEndpointTest.objectB.asJsonData()!
-        ]
+        let encoder = JSONEncoder()
+
+        var stubbed: [URL: Data] = [:]
+
+        let array = [NewsReportEndpointTest.objectA.raw(), NewsReportEndpointTest.objectB.raw()]
+        if let encoded = try? encoder.encode(array) {
+            stubbed[NewsReportApi.getAll(authToken: nil).path] = encoded
+        }
+
+        stubbed[NewsReportApi.get(uuid: NewsReportEndpointTest.uuidAOnDb, authToken: nil).path] = NewsReportEndpointTest.objectA.asJsonData()!
+        stubbed[NewsReportApi.get(uuid: NewsReportEndpointTest.uuidBOnDb, authToken: nil).path] = NewsReportEndpointTest.objectB.asJsonData()!
+
+        return stubbed
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
-    private static let objectB = NewsReport(uuid: NewsReportEndpointTest.uuidBOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
+     static let uuidAOnDb = "123akj121ahsfkjdshu6543"
+     static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+     static let objectA = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
+     static let objectB = NewsReport(uuid: NewsReportEndpointTest.uuidBOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
 
 }

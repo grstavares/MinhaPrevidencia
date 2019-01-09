@@ -108,7 +108,7 @@ class UserProfileEndpointTest: XCTestCase {
 
     }
 
-    private func stubbedData() -> [URL: Data] {
+     func stubbedData() -> [URL: Data] {
 
         return [
             UserProfileApi.get(uuid: UserProfileEndpointTest.uuidAOnDb, authToken: nil).path: UserProfileEndpointTest.objectA.asJsonData()!,
@@ -117,9 +117,9 @@ class UserProfileEndpointTest: XCTestCase {
 
     }
 
-    private static let uuidAOnDb = "123akj121ahsfkjdshu6543"
-    private static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-    private static let objectA = UserProfile(uuid: UserProfileEndpointTest.uuidAOnDb, firstName: "Frist", lastName: "Last", username: "username", birthDate: Date(), genre: "U")
-    private static let objectB = UserProfile(uuid: UserProfileEndpointTest.uuidBOnDb, firstName: "Frist", lastName: "Last", username: "username", birthDate: Date(), genre: "U")
+     static let uuidAOnDb = "123akj121ahsfkjdshu6543"
+     static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
+     static let objectA = UserProfile(uuid: UserProfileEndpointTest.uuidAOnDb, firstName: "Frist", lastName: "Last", username: "username", birthDate: Date(), genre: "U")
+     static let objectB = UserProfile(uuid: UserProfileEndpointTest.uuidBOnDb, firstName: "Frist", lastName: "Last", username: "username", birthDate: Date(), genre: "U")
 
 }

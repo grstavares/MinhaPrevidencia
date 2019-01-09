@@ -18,10 +18,13 @@
 		A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164701D21DD3FFA0016A8B3 /* ViewController.swift */; };
 		A164702321DD3FFB0016A8B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A164702221DD3FFB0016A8B3 /* Assets.xcassets */; };
 		A164702621DD3FFB0016A8B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A164702421DD3FFB0016A8B3 /* LaunchScreen.storyboard */; };
-		A164703121DD3FFC0016A8B3 /* MinhaPrevidenciaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164703021DD3FFC0016A8B3 /* MinhaPrevidenciaTests.swift */; };
 		A164703C21DD3FFC0016A8B3 /* MinhaPrevidenciaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164703B21DD3FFC0016A8B3 /* MinhaPrevidenciaUITests.swift */; };
 		A164704A21DD40360016A8B3 /* AppCoordinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164704921DD40360016A8B3 /* AppCoordinatorTest.swift */; };
-		A164704C21DD404A0016A8B3 /* AppStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164704B21DD404A0016A8B3 /* AppStateTest.swift */; };
+		A17D269621E624DF005AD2A3 /* AppStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D269521E624DF005AD2A3 /* AppStateTest.swift */; };
+		A17D26A121E63812005AD2A3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26A021E63812005AD2A3 /* AppSettings.swift */; };
+		A17D26E421E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A17D26E221E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld */; };
+		A17D26E621E669B4005AD2A3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */; };
+		A17D26EB21E6732A005AD2A3 /* CoreDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */; };
 		A17FFC3B21DE3AF600B64090 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A17FFC3A21DE3AF600B64090 /* .swiftlint.yml */; };
 		A17FFC3D21DE5DFA00B64090 /* AppInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */; };
 		A17FFC5C21DE738E00B64090 /* ComplaintEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FFC5B21DE738E00B64090 /* ComplaintEndpoint.swift */; };
@@ -73,7 +76,8 @@
 		A1B15DCF21E3DE09008C313D /* AppInjectorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DCE21E3DE09008C313D /* AppInjectorTest.swift */; };
 		A1B15DD121E3EB2B008C313D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DD021E3EB2B008C313D /* AuthenticationManager.swift */; };
 		A1B15DE321E4023B008C313D /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DE221E4023B008C313D /* ResultType.swift */; };
-		A1DFAA8A21E51F8D00FC5A05 /* Data+JsonConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */; };
+		A1CB314221E6951100EC046D /* CoreDataInitialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB314121E6951100EC046D /* CoreDataInitialization.swift */; };
+		A1CB314521E69EDB00EC046D /* Institution+DataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */; };
 		A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -230,13 +234,16 @@
 		A164702521DD3FFB0016A8B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A164702721DD3FFB0016A8B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A164702C21DD3FFB0016A8B3 /* MinhaPrevidenciaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinhaPrevidenciaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A164703021DD3FFC0016A8B3 /* MinhaPrevidenciaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinhaPrevidenciaTests.swift; sourceTree = "<group>"; };
 		A164703221DD3FFC0016A8B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A164703721DD3FFC0016A8B3 /* MinhaPrevidenciaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinhaPrevidenciaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A164703B21DD3FFC0016A8B3 /* MinhaPrevidenciaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinhaPrevidenciaUITests.swift; sourceTree = "<group>"; };
 		A164703D21DD3FFC0016A8B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A164704921DD40360016A8B3 /* AppCoordinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorTest.swift; sourceTree = "<group>"; };
-		A164704B21DD404A0016A8B3 /* AppStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTest.swift; sourceTree = "<group>"; };
+		A17D269521E624DF005AD2A3 /* AppStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTest.swift; sourceTree = "<group>"; };
+		A17D26A021E63812005AD2A3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A17D26E321E66973005AD2A3 /* MinhaPrevidencia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MinhaPrevidencia.xcdatamodel; sourceTree = "<group>"; };
+		A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataItem.swift; sourceTree = "<group>"; };
 		A17FFC3A21DE3AF600B64090 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInjector.swift; sourceTree = "<group>"; };
 		A17FFC5B21DE738E00B64090 /* ComplaintEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintEndpoint.swift; sourceTree = "<group>"; };
@@ -284,7 +291,8 @@
 		A1B15DCE21E3DE09008C313D /* AppInjectorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInjectorTest.swift; sourceTree = "<group>"; };
 		A1B15DD021E3EB2B008C313D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		A1B15DE221E4023B008C313D /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
-		A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+JsonConvertible.swift"; sourceTree = "<group>"; };
+		A1CB314121E6951100EC046D /* CoreDataInitialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInitialization.swift; sourceTree = "<group>"; };
+		A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Institution+DataStoreItem.swift"; sourceTree = "<group>"; };
 		A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMockTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -319,8 +327,10 @@
 		A15C36EB21E273EF00F66AB2 /* AppManagementTest */ = {
 			isa = PBXGroup;
 			children = (
-				A15C36EE21E2741900F66AB2 /* AppRouterTest.swift */,
+				A164704921DD40360016A8B3 /* AppCoordinatorTest.swift */,
 				A1B15DCE21E3DE09008C313D /* AppInjectorTest.swift */,
+				A15C36EE21E2741900F66AB2 /* AppRouterTest.swift */,
+				A17D269521E624DF005AD2A3 /* AppStateTest.swift */,
 			);
 			path = AppManagementTest;
 			sourceTree = "<group>";
@@ -354,14 +364,16 @@
 			children = (
 				A1829C1E21DD5EF500CA903B /* AppProtocols */,
 				A17FFC6221DE803700B64090 /* AppExtensions */,
+				A18DD1B221DD64C20066E179 /* AppFunctions */,
 				A1829C2021DD5F0F00CA903B /* AppManagemnt */,
 				A1829C1F21DD5F0500CA903B /* AppModel */,
+				A1CB314321E69EAC00EC046D /* AppModel+DataStore */,
 				A17FFC5A21DE734A00B64090 /* AppEndpoints */,
-				A18DD1B221DD64C20066E179 /* AppFunctions */,
 				A164702221DD3FFB0016A8B3 /* Assets.xcassets */,
-				A1829C3321DD5F6C00CA903B /* Main.storyboard */,
-				A164702421DD3FFB0016A8B3 /* LaunchScreen.storyboard */,
+				A17D26E121E66953005AD2A3 /* CoreData */,
 				A164702721DD3FFB0016A8B3 /* Info.plist */,
+				A164702421DD3FFB0016A8B3 /* LaunchScreen.storyboard */,
+				A1829C3321DD5F6C00CA903B /* Main.storyboard */,
 			);
 			path = MinhaPrevidencia;
 			sourceTree = "<group>";
@@ -372,10 +384,7 @@
 				A15C36EB21E273EF00F66AB2 /* AppManagementTest */,
 				A17FFC5F21DE7F7500B64090 /* ModelTest */,
 				A1E92AD021E2642800A10DE6 /* EndpointTest */,
-				A164703021DD3FFC0016A8B3 /* MinhaPrevidenciaTests.swift */,
 				A164703221DD3FFC0016A8B3 /* Info.plist */,
-				A164704921DD40360016A8B3 /* AppCoordinatorTest.swift */,
-				A164704B21DD404A0016A8B3 /* AppStateTest.swift */,
 			);
 			path = MinhaPrevidenciaTests;
 			sourceTree = "<group>";
@@ -387,6 +396,17 @@
 				A164703D21DD3FFC0016A8B3 /* Info.plist */,
 			);
 			path = MinhaPrevidenciaUITests;
+			sourceTree = "<group>";
+		};
+		A17D26E121E66953005AD2A3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A1CB314121E6951100EC046D /* CoreDataInitialization.swift */,
+				A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */,
+				A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */,
+				A17D26E221E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		A17FFC5A21DE734A00B64090 /* AppEndpoints */ = {
@@ -424,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				A1B15DE221E4023B008C313D /* ResultType.swift */,
-				A1DFAA8921E51F8D00FC5A05 /* Data+JsonConvertible.swift */,
 			);
 			path = AppExtensions;
 			sourceTree = "<group>";
@@ -467,6 +486,7 @@
 				A1829C2221DD5F4400CA903B /* AppDelegate.swift */,
 				A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */,
 				A17FFC8A21DEDA3000B64090 /* AppRouter.swift */,
+				A17D26A021E63812005AD2A3 /* AppSettings.swift */,
 				A1829C2321DD5F4400CA903B /* AppState.swift */,
 				A1829C2121DD5F4400CA903B /* MainCoordinator.swift */,
 			);
@@ -512,6 +532,14 @@
 				A1B15DC721E3D512008C313D /* SwiftSugarKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1CB314321E69EAC00EC046D /* AppModel+DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */,
+			);
+			path = "AppModel+DataStore";
 			sourceTree = "<group>";
 		};
 		A1E92AD021E2642800A10DE6 /* EndpointTest */ = {
@@ -787,6 +815,8 @@
 			files = (
 				A12F83B121E00E84001B1B18 /* UserProfileEndpoint.swift in Sources */,
 				A12F83B721E00ECC001B1B18 /* ComunicationMessageEndpoint.swift in Sources */,
+				A1CB314221E6951100EC046D /* CoreDataInitialization.swift in Sources */,
+				A1CB314521E69EDB00EC046D /* Institution+DataStoreItem.swift in Sources */,
 				A17FFC8B21DEDA3000B64090 /* AppRouter.swift in Sources */,
 				A1829C4121DD5F7900CA903B /* Withdrawal.swift in Sources */,
 				A12F83AD21E00E69001B1B18 /* RetirementEndpoint.swift in Sources */,
@@ -801,6 +831,8 @@
 				A12F83B321E00E93001B1B18 /* NewsReportEndpoint.swift in Sources */,
 				A17FFC5E21DE73FD00B64090 /* DocumentEndpoint.swift in Sources */,
 				A1829C2E21DD5F5600CA903B /* DeviceManager.swift in Sources */,
+				A17D26E421E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld in Sources */,
+				A17D26A121E63812005AD2A3 /* AppSettings.swift in Sources */,
 				A12F83AB21E00DB7001B1B18 /* AppDefaults.swift in Sources */,
 				A17FFC7D21DE9F0300B64090 /* Address.swift in Sources */,
 				A1829C3221DD5F5600CA903B /* StateManager.swift in Sources */,
@@ -808,7 +840,6 @@
 				A1829C3F21DD5F7900CA903B /* NewsReport.swift in Sources */,
 				A17FFC8521DEB44900B64090 /* InstitutionEndpoint.swift in Sources */,
 				A1829C4021DD5F7900CA903B /* CommunicationMessage.swift in Sources */,
-				A1DFAA8A21E51F8D00FC5A05 /* Data+JsonConvertible.swift in Sources */,
 				A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */,
 				A1829C2421DD5F4400CA903B /* MainCoordinator.swift in Sources */,
 				A1829C3E21DD5F7900CA903B /* UserProfile.swift in Sources */,
@@ -817,7 +848,9 @@
 				A1829C2621DD5F4400CA903B /* AppState.swift in Sources */,
 				A1B15DD121E3EB2B008C313D /* AuthenticationManager.swift in Sources */,
 				A1829C3121DD5F5600CA903B /* SettingsManager.swift in Sources */,
+				A17D26E621E669B4005AD2A3 /* CoreDataManager.swift in Sources */,
 				A17FFC7B21DE9E2300B64090 /* Institution.swift in Sources */,
+				A17D26EB21E6732A005AD2A3 /* CoreDataItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,10 +859,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A15C36E221E26DE100F66AB2 /* URLSessionMock.swift in Sources */,
-				A164704C21DD404A0016A8B3 /* AppStateTest.swift in Sources */,
 				A17FFC7921DE892100B64090 /* WithdrawalTest.swift in Sources */,
 				A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */,
 				A17FFC8121DEA2BA00B64090 /* InstitutionTest.swift in Sources */,
+				A17D269621E624DF005AD2A3 /* AppStateTest.swift in Sources */,
 				A17FFC6D21DE88A900B64090 /* CommunicationMessageTest.swift in Sources */,
 				A17FFC7321DE88F400B64090 /* NewsReportTest.swift in Sources */,
 				A1B15DCF21E3DE09008C313D /* AppInjectorTest.swift in Sources */,
@@ -843,7 +876,6 @@
 				A17FFC7F21DEA2AC00B64090 /* AddressTest.swift in Sources */,
 				A1B15D9221E37DDC008C313D /* UserProfileEndpointTest.swift in Sources */,
 				A15C36F121E2A17D00F66AB2 /* ComplaintEndpointTest.swift in Sources */,
-				A164703121DD3FFC0016A8B3 /* MinhaPrevidenciaTests.swift in Sources */,
 				A17FFC7721DE890D00B64090 /* UserProfileTest.swift in Sources */,
 				A17FFC7521DE890100B64090 /* RetirementTest.swift in Sources */,
 				A1B15D9021E37DC7008C313D /* RetirementEndpointTest.swift in Sources */,
@@ -1186,6 +1218,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A17D26E221E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A17D26E321E66973005AD2A3 /* MinhaPrevidencia.xcdatamodel */,
+			);
+			currentVersion = A17D26E321E66973005AD2A3 /* MinhaPrevidencia.xcdatamodel */;
+			path = MinhaPrevidencia.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A164701021DD3FFA0016A8B3 /* Project object */;
 }

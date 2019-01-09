@@ -7,15 +7,19 @@
 //
 
 import Foundation
+import RxSwift
 import SwiftSugarKit
 
 class AppInjector {
 
     private lazy var _appRouter: NetworkManager = AppRouter(session: URLSession.shared)
+    private lazy var _localStore: CoreDataManager = CoreDataManager(context: AppDelegate.coreDataContext())
+
+    private let bag = DisposeBag()
 
     func settings() -> SettingsManager? { return nil }
     func remoteStore() -> DataStoreManager? { return nil }
-    func localStore() -> DataStoreManager? { return nil }
+    func localStore() -> CoreDataManager? { return self._localStore }
     func cacheStore() -> DataStoreManager? { return nil }
     func authManager() -> AuthenticationManager? { return nil }
     func appRouter() -> NetworkManager? { return self._appRouter }
@@ -23,39 +27,18 @@ class AppInjector {
     //Synchronous Function to be returned with Initial Data from Settings, Cache or Stup in the caso of first execution
     func initialData() -> InitialData {
 
-        let libraryDir = FileManager.default.libraryDirectory()
-        let fileUrl = libraryDir.appendingPathComponent(AppDelegate.initialDataKey)
-        if FileManager.default.fileExists(atPath: fileUrl.absoluteString) {
-
-            do {
-
-                let data = try Data(contentsOf: fileUrl)
-                guard let initial = InitialData(from: data) else { return self.mockedInitialData() }
-                return initial
-
-            } catch { return self.mockedInitialData() }
-
+        if let initial = self.fromCoreData(using: self._localStore) { return initial
         } else { return self.mockedInitialData() }
 
     }
 
     func persistInitialData(data: InitialData) -> Bool {
 
-        guard let encoded = data.data() else { return false }
+        var result: Bool = false
+        do {result = try data.institution.saveInDataStore(manager: self._localStore)
+        } catch { AppErrorControl.registerAppError(error: DataStoreError.unableToSaveInContainer(type: "Institution", reason: error.localizedDescription)) }
 
-        let libraryDir = FileManager.default.libraryDirectory()
-        do {
-
-            let fileUrl = libraryDir.appendingPathComponent(AppDelegate.initialDataKey)
-            try encoded.write(to: fileUrl, options: .fileProtectionMask)
-            return true
-
-        } catch {
-
-            AppErrorControl.registerAppError(error: AppDelegate.OperationErrors.canNotCreateFile, file: #file, line: #line)
-            return false
-
-        }
+        return result
 
     }
 
@@ -74,6 +57,32 @@ class AppInjector {
         let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
 
         return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], retirement: retirement)
+
+    }
+
+    private func fromCoreData(using manager: CoreDataManager) -> InitialData? {
+
+        do {
+
+            let persistedInstitution: Institution? = try Institution.loadFromDataStore(uuid: AppDelegate.institutionId, manager: manager)
+            let mocked = mockedInitialData()
+
+            let initial = InitialData(
+                institution: persistedInstitution ?? mocked.institution,
+                userInfo: mocked.userInfo,
+                messages: mocked.messages,
+                documents: mocked.documents,
+                news: mocked.news,
+                complaints: mocked.complaints,
+                retirement: mocked.retirement
+            )
+
+            return initial
+
+        } catch {
+            AppErrorControl.registerAppError(error: DataStoreError.unableToLoadContainer(type: "", reason: error.localizedDescription))
+            return nil
+        }
 
     }
 
