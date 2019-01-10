@@ -10,6 +10,7 @@ import Foundation
 protocol SettingsManager {
 
     var institutionId: String { get }
+    var lastLoggedUserId: String { get }
 
     var poolingInterval: TimeInterval { get }
     var networkTimeOut: TimeInterval { get }

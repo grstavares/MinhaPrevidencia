@@ -12,20 +12,17 @@ import SwiftSugarKit
 
 protocol DataStoreManager {
 
-    func loadById<T: DataStoreItem>(uuid: String) -> Observable<T?>
-    func create<T: DataStoreItem>(_ object: T) -> Observable<T?>
-    func save<T: DataStoreItem>(_ object: T) -> Observable<Bool>
-    func remove<T: DataStoreItem>(_ object: T) -> Observable<Bool>
-    func search<T: DataStoreItem>(predicate: NSPredicate) -> Observable<[T]>
     func sync()
 
 }
 
 protocol DataStoreItem {
 
+    static var entityName: String { get }
     static func loadFromDataStore<T: DataStoreItem>(uuid: String, manager: CoreDataManager) throws -> T?
-    func saveInDataStore(manager: CoreDataManager) throws -> Bool
-    func removeFromDataStore(manager: CoreDataManager) throws -> Bool
+    static func loadCollectionFromDataStore<T: DataStoreItem>(predicate: NSPredicate?, manager: CoreDataManager) throws -> [T]
+    func saveInDataStore(manager: DataStoreManager) throws -> Bool
+    func removeFromDataStore(manager: DataStoreManager) throws -> Bool
 
 }
 

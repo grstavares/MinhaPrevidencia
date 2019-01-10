@@ -8,60 +8,56 @@
 
 import Foundation
 import CoreData
+import SwiftSugarKit
 
-extension Institution: DataStoreItem {
+extension Institution: AbstractCoreDataStoreItem {
 
-    static func loadFromDataStore<Institution>(uuid: String, manager: CoreDataManager) throws -> Institution? {
+    typealias ObjectModel = Institution
+    typealias ObjectBuilder = InstitutionBuilder
+    typealias CoreDataModel = InstitutionCoreData
 
-        let arrayOfCoreDataObjects: [InstitutionCoreData] = try loadManagedObject(uuid: uuid, manager: manager)
+    static var entityName: String { return "InstitutionCoreData" }
 
-        if let first = arrayOfCoreDataObjects.first {                              // MustBeUnique
+    static func parseObject(coredataObject: CoreDataModel) -> ObjectModel? {
 
-            if let uuid = first.uuid, let name = first.name {
-                return InstitutionBuilder(uuid: uuid, name: name).build() as? Institution
-            } else { throw DataStoreError.unableToParseObject(type: "Institution", reason: "PLACEHOLDER") }
+        guard let uuid = coredataObject.uuid, let name = coredataObject.name else { return nil }
 
-        } else {return nil}
+        let document = ObjectBuilder.init(uuid: uuid, name: name).build()
+        return document
 
     }
 
-    func saveInDataStore(manager: CoreDataManager) throws -> Bool {
+    func saveInDataStore(manager: DataStoreManager) throws -> Bool {
 
-        let arrayOfCoreDataObjects: [InstitutionCoreData] = try Institution.loadManagedObject(uuid: uuid, manager: manager)
+        guard let coredata = manager as? CoreDataManager else {
+            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
+            return false
+        }
 
-        if let first = arrayOfCoreDataObjects.first {
+        if let first: InstitutionCoreData = try Institution.loadManagedObject(uuid: uuid, entityName: Institution.entityName, manager: coredata) {
             first.name = self.name
-            manager.sync()
+            coredata.sync()
             return true
         } else {
 
-            let newObject = InstitutionCoreData(context: manager.managedObjectContext)
+            let newObject = InstitutionCoreData(context: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.name = self.name
-            return manager.save(newObject)
+            return coredata.save(newObject)
 
         }
 
     }
 
-    func removeFromDataStore(manager: CoreDataManager) throws -> Bool {
+    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
 
-        let arrayOfCoreDataObjects: [InstitutionCoreData] = try Institution.loadManagedObject(uuid: uuid, manager: manager)
-        if let first = arrayOfCoreDataObjects.first { return manager.remove(first) } else { return false }
+        guard let coredata = manager as? CoreDataManager else {
+            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
+            return false
+        }
 
-    }
-
-    private static func loadManagedObject(uuid: String, manager: CoreDataManager) throws -> [InstitutionCoreData] {
-
-        //        guard let coredata = manager as? CoreDataManager else { throw DataStoreError.invalidManager(expected: "CoreData", actual: "NONE") }
-
-        let predicate = NSPredicate(format: "uuid == %@", uuid)
-        let request = NSFetchRequest<InstitutionCoreData>(entityName: "InstitutionCoreData")
-        request.predicate = predicate
-
-        //        let results = try coredata.request(request: request)
-        let results = try manager.request(request: request)
-        return results
+        if let first = try Institution.loadManagedObject(uuid: uuid, entityName: Institution.entityName, manager: coredata) {
+            return coredata.remove(first) } else { return false }
 
     }
 

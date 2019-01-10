@@ -76,3 +76,25 @@ struct RawUserProfile: Codable, Hashable, Equatable {
     let genre: String?
 
 }
+
+struct UserProfileBuilder {
+
+    let uuid: String
+    let firstName: String
+    let lastName: String
+    let username: String
+    let birthDate: Date?
+    let genre: String?
+    func build() -> UserProfile {
+
+        return UserProfile(
+            uuid: self.uuid,
+            firstName: self.firstName,
+            lastName: self.lastName,
+            username: self.username,
+            birthDate: self.birthDate,
+            genre: self.genre
+        )
+
+    }
+}

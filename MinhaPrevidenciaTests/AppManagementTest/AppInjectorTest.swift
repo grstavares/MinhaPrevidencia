@@ -19,11 +19,32 @@ class AppInjectorTest: XCTestCase {
 
     override func tearDown() { }
 
-    func testGetMockData() {
+    func testGetMockedInitialData() throws {
 
-        let sut = AppInjector()
+        let coredata = MockedCoreDataStack()
+        try self.clearEntity(entity: Institution.entityName, context: coredata.context)
+
+        let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
+
         let initial = sut.initialData()
         XCTAssertEqual(AppDelegate.institutionId, initial.institution.uuid)
+        XCTAssertEqual("Gurupi Prev", initial.institution.name)
+
+    }
+
+    func testGetInitialDataFromCoreData() throws {
+
+        let coredata = MockedCoreDataStack()
+        try self.clearEntity(entity: Institution.entityName, context: coredata.context)
+        try self.saveTestDataInCoreData(manager: coredata.manager)
+
+        let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
+        let initial = sut.initialData()
+
+        guard let settings = sut.settings() else { XCTFail("Settings Manager Not Initialized!"); return }
+
+        XCTAssertEqual(settings.institutionId, initial.institution.uuid)
+        XCTAssertEqual(InstitutionEndpointTest.objectA.name, initial.institution.name)
 
     }
 
@@ -31,7 +52,8 @@ class AppInjectorTest: XCTestCase {
 
         let changedValue = "This is a new Name"
 
-        let sut = AppInjectorMocked()
+        let coredata = MockedCoreDataStack()
+        let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
         let initial = sut.initialData()
 
         let updatedInstitution = Institution(uuid: initial.institution.uuid, name: changedValue)
@@ -53,67 +75,20 @@ class AppInjectorTest: XCTestCase {
 
     }
 
-}
+    private func saveTestDataInCoreData(manager: DataStoreManager) throws {
 
-class AppInjectorMock: AppInjector {
+        _ = try InstitutionEndpointTest.objectA.saveInDataStore(manager: manager)
+        _ = try InstitutionEndpointTest.objectB.saveInDataStore(manager: manager)
+        manager.sync()
 
-    let session: URLSession
-
-    init(session: URLSession) {
-        self.session = session
-        super.init()
     }
 
-    override func settings() -> SettingsManager? { return SettingsMock() }
-    override func appRouter() -> NetworkManager? { return AppRouter(session: self.session) }
-    override func authManager() -> AuthenticationManager? { return AuthManagerMock() }
+    private func clearEntity(entity: String, context: NSManagedObjectContext) throws {
 
-}
-
-class SettingsMock: SettingsManager {
-    var institutionId: String { return AppDelegate.institutionId }
-    var poolingInterval: TimeInterval { return TimeInterval(1) }
-    var networkTimeOut: TimeInterval { return TimeInterval(3) }
-}
-
-class AuthManagerMock: AuthenticationManager {
-
-    var session: BehaviorSubject<UserSession> = BehaviorSubject(value: UserSession(uuid: UserProfileEndpointTest.uuidAOnDb, token: "nulttoken"))
-    var isLogged: BehaviorRelay<Bool> = BehaviorRelay(value: true)
-
-    func currentUser() -> UserProfile? { return UserProfileEndpointTest.objectA }
-
-    func signIn(username: String, password: String) { }
-
-    func signUp(userProfile: UserProfile, password: String) { }
-
-    func signOut() { }
-
-}
-
-class AppInjectorMocked: AppInjector {
-
-    override func localStore() -> CoreDataManager? { return CoreDataManager(context: self.coreDataInMemory()) }
-
-    private func coreDataInMemory() -> NSManagedObjectContext {
-
-        guard let modelURL = Bundle.main.url(forResource: "MinhaPrevidencia", withExtension: "momd") else {
-            fatalError("Error loading model from bundle")
-        }
-
-        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("Error initializing mom from: \(modelURL)")
-        }
-
-        let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
-
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = psc
-
-        do {
-            try psc.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
-            return managedObjectContext
-        } catch { fatalError("Error migrating store: \(error)") }
+        let request = NSFetchRequest<NSManagedObject>(entityName: entity)
+        let results = try context.fetch(request)
+        for item in results { context.delete(item)}
+        try context.save()
 
     }
 

@@ -12,7 +12,7 @@
 		A12F83B121E00E84001B1B18 /* UserProfileEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83B021E00E84001B1B18 /* UserProfileEndpoint.swift */; };
 		A12F83B321E00E93001B1B18 /* NewsReportEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83B221E00E93001B1B18 /* NewsReportEndpoint.swift */; };
 		A12F83B721E00ECC001B1B18 /* ComunicationMessageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83B621E00ECC001B1B18 /* ComunicationMessageEndpoint.swift */; };
-		A15C36E221E26DE100F66AB2 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C36E121E26DE000F66AB2 /* URLSessionMock.swift */; };
+		A15C36E221E26DE100F66AB2 /* MockedURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C36E121E26DE000F66AB2 /* MockedURLSession.swift */; };
 		A15C36EF21E2741900F66AB2 /* AppRouterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C36EE21E2741900F66AB2 /* AppRouterTest.swift */; };
 		A15C36F121E2A17D00F66AB2 /* ComplaintEndpointTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C36F021E2A17D00F66AB2 /* ComplaintEndpointTest.swift */; };
 		A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164701D21DD3FFA0016A8B3 /* ViewController.swift */; };
@@ -24,7 +24,6 @@
 		A17D26A121E63812005AD2A3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26A021E63812005AD2A3 /* AppSettings.swift */; };
 		A17D26E421E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A17D26E221E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld */; };
 		A17D26E621E669B4005AD2A3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */; };
-		A17D26EB21E6732A005AD2A3 /* CoreDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */; };
 		A17FFC3B21DE3AF600B64090 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A17FFC3A21DE3AF600B64090 /* .swiftlint.yml */; };
 		A17FFC3D21DE5DFA00B64090 /* AppInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */; };
 		A17FFC5C21DE738E00B64090 /* ComplaintEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FFC5B21DE738E00B64090 /* ComplaintEndpoint.swift */; };
@@ -78,6 +77,21 @@
 		A1B15DE321E4023B008C313D /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B15DE221E4023B008C313D /* ResultType.swift */; };
 		A1CB314221E6951100EC046D /* CoreDataInitialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB314121E6951100EC046D /* CoreDataInitialization.swift */; };
 		A1CB314521E69EDB00EC046D /* Institution+DataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */; };
+		A1CD011421E7DBAF00C93527 /* MockedInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011321E7DBAF00C93527 /* MockedInjector.swift */; };
+		A1CD011621E7DBBA00C93527 /* MockedAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011521E7DBBA00C93527 /* MockedAuthManager.swift */; };
+		A1CD011821E7DC0A00C93527 /* MockedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011721E7DC0A00C93527 /* MockedSettings.swift */; };
+		A1CD011A21E7E36800C93527 /* MockedCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011921E7E36800C93527 /* MockedCoreDataStack.swift */; };
+		A1E4CD9821E7888900397997 /* Address+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CD9721E7888900397997 /* Address+CoreData.swift */; };
+		A1E4CDA321E7889D00397997 /* Complaint+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */; };
+		A1E4CDA521E788AE00397997 /* CommunicationMessage+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA421E788AE00397997 /* CommunicationMessage+CoreData.swift */; };
+		A1E4CDA721E788C000397997 /* Contribution+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA621E788C000397997 /* Contribution+CoreData.swift */; };
+		A1E4CDA921E788D100397997 /* Document+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA821E788D100397997 /* Document+CoreData.swift */; };
+		A1E4CDAB21E788E300397997 /* NewsReport+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDAA21E788E300397997 /* NewsReport+CoreData.swift */; };
+		A1E4CDAD21E788F700397997 /* Retirement+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDAC21E788F700397997 /* Retirement+CoreData.swift */; };
+		A1E4CDAF21E7890B00397997 /* UserProfile+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDAE21E7890B00397997 /* UserProfile+CoreData.swift */; };
+		A1E4CDB121E7891E00397997 /* Withdrawal+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDB021E7891E00397997 /* Withdrawal+CoreData.swift */; };
+		A1E4CDB321E7992A00397997 /* CoreDataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */; };
+		A1E4CDB521E7C09D00397997 /* AbstractCoreDataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDB421E7C09D00397997 /* AbstractCoreDataStoreItem.swift */; };
 		A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -225,7 +239,7 @@
 		A12F83B021E00E84001B1B18 /* UserProfileEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEndpoint.swift; sourceTree = "<group>"; };
 		A12F83B221E00E93001B1B18 /* NewsReportEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReportEndpoint.swift; sourceTree = "<group>"; };
 		A12F83B621E00ECC001B1B18 /* ComunicationMessageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComunicationMessageEndpoint.swift; sourceTree = "<group>"; };
-		A15C36E121E26DE000F66AB2 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
+		A15C36E121E26DE000F66AB2 /* MockedURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedURLSession.swift; sourceTree = "<group>"; };
 		A15C36EE21E2741900F66AB2 /* AppRouterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTest.swift; sourceTree = "<group>"; };
 		A15C36F021E2A17D00F66AB2 /* ComplaintEndpointTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintEndpointTest.swift; sourceTree = "<group>"; };
 		A164701821DD3FFA0016A8B3 /* MinhaPrevidencia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinhaPrevidencia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,7 +257,6 @@
 		A17D26A021E63812005AD2A3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A17D26E321E66973005AD2A3 /* MinhaPrevidencia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MinhaPrevidencia.xcdatamodel; sourceTree = "<group>"; };
 		A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataItem.swift; sourceTree = "<group>"; };
 		A17FFC3A21DE3AF600B64090 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInjector.swift; sourceTree = "<group>"; };
 		A17FFC5B21DE738E00B64090 /* ComplaintEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintEndpoint.swift; sourceTree = "<group>"; };
@@ -293,6 +306,21 @@
 		A1B15DE221E4023B008C313D /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
 		A1CB314121E6951100EC046D /* CoreDataInitialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInitialization.swift; sourceTree = "<group>"; };
 		A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Institution+DataStoreItem.swift"; sourceTree = "<group>"; };
+		A1CD011321E7DBAF00C93527 /* MockedInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedInjector.swift; sourceTree = "<group>"; };
+		A1CD011521E7DBBA00C93527 /* MockedAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedAuthManager.swift; sourceTree = "<group>"; };
+		A1CD011721E7DC0A00C93527 /* MockedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSettings.swift; sourceTree = "<group>"; };
+		A1CD011921E7E36800C93527 /* MockedCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedCoreDataStack.swift; sourceTree = "<group>"; };
+		A1E4CD9721E7888900397997 /* Address+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Complaint+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDA421E788AE00397997 /* CommunicationMessage+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommunicationMessage+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDA621E788C000397997 /* Contribution+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contribution+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDA821E788D100397997 /* Document+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDAA21E788E300397997 /* NewsReport+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsReport+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDAC21E788F700397997 /* Retirement+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Retirement+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDAE21E7890B00397997 /* UserProfile+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDB021E7891E00397997 /* Withdrawal+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Withdrawal+CoreData.swift"; sourceTree = "<group>"; };
+		A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStoreItem.swift; sourceTree = "<group>"; };
+		A1E4CDB421E7C09D00397997 /* AbstractCoreDataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractCoreDataStoreItem.swift; sourceTree = "<group>"; };
 		A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMockTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -384,6 +412,7 @@
 				A15C36EB21E273EF00F66AB2 /* AppManagementTest */,
 				A17FFC5F21DE7F7500B64090 /* ModelTest */,
 				A1E92AD021E2642800A10DE6 /* EndpointTest */,
+				A1CD010921E7DB5600C93527 /* Helpers */,
 				A164703221DD3FFC0016A8B3 /* Info.plist */,
 			);
 			path = MinhaPrevidenciaTests;
@@ -402,7 +431,6 @@
 			isa = PBXGroup;
 			children = (
 				A1CB314121E6951100EC046D /* CoreDataInitialization.swift */,
-				A17D26EA21E6732A005AD2A3 /* CoreDataItem.swift */,
 				A17D26E521E669B4005AD2A3 /* CoreDataManager.swift */,
 				A17D26E221E66973005AD2A3 /* MinhaPrevidencia.xcdatamodeld */,
 			);
@@ -537,9 +565,33 @@
 		A1CB314321E69EAC00EC046D /* AppModel+DataStore */ = {
 			isa = PBXGroup;
 			children = (
+				A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */,
+				A1E4CDB421E7C09D00397997 /* AbstractCoreDataStoreItem.swift */,
+				A1E4CD9721E7888900397997 /* Address+CoreData.swift */,
+				A1E4CDA421E788AE00397997 /* CommunicationMessage+CoreData.swift */,
+				A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */,
+				A1E4CDA621E788C000397997 /* Contribution+CoreData.swift */,
+				A1E4CDA821E788D100397997 /* Document+CoreData.swift */,
 				A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */,
+				A1E4CDAA21E788E300397997 /* NewsReport+CoreData.swift */,
+				A1E4CDAC21E788F700397997 /* Retirement+CoreData.swift */,
+				A1E4CDAE21E7890B00397997 /* UserProfile+CoreData.swift */,
+				A1E4CDB021E7891E00397997 /* Withdrawal+CoreData.swift */,
 			);
 			path = "AppModel+DataStore";
+			sourceTree = "<group>";
+		};
+		A1CD010921E7DB5600C93527 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A1CD011521E7DBBA00C93527 /* MockedAuthManager.swift */,
+				A1CD011921E7E36800C93527 /* MockedCoreDataStack.swift */,
+				A1CD011321E7DBAF00C93527 /* MockedInjector.swift */,
+				A1CD011721E7DC0A00C93527 /* MockedSettings.swift */,
+				A15C36E121E26DE000F66AB2 /* MockedURLSession.swift */,
+				A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		A1E92AD021E2642800A10DE6 /* EndpointTest */ = {
@@ -552,8 +604,6 @@
 				A1B15D8D21E37DB8008C313D /* NewsReportEndpointTest.swift */,
 				A1B15D8F21E37DC7008C313D /* RetirementEndpointTest.swift */,
 				A1B15D9121E37DDC008C313D /* UserProfileEndpointTest.swift */,
-				A15C36E121E26DE000F66AB2 /* URLSessionMock.swift */,
-				A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */,
 			);
 			path = EndpointTest;
 			sourceTree = "<group>";
@@ -814,12 +864,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A12F83B121E00E84001B1B18 /* UserProfileEndpoint.swift in Sources */,
+				A1E4CDB321E7992A00397997 /* CoreDataStoreItem.swift in Sources */,
 				A12F83B721E00ECC001B1B18 /* ComunicationMessageEndpoint.swift in Sources */,
 				A1CB314221E6951100EC046D /* CoreDataInitialization.swift in Sources */,
 				A1CB314521E69EDB00EC046D /* Institution+DataStoreItem.swift in Sources */,
 				A17FFC8B21DEDA3000B64090 /* AppRouter.swift in Sources */,
 				A1829C4121DD5F7900CA903B /* Withdrawal.swift in Sources */,
 				A12F83AD21E00E69001B1B18 /* RetirementEndpoint.swift in Sources */,
+				A1E4CDA521E788AE00397997 /* CommunicationMessage+CoreData.swift in Sources */,
+				A1E4CD9821E7888900397997 /* Address+CoreData.swift in Sources */,
 				A17FFC3D21DE5DFA00B64090 /* AppInjector.swift in Sources */,
 				A1829C4221DD5F7900CA903B /* Complaint.swift in Sources */,
 				A1829C3021DD5F5600CA903B /* AppCoordinator.swift in Sources */,
@@ -837,20 +890,27 @@
 				A17FFC7D21DE9F0300B64090 /* Address.swift in Sources */,
 				A1829C3221DD5F5600CA903B /* StateManager.swift in Sources */,
 				A1829C2521DD5F4400CA903B /* AppDelegate.swift in Sources */,
+				A1E4CDAD21E788F700397997 /* Retirement+CoreData.swift in Sources */,
 				A1829C3F21DD5F7900CA903B /* NewsReport.swift in Sources */,
 				A17FFC8521DEB44900B64090 /* InstitutionEndpoint.swift in Sources */,
+				A1E4CDB521E7C09D00397997 /* AbstractCoreDataStoreItem.swift in Sources */,
 				A1829C4021DD5F7900CA903B /* CommunicationMessage.swift in Sources */,
+				A1E4CDA921E788D100397997 /* Document+CoreData.swift in Sources */,
 				A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */,
+				A1E4CDAB21E788E300397997 /* NewsReport+CoreData.swift in Sources */,
 				A1829C2421DD5F4400CA903B /* MainCoordinator.swift in Sources */,
 				A1829C3E21DD5F7900CA903B /* UserProfile.swift in Sources */,
+				A1E4CDA721E788C000397997 /* Contribution+CoreData.swift in Sources */,
 				A1829C4321DD5F7900CA903B /* Document.swift in Sources */,
+				A1E4CDB121E7891E00397997 /* Withdrawal+CoreData.swift in Sources */,
+				A1E4CDA321E7889D00397997 /* Complaint+CoreData.swift in Sources */,
 				A1829C3D21DD5F7900CA903B /* Contribution.swift in Sources */,
 				A1829C2621DD5F4400CA903B /* AppState.swift in Sources */,
 				A1B15DD121E3EB2B008C313D /* AuthenticationManager.swift in Sources */,
 				A1829C3121DD5F5600CA903B /* SettingsManager.swift in Sources */,
 				A17D26E621E669B4005AD2A3 /* CoreDataManager.swift in Sources */,
+				A1E4CDAF21E7890B00397997 /* UserProfile+CoreData.swift in Sources */,
 				A17FFC7B21DE9E2300B64090 /* Institution.swift in Sources */,
-				A17D26EB21E6732A005AD2A3 /* CoreDataItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,7 +918,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A15C36E221E26DE100F66AB2 /* URLSessionMock.swift in Sources */,
+				A1CD011621E7DBBA00C93527 /* MockedAuthManager.swift in Sources */,
+				A15C36E221E26DE100F66AB2 /* MockedURLSession.swift in Sources */,
 				A17FFC7921DE892100B64090 /* WithdrawalTest.swift in Sources */,
 				A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */,
 				A17FFC8121DEA2BA00B64090 /* InstitutionTest.swift in Sources */,
@@ -866,6 +927,7 @@
 				A17FFC6D21DE88A900B64090 /* CommunicationMessageTest.swift in Sources */,
 				A17FFC7321DE88F400B64090 /* NewsReportTest.swift in Sources */,
 				A1B15DCF21E3DE09008C313D /* AppInjectorTest.swift in Sources */,
+				A1CD011421E7DBAF00C93527 /* MockedInjector.swift in Sources */,
 				A17FFC6121DE7FA200B64090 /* ComplaintTest.swift in Sources */,
 				A164704A21DD40360016A8B3 /* AppCoordinatorTest.swift in Sources */,
 				A1B15D8021E37D82008C313D /* CommunicationMessageEndpointTest.swift in Sources */,
@@ -873,10 +935,12 @@
 				A1B15D8A21E37D97008C313D /* DocumentEndpointTest.swift in Sources */,
 				A1B15D8C21E37DA7008C313D /* InstitutionEndpointTest.swift in Sources */,
 				A15C36EF21E2741900F66AB2 /* AppRouterTest.swift in Sources */,
+				A1CD011821E7DC0A00C93527 /* MockedSettings.swift in Sources */,
 				A17FFC7F21DEA2AC00B64090 /* AddressTest.swift in Sources */,
 				A1B15D9221E37DDC008C313D /* UserProfileEndpointTest.swift in Sources */,
 				A15C36F121E2A17D00F66AB2 /* ComplaintEndpointTest.swift in Sources */,
 				A17FFC7721DE890D00B64090 /* UserProfileTest.swift in Sources */,
+				A1CD011A21E7E36800C93527 /* MockedCoreDataStack.swift in Sources */,
 				A17FFC7521DE890100B64090 /* RetirementTest.swift in Sources */,
 				A1B15D9021E37DC7008C313D /* RetirementEndpointTest.swift in Sources */,
 				A17FFC7121DE88E800B64090 /* DocumentTest.swift in Sources */,

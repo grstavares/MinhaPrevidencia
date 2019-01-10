@@ -63,3 +63,13 @@ struct RawContribution: Codable, Hashable, Equatable {
     let value: Double
 
 }
+
+struct ContributionBuilder {
+
+    let uuid: String
+    let source: String
+    let reference: Date
+    let value: Double
+    func build() -> Contribution { return Contribution(uuid: self.uuid, source: self.source, reference: self.reference, value: self.value) }
+
+}

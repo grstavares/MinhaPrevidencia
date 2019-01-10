@@ -11,7 +11,7 @@ import XCTest
 class URLSessionMockTest: XCTestCase {
 
     let url = URL(string: "https://www.url.com")!
-    var session: URLSessionMock?
+    var session: MockedURLSession?
 
     override func setUp() {
 
@@ -23,11 +23,11 @@ class URLSessionMockTest: XCTestCase {
                 let httpResponse = HTTPURLResponse(url: receivedUrl, statusCode: 200, httpVersion: "HTTP 1.1", headerFields: [:])
                 let resultData = Data("GET Mehotd Received".utf8)
                 return (resultData, httpResponse, nil)
-            } else { return (nil, nil, URLSessionMock.Errors.invalidUrl) }
+            } else { return (nil, nil, MockedURLSession.Errors.invalidUrl) }
 
         }
 
-        self.session = URLSessionMock(validator: validator)
+        self.session = MockedURLSession(validator: validator)
 
     }
 

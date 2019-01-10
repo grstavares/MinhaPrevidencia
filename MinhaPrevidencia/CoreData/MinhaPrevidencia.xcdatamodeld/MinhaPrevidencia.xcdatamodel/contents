@@ -1,10 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G4015" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AddressCoreData" representedClassName="AddressCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="buildName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unitNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CommunicationMessageCoreData" representedClassName="CommunicationMessageCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreation" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="recipients" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userOrigin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ComplaintCoreData" representedClassName="ComplaintCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreation" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateReception" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="status" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ContributionCoreData" representedClassName="ContributionCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="reference" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="source" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="retirement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RetirementCoreData" inverseName="contributions" inverseEntity="RetirementCoreData" syncable="YES"/>
+    </entity>
+    <entity name="DocumentCoreData" representedClassName="DocumentCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreation" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="summary" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="url" attributeType="URI" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="InstitutionCoreData" representedClassName="InstitutionCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" spotlightIndexingEnabled="YES" syncable="YES"/>
         <attribute name="uuid" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="NewsReportCoreData" representedClassName="NewsReportCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="contents" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreation" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RetirementCoreData" representedClassName="RetirementCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+        <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ContributionCoreData" inverseName="retirement" inverseEntity="ContributionCoreData" syncable="YES"/>
+        <relationship name="withdrawals" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WithdrawalCoreData" inverseName="retirement" inverseEntity="WithdrawalCoreData" syncable="YES"/>
+    </entity>
+    <entity name="UserProfileCoreData" representedClassName="UserProfileCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="birthDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WithdrawalCoreData" representedClassName="WithdrawalCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="reference" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="retirement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RetirementCoreData" inverseName="withdrawals" inverseEntity="RetirementCoreData" syncable="YES"/>
+    </entity>
     <elements>
         <element name="InstitutionCoreData" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="AddressCoreData" positionX="-63" positionY="0" width="128" height="210"/>
+        <element name="ComplaintCoreData" positionX="-54" positionY="72" width="128" height="135"/>
+        <element name="CommunicationMessageCoreData" positionX="-36" positionY="90" width="128" height="150"/>
+        <element name="ContributionCoreData" positionX="-18" positionY="117" width="128" height="120"/>
+        <element name="DocumentCoreData" positionX="0" positionY="126" width="128" height="135"/>
+        <element name="NewsReportCoreData" positionX="18" positionY="144" width="128" height="135"/>
+        <element name="RetirementCoreData" positionX="36" positionY="162" width="128" height="120"/>
+        <element name="UserProfileCoreData" positionX="-9" positionY="108" width="128" height="135"/>
+        <element name="WithdrawalCoreData" positionX="0" positionY="117" width="128" height="120"/>
     </elements>
 </model>

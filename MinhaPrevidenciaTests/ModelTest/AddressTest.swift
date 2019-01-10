@@ -11,6 +11,7 @@ import XCTest
 
 class AddressTest: XCTestCase {
 
+    let mockUUID = "fakljasdklfadhf"
     let mockCountry = "BR"
     let mockRegion = "DF"
     let mockCity = "Brasília"
@@ -40,7 +41,7 @@ class AddressTest: XCTestCase {
         XCTAssertEqual(object?.streetAddress, self.mockStreet, "UUID not Equal")
         XCTAssertEqual(object?.streetNumber, self.mockNumber, "Name not Equal")
         XCTAssertEqual(object?.buildName, self.mockBuild, "UUID not Equal")
-        XCTAssertEqual(object?.unityNumber, self.mockUnity, "Name not Equal")
+        XCTAssertEqual(object?.unitNumber, self.mockUnity, "Name not Equal")
         XCTAssertEqual(object?.isMain, self.mockIsMain, "Name not Equal")
 
         let parsedFromObject = notnil.raw()
@@ -61,7 +62,7 @@ class AddressTest: XCTestCase {
         XCTAssertEqual(object?.streetAddress, self.mockStreet, "UUID not Equal")
         XCTAssertEqual(object?.streetNumber, self.mockNumber, "Name not Equal")
         XCTAssertEqual(object?.buildName, self.mockBuild, "UUID not Equal")
-        XCTAssertEqual(object?.unityNumber, self.mockUnity, "Name not Equal")
+        XCTAssertEqual(object?.unitNumber, self.mockUnity, "Name not Equal")
         XCTAssertEqual(object?.isMain, self.mockIsMain, "Name not Equal")
 
     }
@@ -85,6 +86,7 @@ class AddressTest: XCTestCase {
     func getRawObject() -> RawAddress {
 
         return RawAddress(
+            uuid: self.mockUUID,
             country: self.mockCountry, region: self.mockRegion, city: self.mockCity,
             postalCode: self.mockPostal,
             streetAddress: self.mockStreet, streetNumber: self.mockNumber,

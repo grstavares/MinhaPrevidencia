@@ -83,3 +83,15 @@ struct RawComplaint: Codable, Hashable, Equatable {
     let status: String
 
 }
+
+struct ComplaintBuilder {
+
+    let uuid: String
+    let title: String
+    let content: String
+    let dateCreation: Date
+    let dateReception: Date?
+    let status: Complaint.Status
+    func build() -> Complaint { return Complaint(uuid: self.uuid, title: self.title, content: self.content, dateCreation: self.dateCreation, dateReception: self.dateReception, status: self.status) }
+
+}

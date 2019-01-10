@@ -12,6 +12,7 @@ import SwiftSugarKit
 
 class AppInjector {
 
+    private lazy var _settings: SettingsManager = AppSettings()
     private lazy var _appRouter: NetworkManager = AppRouter(session: URLSession.shared)
     private lazy var _localStore: CoreDataManager = CoreDataManager(context: AppDelegate.coreDataContext())
 
@@ -19,7 +20,7 @@ class AppInjector {
 
     func settings() -> SettingsManager? { return nil }
     func remoteStore() -> DataStoreManager? { return nil }
-    func localStore() -> CoreDataManager? { return self._localStore }
+    func localStore() -> DataStoreManager? { return self._localStore }
     func cacheStore() -> DataStoreManager? { return nil }
     func authManager() -> AuthenticationManager? { return nil }
     func appRouter() -> NetworkManager? { return self._appRouter }
@@ -52,7 +53,7 @@ class AppInjector {
             weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil
             ).date!
 
-        let institution = Institution(uuid: AppDelegate.institutionId, name: "Gurupi Prev")
+        let institution = Institution(uuid: self._settings.institutionId, name: "Gurupi Prev")
         let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", birthDate: nil, genre: nil)
         let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
 
@@ -62,19 +63,37 @@ class AppInjector {
 
     private func fromCoreData(using manager: CoreDataManager) -> InitialData? {
 
+        let institutionId = _settings.institutionId
+        let userInfoId = _settings.lastLoggedUserId
+
+        let oneMontAgoDate = Date().addingTimeInterval(Constants.numberOfSecondsInMonth * -1)
+        let oneMonthAgoPredicate = NSPredicate(format: "dateCreation > %@", oneMontAgoDate as NSDate)
+
+        let twoWeeksAgoDate = Date().addingTimeInterval(Constants.numberOfSecondsInDay * 14 * -1)
+        let twoWeeksAgoPredicate = NSPredicate(format: "dateCreation > %@", twoWeeksAgoDate as NSDate)
+
         do {
 
-            let persistedInstitution: Institution? = try Institution.loadFromDataStore(uuid: AppDelegate.institutionId, manager: manager)
+            let persistedInstitution: Institution? = try Institution.loadFromDataStore(uuid: institutionId, manager: manager)
+            let persistedRetirement: Retirement? = try Retirement.loadFromDataStore(uuid: institutionId, manager: manager)
+            let persistedUserInfo: UserProfile? = try UserProfile.loadFromDataStore(uuid: userInfoId, manager: manager)
+            let persistedMessages: [CommunicationMessage] = try CommunicationMessage.loadCollectionFromDataStore(predicate: oneMonthAgoPredicate, manager: manager)
+            let persistedNews: [NewsReport] = try NewsReport.loadCollectionFromDataStore(predicate: twoWeeksAgoPredicate, manager: manager)
+            let persistedComplaints: [Complaint] = try Complaint.loadCollectionFromDataStore(predicate: nil, manager: manager)
+            let persistedDocuments: [Document] = try Document.loadCollectionFromDataStore(predicate: twoWeeksAgoPredicate, manager: manager)
+            let preferedDocuments: [Document] = try Document.loadCollectionFromDataStore(predicate: self.predicateForUserVisibleDocuments(userId: userInfoId), manager: manager)
+            let allDocuments = Array(Set(persistedDocuments + preferedDocuments))
+
             let mocked = mockedInitialData()
 
             let initial = InitialData(
                 institution: persistedInstitution ?? mocked.institution,
-                userInfo: mocked.userInfo,
-                messages: mocked.messages,
-                documents: mocked.documents,
-                news: mocked.news,
-                complaints: mocked.complaints,
-                retirement: mocked.retirement
+                userInfo: persistedUserInfo ?? mocked.userInfo,
+                messages: persistedMessages,
+                documents: allDocuments,
+                news: persistedNews,
+                complaints: persistedComplaints,
+                retirement: persistedRetirement ?? mocked.retirement
             )
 
             return initial
@@ -84,6 +103,10 @@ class AppInjector {
             return nil
         }
 
+    }
+
+    private func predicateForUserVisibleDocuments(userId: String?) -> NSPredicate? {
+        return nil
     }
 
 }

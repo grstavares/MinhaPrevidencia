@@ -63,3 +63,13 @@ struct RawWithdrawal: Codable, Hashable, Equatable {
     let reference: String
 
 }
+
+struct WithdrawalBuilder {
+
+    let uuid: String
+    let date: Date
+    let value: Double
+    let reference: String
+    func build() -> Withdrawal { return Withdrawal(uuid: self.uuid, date: self.date, value: self.value, reference: self.reference) }
+
+}

@@ -227,8 +227,9 @@ class AppStateTest: XCTestCase {
     private func configureSut() -> AppState {
 
         let mockBackend = BackendMock(database: self.stubbedData())
-        let session = URLSessionMock(validator: mockBackend.validator)
-        let injector = AppInjectorMock(session: session)
+        let session = MockedURLSession(validator: mockBackend.validator)
+        let coredata = MockedCoreDataStack()
+        let injector = MockedInjector(session: session, dataStoreManager: coredata.manager)
 
         return AppState(injector: injector)
 

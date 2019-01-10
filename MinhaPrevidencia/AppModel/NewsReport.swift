@@ -80,3 +80,15 @@ struct RawNewsReport: Codable, Hashable, Equatable {
     let url: String?
 
 }
+
+struct NewsReportBuilder {
+
+    let uuid: String
+    let title: String
+    let contents: String
+    let dateCreation: Date
+    let lastUpdate: Date?
+    let url: URL?
+    func build() -> NewsReport { return NewsReport(uuid: self.uuid, title: self.title, contents: self.contents, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url) }
+
+}

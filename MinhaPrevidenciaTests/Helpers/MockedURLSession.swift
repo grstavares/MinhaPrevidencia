@@ -23,7 +23,14 @@ class URLSessionDataTaskMock: URLSessionDataTask {
     }
 }
 
-class URLSessionMock: URLSession {
+class MockedURLSession: URLSession {
+
+    static var defaultMockedSession: MockedURLSession {
+
+        let session = MockedURLSession(validator: { (_: URLRequest) -> (Data?, URLResponse?, Error?) in return (nil, nil, nil)})
+        return session
+
+    }
 
     enum Errors: Error {
         case invalidMethod
@@ -89,11 +96,11 @@ class BackendMock {
     func validator(request: URLRequest) -> (Data?, URLResponse?, Error?) {
 
         guard let url = request.url else {
-            return (nil, nil, URLSessionMock.Errors.invalidUrl)
+            return (nil, nil, MockedURLSession.Errors.invalidUrl)
         }
 
         guard let method = request.httpMethod else {
-            return (nil, nil, URLSessionMock.Errors.invalidMethod)
+            return (nil, nil, MockedURLSession.Errors.invalidMethod)
         }
 
         switch method {

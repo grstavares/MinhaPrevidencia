@@ -10,6 +10,7 @@ import Foundation
 class AppSettings: SettingsManager {
 
     var institutionId: String { return AppDelegate.institutionId }
+    var lastLoggedUserId: String { return "" }
 
     var poolingInterval: TimeInterval { return TimeInterval(3 * 60) }
     var networkTimeOut: TimeInterval { return TimeInterval(6 * 60) }

@@ -19,7 +19,7 @@ class ComplaintEndpointTest: XCTestCase {
 
         let data = self.stubbedData()
         let backend = BackendMock(database: data)
-        let session = URLSessionMock(validator: backend.validator)
+        let session = MockedURLSession(validator: backend.validator)
         let router = AppRouter(session: session)
 
         self.backend = backend

@@ -24,11 +24,11 @@ class AppRouterTest: XCTestCase {
                 let httpResponse = HTTPURLResponse(url: mut.path, statusCode: 200, httpVersion: "HTTP 1.1", headerFields: [:])
                 let resultData = Data("Request conforms expected".utf8)
                 return (resultData, httpResponse, nil)
-            } else { return (nil, nil, URLSessionMock.Errors.invalidMethod) }
+            } else { return (nil, nil, MockedURLSession.Errors.invalidMethod) }
 
         }
 
-        let session = URLSessionMock(validator: validator)
+        let session = MockedURLSession(validator: validator)
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
@@ -54,11 +54,11 @@ class AppRouterTest: XCTestCase {
                 let httpResponse = HTTPURLResponse(url: mut.path, statusCode: 200, httpVersion: "HTTP 1.1", headerFields: [:])
                 let resultData = Data("Request conforms expected".utf8)
                 return (resultData, httpResponse, nil)
-            } else { return (nil, nil, URLSessionMock.Errors.invalidMethod) }
+            } else { return (nil, nil, MockedURLSession.Errors.invalidMethod) }
 
         }
 
-        let session = URLSessionMock(validator: validator)
+        let session = MockedURLSession(validator: validator)
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
@@ -84,11 +84,11 @@ class AppRouterTest: XCTestCase {
                 let httpResponse = HTTPURLResponse(url: mut.path, statusCode: 200, httpVersion: "HTTP 1.1", headerFields: [:])
                 let resultData = Data("Request conforms expected".utf8)
                 return (resultData, httpResponse, nil)
-            } else { return (nil, nil, URLSessionMock.Errors.invalidMethod) }
+            } else { return (nil, nil, MockedURLSession.Errors.invalidMethod) }
 
         }
 
-        let session = URLSessionMock(validator: validator)
+        let session = MockedURLSession(validator: validator)
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
@@ -114,11 +114,11 @@ class AppRouterTest: XCTestCase {
                 let httpResponse = HTTPURLResponse(url: mut.path, statusCode: 200, httpVersion: "HTTP 1.1", headerFields: [:])
                 let resultData = Data("Request conforms expected".utf8)
                 return (resultData, httpResponse, nil)
-            } else { return (nil, nil, URLSessionMock.Errors.invalidMethod) }
+            } else { return (nil, nil, MockedURLSession.Errors.invalidMethod) }
 
         }
 
-        let session = URLSessionMock(validator: validator)
+        let session = MockedURLSession(validator: validator)
         let router = AppRouter(session: session)
 
         let expectDownload = expectation(description: "Downloaded Data")
