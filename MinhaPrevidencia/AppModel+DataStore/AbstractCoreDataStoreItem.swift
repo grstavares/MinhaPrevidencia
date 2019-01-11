@@ -11,7 +11,7 @@ import CoreData
 
 protocol AbstractCoreDataStoreItem: CoreDataStoreItem {
 
-    associatedtype ObjectModel
+    associatedtype ObjectModel: CoreDataStoreItem
     associatedtype ObjectBuilder
     associatedtype CoreDataModel: NSManagedObject
 
@@ -35,6 +35,18 @@ extension AbstractCoreDataStoreItem {
         let parsed = found.compactMap { parseObject(coredataObject: $0) }
         let doubleParsed = parsed.compactMap { $0 as? ObjectModel }
         return doubleParsed
+
+    }
+
+    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
+
+        guard let coredata = manager as? CoreDataManager else {
+            throw DataStoreError.invalidManager(expected: "CoreData", actual: manager.description)
+        }
+
+        if let first = try ObjectModel.loadManagedObject(uuid: uuid, entityName: ObjectModel.entityName, manager: coredata) {
+            return coredata.remove(first)
+        } else { return false }
 
     }
 

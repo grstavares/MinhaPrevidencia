@@ -21,17 +21,43 @@ extension AppDelegate {
 
     enum OperationErrors: AppError {
 
-        case canNotCreateFile
+        case canNotCreateFile(filename: String)
         case canNotPersistFileOnDisk
         case canNotParseDocument(data: Data)
 
         var code: String {
             switch self {
-            case .canNotCreateFile: return "canNotCreateFile"
+            case .canNotCreateFile: return "CanNotCreateFile"
+            case .canNotPersistFileOnDisk: return "CanNotPersistFileOnDisk"
+            case .canNotParseDocument: return "CanNotParseDocument"
+            }
+        }
+
+        var details: String? {
+            switch self {
+            case .canNotCreateFile(let filename): return "canNotCreateFile -> \(filename)"
             case .canNotPersistFileOnDisk: return "canNotPersistFIleOnDisk"
             case .canNotParseDocument: return "canNotParseDocument"
             }
         }
+
+    }
+
+    static func mockedInitialData() -> InitialData {
+
+        let institutoCreation: Date = DateComponents(
+            calendar: Calendar.current, timeZone: TimeZone.current,
+            era: nil, year: 2000, month: 01, day: 01,
+            hour: 0, minute: 0, second: 0, nanosecond: 0,
+            weekday: nil, weekdayOrdinal: nil, quarter: nil,
+            weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil
+            ).date!
+
+        let institution = Institution(uuid: AppDelegate.institutionId, name: "Gurupi Prev")
+        let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", birthDate: nil, genre: nil)
+        let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
+
+        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], retirement: retirement)
 
     }
 

@@ -15,27 +15,38 @@ import SwiftSugarKit
 
 class AppInjectorTest: XCTestCase {
 
-    override func setUp() { }
+    let coredata = MockedCoreDataStack.shared
+
+    override func setUp() {
+
+        do {try MockedCoreDataStack.clearEntity(entity: Institution.entityName, context: coredata.context)
+        } catch { XCTFail("Unable to Clear Entity") }
+
+    }
 
     override func tearDown() { }
 
+    func testMockedCoreDataStack() throws {
+
+        let request = NSFetchRequest<InstitutionCoreData>(entityName: Institution.entityName)
+        let results = try coredata.context.fetch(request)
+        XCTAssert(results.count == 0)
+
+    }
+
     func testGetMockedInitialData() throws {
 
-        let coredata = MockedCoreDataStack()
-        try self.clearEntity(entity: Institution.entityName, context: coredata.context)
-
         let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
+        let settings = sut.settings()
 
         let initial = sut.initialData()
-        XCTAssertEqual(AppDelegate.institutionId, initial.institution.uuid)
-        XCTAssertEqual("Gurupi Prev", initial.institution.name)
+        XCTAssertEqual(settings?.institutionId, initial.institution.uuid)
+        XCTAssertEqual(AppDelegate.mockedInitialData().institution.name, initial.institution.name)
 
     }
 
     func testGetInitialDataFromCoreData() throws {
 
-        let coredata = MockedCoreDataStack()
-        try self.clearEntity(entity: Institution.entityName, context: coredata.context)
         try self.saveTestDataInCoreData(manager: coredata.manager)
 
         let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
@@ -52,7 +63,6 @@ class AppInjectorTest: XCTestCase {
 
         let changedValue = "This is a new Name"
 
-        let coredata = MockedCoreDataStack()
         let sut = MockedInjector(session: MockedURLSession.defaultMockedSession, dataStoreManager: coredata.manager)
         let initial = sut.initialData()
 
@@ -80,15 +90,6 @@ class AppInjectorTest: XCTestCase {
         _ = try InstitutionEndpointTest.objectA.saveInDataStore(manager: manager)
         _ = try InstitutionEndpointTest.objectB.saveInDataStore(manager: manager)
         manager.sync()
-
-    }
-
-    private func clearEntity(entity: String, context: NSManagedObjectContext) throws {
-
-        let request = NSFetchRequest<NSManagedObject>(entityName: entity)
-        let results = try context.fetch(request)
-        for item in results { context.delete(item)}
-        try context.save()
 
     }
 

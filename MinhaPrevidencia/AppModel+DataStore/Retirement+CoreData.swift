@@ -32,48 +32,12 @@ extension Retirement: AbstractCoreDataStoreItem {
     func saveInDataStore(manager: DataStoreManager) throws -> Bool {
 
         guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
+            AppDelegate.handleError(error: DataStoreError.invalidManager(expected: "CoreData", actual: manager.description))
             return false
         }
 
-        let arrayOfContributions: [ContributionCoreData] = try self.withdrawals.compactMap {
-
-            if let found: ContributionCoreData = try Contribution.loadManagedObject(uuid: $0.uuid, entityName: Contribution.entityName, manager: coredata) { return found
-            } else {
-
-                do {
-
-                    _ = try $0.saveInDataStore(manager: manager)
-                    if let foundAfterCreation: ContributionCoreData = try Contribution.loadManagedObject(uuid: $0.uuid, entityName: "", manager: coredata) {
-                        return foundAfterCreation
-                    } else { throw DataStoreError.unableToSaveInContainer(type: "Contribution", reason: "NotFound After Creation") }
-
-                } catch let coredataError { throw DataStoreError.unableToSaveInContainer(type: "Contribution", reason: coredataError.localizedDescription) }
-
-            }
-
-        }
-
-        let arrayOfWithdrawals: [WithdrawalCoreData] = try self.withdrawals.compactMap {
-
-            if let found: WithdrawalCoreData = try Withdrawal.loadManagedObject(uuid: $0.uuid, entityName: Withdrawal.entityName, manager: coredata) { return found
-            } else {
-
-                do {
-
-                    _ = try $0.saveInDataStore(manager: manager)
-                    if let foundAfterCreation: WithdrawalCoreData = try Withdrawal.loadManagedObject(uuid: $0.uuid, entityName: "", manager: coredata) {
-                        return foundAfterCreation
-                    } else { throw DataStoreError.unableToSaveInContainer(type: "Withdrawal", reason: "NotFound After Creation") }
-
-                } catch let coredataError { throw DataStoreError.unableToSaveInContainer(type: "Withdrawal", reason: coredataError.localizedDescription) }
-
-            }
-
-        }
-
-        let setOfContributions = Set(arrayOfContributions)
-        let setOfWithdrawals = Set(arrayOfWithdrawals)
+        let setOfContributions = try parseContributions(manager: coredata)
+        let setOfWithdrawals = try parseWithDrawals(manager: coredata)
 
         if let first: RetirementCoreData = try Retirement.loadManagedObject(uuid: uuid, entityName: Retirement.entityName, manager: coredata) {
 
@@ -86,7 +50,12 @@ extension Retirement: AbstractCoreDataStoreItem {
 
         } else {
 
-            let newObject = RetirementCoreData(context: coredata.managedObjectContext)
+            guard let entityDescription = NSEntityDescription.entity(forEntityName: ObjectModel.entityName, in: coredata.managedObjectContext) else {
+                AppDelegate.handleError(error: DataStoreError.invalidEntity(entityName: ObjectModel.entityName))
+                return false
+            }
+
+            let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.startDate = self.startDate
             newObject.endDate = self.endDate
@@ -98,15 +67,51 @@ extension Retirement: AbstractCoreDataStoreItem {
 
     }
 
-    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
+    func parseContributions(manager: CoreDataManager) throws -> Set<ContributionCoreData> {
 
-        guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
-            return false
+        let arrayOfContributions: [ContributionCoreData] = try self.contributions.compactMap {
+
+            if let found: ContributionCoreData = try Contribution.loadManagedObject(uuid: $0.uuid, entityName: Contribution.entityName, manager: manager) { return found
+            } else {
+
+                do {
+
+                    _ = try $0.saveInDataStore(manager: manager)
+                    if let foundAfterCreation: ContributionCoreData = try Contribution.loadManagedObject(uuid: $0.uuid, entityName: "", manager: manager) {
+                        return foundAfterCreation
+                    } else { throw DataStoreError.unableToSaveInContainer(type: "Contribution", reason: "NotFound After Creation") }
+
+                } catch let coredataError { throw DataStoreError.unableToSaveInContainer(type: "Contribution", reason: coredataError.localizedDescription) }
+
+            }
+
         }
 
-        if let first = try Retirement.loadManagedObject(uuid: uuid, entityName: Retirement.entityName, manager: coredata) {
-            return coredata.remove(first) } else { return false }
+        return Set(arrayOfContributions)
+
+    }
+
+    func parseWithDrawals(manager: CoreDataManager) throws -> Set<WithdrawalCoreData> {
+
+        let arrayOfWithdrawals: [WithdrawalCoreData] = try self.withdrawals.compactMap {
+
+            if let found: WithdrawalCoreData = try Withdrawal.loadManagedObject(uuid: $0.uuid, entityName: Withdrawal.entityName, manager: manager) { return found
+            } else {
+
+                do {
+
+                    _ = try $0.saveInDataStore(manager: manager)
+                    if let foundAfterCreation: WithdrawalCoreData = try Withdrawal.loadManagedObject(uuid: $0.uuid, entityName: "", manager: manager) {
+                        return foundAfterCreation
+                    } else { throw DataStoreError.unableToSaveInContainer(type: "Withdrawal", reason: "NotFound After Creation") }
+
+                } catch let coredataError { throw DataStoreError.unableToSaveInContainer(type: "Withdrawal", reason: coredataError.localizedDescription) }
+
+            }
+
+        }
+
+        return Set(arrayOfWithdrawals)
 
     }
 

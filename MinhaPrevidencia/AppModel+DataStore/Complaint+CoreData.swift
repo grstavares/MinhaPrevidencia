@@ -32,7 +32,7 @@ extension Complaint: AbstractCoreDataStoreItem {
     func saveInDataStore(manager: DataStoreManager) throws -> Bool {
 
         guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
+            AppDelegate.handleError(error: DataStoreError.invalidManager(expected: "CoreData", actual: manager.description))
             return false
         }
 
@@ -48,7 +48,12 @@ extension Complaint: AbstractCoreDataStoreItem {
 
         } else {
 
-            let newObject = ComplaintCoreData(context: coredata.managedObjectContext)
+            guard let entityDescription = NSEntityDescription.entity(forEntityName: ObjectModel.entityName, in: coredata.managedObjectContext) else {
+                AppDelegate.handleError(error: DataStoreError.invalidEntity(entityName: ObjectModel.entityName))
+                return false
+            }
+
+            let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.title = self.title
             newObject.content = self.content
@@ -58,19 +63,6 @@ extension Complaint: AbstractCoreDataStoreItem {
             return coredata.save(newObject)
 
         }
-
-    }
-
-    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
-
-        guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
-            return false
-        }
-
-        if let first = try Complaint.loadManagedObject(uuid: uuid, entityName: Complaint.entityName, manager: coredata) {
-            return coredata.remove(first)
-        } else { return false }
 
     }
 

@@ -20,7 +20,9 @@ extension NewsReport: AbstractCoreDataStoreItem {
 
     static func parseObject(coredataObject object: CoreDataModel) -> ObjectModel? {
 
-        guard let uuid = object.uuid, let title = object.title, let contents = object.contents, let dateCreation = object.dateCreation, let lasUpdate = object.lastUpdate, let url = object.url else { return nil }
+        guard let uuid = object.uuid, let title = object.title, let contents = object.contents, let dateCreation = object.dateCreation else { return nil }
+        let lasUpdate = object.lastUpdate
+        let url = object.url
 
         let document = ObjectBuilder.init(uuid: uuid, title: title, contents: contents, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url).build()
         return document
@@ -30,7 +32,7 @@ extension NewsReport: AbstractCoreDataStoreItem {
     func saveInDataStore(manager: DataStoreManager) throws -> Bool {
 
         guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
+            AppDelegate.handleError(error: DataStoreError.invalidManager(expected: "CoreData", actual: manager.description))
             return false
         }
 
@@ -46,7 +48,12 @@ extension NewsReport: AbstractCoreDataStoreItem {
 
         } else {
 
-            let newObject = NewsReportCoreData(context: coredata.managedObjectContext)
+            guard let entityDescription = NSEntityDescription.entity(forEntityName: ObjectModel.entityName, in: coredata.managedObjectContext) else {
+                AppDelegate.handleError(error: DataStoreError.invalidEntity(entityName: ObjectModel.entityName))
+                return false
+            }
+
+            let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.title = self.title
             newObject.contents = self.contents
@@ -56,18 +63,6 @@ extension NewsReport: AbstractCoreDataStoreItem {
             return coredata.save(newObject)
 
         }
-
-    }
-
-    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
-
-        guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
-            return false
-        }
-
-        if let first = try NewsReport.loadManagedObject(uuid: uuid, entityName: NewsReport.entityName, manager: coredata) {
-            return coredata.remove(first) } else { return false }
 
     }
 

@@ -50,11 +50,10 @@ extension Address: AbstractCoreDataStoreItem {
     func saveInDataStore(manager: DataStoreManager) throws -> Bool {
 
         guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
-            return false
+            throw DataStoreError.invalidManager(expected: "CoreData", actual: manager.description)
         }
 
-        if let first: AddressCoreData = try Address.loadManagedObject(uuid: uuid, entityName: Address.entityName, manager: coredata) {
+        if let first: CoreDataModel = try ObjectModel.loadManagedObject(uuid: uuid, entityName: ObjectModel.entityName, manager: coredata) {
             first.country = self.country
             first.region = self.region
             first.city = self.city
@@ -69,7 +68,11 @@ extension Address: AbstractCoreDataStoreItem {
             return true
         } else {
 
-            let newObject = AddressCoreData(context: coredata.managedObjectContext)
+            guard let entityDescription = NSEntityDescription.entity(forEntityName: ObjectModel.entityName, in: coredata.managedObjectContext) else {
+                throw DataStoreError.invalidEntity(entityName: ObjectModel.entityName)
+            }
+
+            let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.country = self.country
             newObject.region = self.region
@@ -84,19 +87,6 @@ extension Address: AbstractCoreDataStoreItem {
             return coredata.save(newObject)
 
         }
-
-    }
-
-    func removeFromDataStore(manager: DataStoreManager) throws -> Bool {
-
-        guard let coredata = manager as? CoreDataManager else {
-            AppErrorControl.registerAppError(error: DataStoreError.invalidManager(expected: "CoreData", actual: ""))
-            return false
-        }
-
-        if let first = try Address.loadManagedObject(uuid: uuid, entityName: Address.entityName, manager: coredata) {
-            return coredata.remove(first)
-        } else { return false }
 
     }
 

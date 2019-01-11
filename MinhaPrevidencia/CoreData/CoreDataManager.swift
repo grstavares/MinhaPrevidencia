@@ -13,6 +13,15 @@ import SwiftSugarKit
 
 class CoreDataManager: DataStoreManager {
 
+    var description: String {
+
+        guard let stores = managedObjectContext.persistentStoreCoordinator?.persistentStores else { return "NoPersisteStoreLocated" }
+        var description: String = ""
+        for (index, item) in stores.enumerated() {description.append(contentsOf: "\(index) - \(item.type)")}
+        return description
+
+    }
+
     let managedObjectContext: NSManagedObjectContext
 
     init(context: NSManagedObjectContext) {
@@ -24,7 +33,7 @@ class CoreDataManager: DataStoreManager {
     func request<T>(request: NSFetchRequest<T>) throws -> [T] {
 
         do {return try self.managedObjectContext.fetch(request)
-        } catch {throw DataStoreError.unableToLoadFromContainer(type: "PLACEHOLDER", reason: error.localizedDescription)}
+        } catch {throw DataStoreError.unableToLoadFromContainer(type: self.description, reason: error.localizedDescription)}
 
     }
 
@@ -46,7 +55,7 @@ class CoreDataManager: DataStoreManager {
         do { try context.save()
         } catch {
             let coredataError = DataStoreError.unableToSaveInContainer(type: context.description, reason: error.localizedDescription)
-            AppErrorControl.registerAppError(error: coredataError)
+            AppDelegate.handleError(error: coredataError)
         }
 
     }

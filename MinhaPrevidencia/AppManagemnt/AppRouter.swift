@@ -24,9 +24,11 @@ class AppRouter: NetworkManager {
 
     func request(_ route: RemoteEndpoint, completion: @escaping NetworkRouterCompletion) throws -> URLSessionTask {
 
-        let request = try self.buildRequest(from: route)
+        let request = self.buildRequest(from: route)
         let task = session.dataTask(with: request, completionHandler: { data, response, error in
+
             completion(data, response, error)
+
         })
 
         task.resume()
@@ -34,7 +36,7 @@ class AppRouter: NetworkManager {
 
     }
 
-    private func buildRequest(from route: RemoteEndpoint) throws -> URLRequest {
+    private func buildRequest(from route: RemoteEndpoint) -> URLRequest {
 
         let builder = URLRequestBuilder(url: route.path, cachePolicy: self.cachePolicy, timeout: self.timeout).withMethod(route.method)
 

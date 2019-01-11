@@ -26,6 +26,19 @@ class AppState: StateManager {
 
         var code: String {
             switch self {
+            case .apiError: return "APIError:"
+            case .nullHttpResponse: return "NullHttpResponse"
+            case .nullHttpResponseBody: return "NullHttpResponseBody"
+            case .invalidHttpRequest: return "InvalidHttpRequest"
+            case .invalidHttpResponse: return "InvalidHttpResponse"
+            case .invalidObjectData: return "InvalidObjectData"
+            case .networkError: return "NetworkError"
+            case .routerUnavailable: return "RouterUnavailable"
+            }
+        }
+
+        var details: String? {
+            switch self {
             case .apiError (let name): return "APIError:" + name
             case .nullHttpResponse: return "NullHttpResponse"
             case .nullHttpResponseBody: return "NullHttpResponseBody"
@@ -36,6 +49,7 @@ class AppState: StateManager {
             case .routerUnavailable: return "RouterUnavailable"
             }
         }
+
     }
 
     private let bag: DisposeBag = DisposeBag()
@@ -114,7 +128,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.institution.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -135,7 +149,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.userInfo.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -154,7 +168,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.messages.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -173,7 +187,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.documents.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -192,7 +206,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.news.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -211,7 +225,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.complaints.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -232,7 +246,7 @@ class AppState: StateManager {
 
             switch result {
             case .value(let value): self.retirement.onNext(value)
-            case .error(let appError): AppErrorControl.registerAppError(error: appError)
+            case .error(let appError): AppDelegate.handleError(error: appError)
             }
 
         }
@@ -280,11 +294,11 @@ class AppState: StateManager {
 
             _ = injector.persistInitialData(data: toBePersisted)
 
-        } catch { AppErrorControl.registerAppError(error: AppDelegate.OperationErrors.canNotPersistFileOnDisk, file: #file, line: #line) }
+        } catch { AppDelegate.handleError(error: AppDelegate.OperationErrors.canNotPersistFileOnDisk, file: #file, line: #line) }
 
     }
 
-    private func refreshObject<T: JsonConvertible>(api: RemoteEndpoint, objectType: T.Type, result: @escaping (Result<T, AppStateError>) -> Void) -> URLSessionTask? {
+    private func refreshObject<T: JsonConvertible & DataStoreItem>(api: RemoteEndpoint, objectType: T.Type, result: @escaping (Result<T, AppStateError>) -> Void) -> URLSessionTask? {
 
         guard let router = self.router else { result(Result.error(AppStateError.routerUnavailable)); return nil }
         var task: URLSessionTask?
@@ -303,7 +317,15 @@ class AppState: StateManager {
                         return
                     }
 
-                    if let parsed = T(from: notnil) {result(Result.value(parsed))
+                    if let parsed = T(from: notnil) {
+
+                        if let dataStore = self.injector.localStore() {
+
+                            do {_ = try parsed.saveInDataStore(manager: dataStore); result(Result.value(parsed))
+                            } catch { AppDelegate.handleError(error: error) }
+
+                        } else { result(Result.value(parsed)) }
+
                     } else { result(Result.error(AppStateError.invalidObjectData(type: String(describing: T.self), data: notnil))) }
 
                 case .error(let appError): result(Result.error(appError))
@@ -312,13 +334,19 @@ class AppState: StateManager {
 
             }
 
-        } catch { result(Result.error(AppStateError.invalidHttpRequest(apiName: String(describing: api)))) }
+        } catch {
+
+            let errorHttp = error as? HTTPError
+            let taskError =  errorHttp == nil ? AppStateError.networkError(error: errorHttp!) : AppStateError.networkError(error: HTTPError.undefined(statusCode: 0))
+            result(Result.error(taskError))
+
+        }
 
         return task
 
     }
 
-    private func refreshCollection<T: JsonConvertible, U: Codable>(api: RemoteEndpoint, objectType: T.Type, rawType: U.Type, result: @escaping (Result<[T], AppStateError>) -> Void) -> URLSessionTask? {
+    private func refreshCollection<T: JsonConvertible & DataStoreItem, U: Codable>(api: RemoteEndpoint, objectType: T.Type, rawType: U.Type, result: @escaping (Result<[T], AppStateError>) -> Void) -> URLSessionTask? {
 
         guard let router = self.router else { result(Result.error(AppStateError.routerUnavailable)); return nil }
         var task: URLSessionTask?
@@ -366,7 +394,7 @@ class AppState: StateManager {
 
     }
 
-    private func parseCollection<T: JsonConvertible, U: Codable>(_ data: Data, objectType: T.Type, rawType: U.Type) -> Result<[T], AppStateError> {
+    private func parseCollection<T: JsonConvertible & DataStoreItem, U: Codable>(_ data: Data, objectType: T.Type, rawType: U.Type) -> Result<[T], AppStateError> {
 
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -377,6 +405,16 @@ class AppState: StateManager {
 
             let parsedDat = try parsedRaw.compactMap { try encoder.encode($0) }
             let parsedObjects = parsedDat.compactMap { T.init(from: $0) }
+
+            parsedObjects.forEach {
+
+                if let dataStore = self.injector.localStore() {
+                    do {_ = try $0.saveInDataStore(manager: dataStore)
+                    } catch { AppDelegate.handleError(error: error) }
+                }
+
+            }
+
             return Result.value(parsedObjects)
 
         } catch { return Result.error(AppStateError.invalidObjectData(type: String(describing: U.self), data: data)) }

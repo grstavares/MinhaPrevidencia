@@ -11,6 +11,7 @@ import CoreData
 
 protocol CoreDataStoreItem: DataStoreItem {
 
+    var uuid: String { get }
     static func loadCollectionFromDataStore<T: NSManagedObject>(entityName: String, manager: CoreDataManager, predicate: NSPredicate?) throws -> [T]
     static func loadManagedObject<T: NSManagedObject>(uuid: String, entityName: String, manager: CoreDataManager) throws -> T?
 
@@ -20,12 +21,9 @@ extension CoreDataStoreItem {
 
     static func loadCollectionFromDataStore<T: NSManagedObject>(entityName: String, manager: CoreDataManager, predicate: NSPredicate?) throws -> [T] {
 
-        //        guard let coredata = manager as? CoreDataManager else { throw DataStoreError.invalidManager(expected: "CoreData", actual: "NONE") }
-
         let request = NSFetchRequest<T>(entityName: entityName)
         request.predicate = predicate
 
-        //        let results = try coredata.request(request: request)
         let results = try manager.request(request: request)
         return results
 

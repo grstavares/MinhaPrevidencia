@@ -28,9 +28,6 @@ class CommunicationMessageEndpointTest: XCTestCase {
 
     }
 
-//    case send(object: ComunicationMessage)
-//    case archive(object: ComunicationMessage)
-
     override func tearDown() { }
 
     func testGetAll() throws {

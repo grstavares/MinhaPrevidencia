@@ -7,8 +7,6 @@
 //
 
 import Foundation
-public enum Result<Value, Error: Swift.Error> where Value: Equatable, Error: Equatable {
+public enum Result<Value, Error: Swift.Error> where Value: Equatable {
     case value(Value), error(Error)
 }
-
-extension Result: Equatable { }

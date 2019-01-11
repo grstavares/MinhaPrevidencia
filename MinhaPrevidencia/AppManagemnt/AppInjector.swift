@@ -28,36 +28,32 @@ class AppInjector {
     //Synchronous Function to be returned with Initial Data from Settings, Cache or Stup in the caso of first execution
     func initialData() -> InitialData {
 
-        if let initial = self.fromCoreData(using: self._localStore) { return initial
-        } else { return self.mockedInitialData() }
+        if let store = self.localStore() as? CoreDataManager, let initial = self.fromCoreData(using: store) { return initial
+        } else { return AppDelegate.mockedInitialData() }
 
     }
 
     func persistInitialData(data: InitialData) -> Bool {
 
-        var result: Bool = false
-        do {result = try data.institution.saveInDataStore(manager: self._localStore)
-        } catch { AppErrorControl.registerAppError(error: DataStoreError.unableToSaveInContainer(type: "Institution", reason: error.localizedDescription)) }
+        guard let store = self.localStore() else { return false }
+        do {
 
-        return result
+            var result = true
 
-    }
+            if try !data.institution.saveInDataStore(manager: store) { result = false }
+            if try !data.retirement.saveInDataStore(manager: store) { result = false }
+            if try !data.userInfo.saveInDataStore(manager: store) { result = false }
+            try data.messages.forEach { if try !$0.saveInDataStore(manager: store) { result = false } }
+            try data.documents.forEach { if try !$0.saveInDataStore(manager: store) { result = false } }
+            try data.news.forEach { if try !$0.saveInDataStore(manager: store) { result = false } }
+            try data.complaints.forEach { if try !$0.saveInDataStore(manager: store) { result = false } }
 
-    private func mockedInitialData() -> InitialData {
+            return result
 
-        let institutoCreation: Date = DateComponents(
-            calendar: Calendar.current, timeZone: TimeZone.current,
-            era: nil, year: 2000, month: 01, day: 01,
-            hour: 0, minute: 0, second: 0, nanosecond: 0,
-            weekday: nil, weekdayOrdinal: nil, quarter: nil,
-            weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil
-            ).date!
-
-        let institution = Institution(uuid: self._settings.institutionId, name: "Gurupi Prev")
-        let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", birthDate: nil, genre: nil)
-        let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
-
-        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], retirement: retirement)
+        } catch {
+            AppDelegate.handleError(error: DataStoreError.unableToSaveInContainer(type: "Institution", reason: error.localizedDescription))
+            return false
+        }
 
     }
 
@@ -84,7 +80,7 @@ class AppInjector {
             let preferedDocuments: [Document] = try Document.loadCollectionFromDataStore(predicate: self.predicateForUserVisibleDocuments(userId: userInfoId), manager: manager)
             let allDocuments = Array(Set(persistedDocuments + preferedDocuments))
 
-            let mocked = mockedInitialData()
+            let mocked = AppDelegate.mockedInitialData()
 
             let initial = InitialData(
                 institution: persistedInstitution ?? mocked.institution,
@@ -99,7 +95,7 @@ class AppInjector {
             return initial
 
         } catch {
-            AppErrorControl.registerAppError(error: DataStoreError.unableToLoadContainer(type: "", reason: error.localizedDescription))
+            AppDelegate.handleError(error: DataStoreError.unableToLoadContainer(type: manager.description, reason: error.localizedDescription))
             return nil
         }
 

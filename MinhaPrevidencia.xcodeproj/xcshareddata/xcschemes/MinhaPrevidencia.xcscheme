@@ -39,6 +39,11 @@
                BlueprintName = "MinhaPrevidenciaTests"
                ReferencedContainer = "container:MinhaPrevidencia.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AbstractDataModel_CoreDataTest">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
