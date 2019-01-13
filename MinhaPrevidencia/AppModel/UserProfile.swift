@@ -12,13 +12,28 @@ struct UserProfile {
     let uuid: String
     let firstName: String
     let lastName: String
-    let username: String
+    let username: String?                //Save E-mail Here
+    let phoneNumber: String?             //Save only numbers, with CountryCode and DDD
     let birthDate: Date?
     let genre: String?
+    let wasDeleted: Bool
 
 }
 
 extension UserProfile: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, firstName: String, lastName: String, username: String?, phoneNumber: String?, birthDate: Date?, genre: String?) {
+
+        self.uuid = uuid
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.phoneNumber = phoneNumber
+        self.birthDate = birthDate
+        self.genre = genre
+        self.wasDeleted = false
+
+    }
 
     init?(from data: Data) {
 
@@ -38,8 +53,10 @@ extension UserProfile: Hashable, Equatable, JsonConvertible {
         self.firstName = raw.firstName
         self.lastName = raw.lastName
         self.username = raw.username
+        self.phoneNumber = raw.phoneNumber
         self.birthDate = birth
         self.genre = raw.genre
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -57,7 +74,8 @@ extension UserProfile: Hashable, Equatable, JsonConvertible {
 
         let raw = RawUserProfile(
             uuid: self.uuid, firstName: self.firstName, lastName: self.lastName,
-            username: self.username, birthDate: birth, genre: self.genre
+            username: self.username, phoneNumber: self.phoneNumber,
+            birthDate: birth, genre: self.genre, wasDeleted: self.wasDeleted
         )
 
         return raw
@@ -71,30 +89,37 @@ struct RawUserProfile: Codable, Hashable, Equatable {
     let uuid: String
     let firstName: String
     let lastName: String
-    let username: String
+    let username: String?
+    let phoneNumber: String?
     let birthDate: Double?
     let genre: String?
+    let wasDeleted: Bool
 
 }
 
-struct UserProfileBuilder {
-
-    let uuid: String
-    let firstName: String
-    let lastName: String
-    let username: String
-    let birthDate: Date?
-    let genre: String?
-    func build() -> UserProfile {
-
-        return UserProfile(
-            uuid: self.uuid,
-            firstName: self.firstName,
-            lastName: self.lastName,
-            username: self.username,
-            birthDate: self.birthDate,
-            genre: self.genre
-        )
-
-    }
-}
+//struct UserProfileBuilder {
+//
+//    let uuid: String
+//    let firstName: String
+//    let lastName: String
+//    let username: String?
+//    let phoneNumber: String?
+//    let birthDate: Date?
+//    let genre: String?
+//    let wasDeleted: Bool
+//
+//    func build() -> UserProfile {
+//
+//        return UserProfile(
+//            uuid: self.uuid,
+//            firstName: self.firstName,
+//            lastName: self.lastName,
+//            username: self.username,
+//            phoneNumber: self.phoneNumber,
+//            birthDate: self.birthDate,
+//            genre: self.genre,
+//            wasDeleted: self.wasDeleted
+//        )
+//
+//    }
+//}

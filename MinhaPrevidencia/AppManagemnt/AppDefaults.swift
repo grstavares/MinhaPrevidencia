@@ -41,6 +41,8 @@ extension AppDelegate {
             }
         }
 
+        var localizedDescription: String { return self.details ?? "NoDetails" }
+
     }
 
     static func mockedInitialData() -> InitialData {
@@ -54,10 +56,10 @@ extension AppDelegate {
             ).date!
 
         let institution = Institution(uuid: AppDelegate.institutionId, name: "Gurupi Prev")
-        let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", birthDate: nil, genre: nil)
+        let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", phoneNumber: nil, birthDate: nil, genre: nil)
         let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
 
-        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], retirement: retirement)
+        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], financialEntries: [], retirement: retirement)
 
     }
 

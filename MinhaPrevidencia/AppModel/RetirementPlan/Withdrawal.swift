@@ -13,10 +13,21 @@ struct Withdrawal {
     let date: Date
     let value: Double
     let reference: String
+    let wasDeleted: Bool
 
 }
 
 extension Withdrawal: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, date: Date, value: Double, reference: String) {
+
+        self.uuid = uuid
+        self.date = date
+        self.value = value
+        self.reference = reference
+        self.wasDeleted = false
+
+    }
 
     init?(from data: Data) {
 
@@ -34,6 +45,7 @@ extension Withdrawal: Hashable, Equatable, JsonConvertible {
         self.date = date
         self.value = raw.value
         self.reference = raw.reference
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -48,7 +60,7 @@ extension Withdrawal: Hashable, Equatable, JsonConvertible {
     func raw() -> RawWithdrawal {
 
         let date = self.date.timeIntervalSince1970
-        let raw = RawWithdrawal(uuid: self.uuid, date: date, value: self.value, reference: self.reference)
+        let raw = RawWithdrawal(uuid: self.uuid, date: date, value: self.value, reference: self.reference, wasDeleted: self.wasDeleted)
         return raw
 
     }
@@ -61,6 +73,7 @@ struct RawWithdrawal: Codable, Hashable, Equatable {
     let date: Double
     let value: Double
     let reference: String
+    let wasDeleted: Bool
 
 }
 
@@ -70,6 +83,8 @@ struct WithdrawalBuilder {
     let date: Date
     let value: Double
     let reference: String
-    func build() -> Withdrawal { return Withdrawal(uuid: self.uuid, date: self.date, value: self.value, reference: self.reference) }
+    let wasDeleted: Bool
+
+    func build() -> Withdrawal { return Withdrawal(uuid: self.uuid, date: self.date, value: self.value, reference: self.reference, wasDeleted: self.wasDeleted) }
 
 }

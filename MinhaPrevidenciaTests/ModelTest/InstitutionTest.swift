@@ -61,7 +61,7 @@ class InstitutionTest: XCTestCase {
 
     private func getRawObject() -> RawInstitution {
 
-        return RawInstitution(uuid: self.mockUuid, name: self.mockName)
+        return RawInstitution(uuid: self.mockUuid, name: self.mockName, wasDeleted: false)
 
     }
 

@@ -13,7 +13,7 @@ import SwiftSugarKit
 extension Retirement: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Retirement
-    typealias ObjectBuilder = RetirementBuilder
+//    typealias ObjectBuilder = RetirementBuilder
     typealias CoreDataModel = RetirementCoreData
 
     static var entityName: String { return "RetirementCoreData" }
@@ -23,8 +23,9 @@ extension Retirement: AbstractCoreDataStoreItem {
         guard let uuid = coredataObject.uuid, let startDate = coredataObject.startDate, let endDate = coredataObject.endDate else { return nil }
         let contr: [Contribution] = getContributions(coredataSet: coredataObject.contributions)
         let withd: [Withdrawal] = getWithdrawals(coredataSet: coredataObject.withdrawals)
+        let wasDeleted = coredataObject.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, startDate: startDate, endDate: endDate, contributions: contr, withdrawals: withd).build()
+        let document = ObjectModel.init(uuid: uuid, startDate: startDate, endDate: endDate, contributions: contr, withdrawals: withd, wasDeleted: wasDeleted)
         return document
 
     }

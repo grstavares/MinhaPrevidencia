@@ -103,7 +103,7 @@ class DocumentTest: XCTestCase {
             summary: content,
             dateCreation: mockCreation.timeIntervalSince1970,
             lastUpdate: mockReception.timeIntervalSince1970,
-            url: mockUrl
+            url: mockUrl, wasDeleted: false
         )
 
     }

@@ -54,7 +54,8 @@ class CoreDataManager: DataStoreManager {
         if !context.hasChanges { return }
         do { try context.save()
         } catch {
-            let coredataError = DataStoreError.unableToSaveInContainer(type: context.description, reason: error.localizedDescription)
+            let storeType = context.persistentStoreCoordinator?.persistentStores.first?.type ?? "Undefined"
+            let coredataError = DataStoreError.unableToSaveInContainer(type: storeType, reason: error.localizedDescription)
             AppDelegate.handleError(error: coredataError)
         }
 

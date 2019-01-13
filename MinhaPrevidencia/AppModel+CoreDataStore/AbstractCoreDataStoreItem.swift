@@ -12,7 +12,7 @@ import CoreData
 protocol AbstractCoreDataStoreItem: CoreDataStoreItem {
 
     associatedtype ObjectModel: CoreDataStoreItem
-    associatedtype ObjectBuilder
+//    associatedtype ObjectBuilder
     associatedtype CoreDataModel: NSManagedObject
 
     static func parseObject(coredataObject: CoreDataModel) -> ObjectModel?

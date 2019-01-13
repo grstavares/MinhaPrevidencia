@@ -1,5 +1,5 @@
 //
-//  Complaint+CoreData.swift
+//  NewsReport+CoreData.swift
 //  MinhaPrevidencia
 //
 //  Created by Gustavo Tavares on 10/01/2019.
@@ -10,21 +10,22 @@ import Foundation
 import CoreData
 import SwiftSugarKit
 
-extension Complaint: AbstractCoreDataStoreItem {
+extension NewsReport: AbstractCoreDataStoreItem {
 
-    typealias ObjectModel = Complaint
-    typealias ObjectBuilder = ComplaintBuilder
-    typealias CoreDataModel = ComplaintCoreData
+    typealias ObjectModel = NewsReport
+//    typealias ObjectBuilder = NewsReportBuilder
+    typealias CoreDataModel = NewsReportCoreData
 
-    static var entityName: String { return "ComplaintCoreData" }
+    static var entityName: String { return "NewsReportCoreData" }
 
     static func parseObject(coredataObject object: CoreDataModel) -> ObjectModel? {
 
-        guard let uuid = object.uuid, let title = object.title, let content = object.content, let dateCreation = object.dateCreation, let status = object.status else { return nil }
-        guard let parsedStatus = Complaint.Status(rawValue: status) else { return nil }
-        let dateReception = object.dateReception
+        guard let uuid = object.uuid, let title = object.title, let contents = object.contents, let dateCreation = object.dateCreation else { return nil }
+        let lasUpdate = object.lastUpdate
+        let url = object.url
+        let wasDeleted = object.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, title: title, content: content, dateCreation: dateCreation, dateReception: dateReception, status: parsedStatus).build()
+        let document = ObjectModel.init(uuid: uuid, title: title, contents: contents, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url, wasDeleted: wasDeleted)
         return document
 
     }
@@ -36,13 +37,13 @@ extension Complaint: AbstractCoreDataStoreItem {
             return false
         }
 
-        if let first: ComplaintCoreData = try Complaint.loadManagedObject(uuid: uuid, entityName: Complaint.entityName, manager: coredata) {
+        if let first: NewsReportCoreData = try NewsReport.loadManagedObject(uuid: uuid, entityName: NewsReport.entityName, manager: coredata) {
 
             first.title = self.title
-            first.content = self.content
+            first.contents = self.contents
             first.dateCreation = self.dateCreation
-            first.dateReception = self.dateReception
-            first.status = self.status.rawValue
+            first.lastUpdate = self.lastUpdate
+            first.url = self.url
             coredata.sync()
             return true
 
@@ -56,10 +57,10 @@ extension Complaint: AbstractCoreDataStoreItem {
             let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
             newObject.title = self.title
-            newObject.content = self.content
+            newObject.contents = self.contents
             newObject.dateCreation = self.dateCreation
-            newObject.dateReception = self.dateReception
-            newObject.status = self.status.rawValue
+            newObject.lastUpdate = self.lastUpdate
+            newObject.url = self.url
             return coredata.save(newObject)
 
         }

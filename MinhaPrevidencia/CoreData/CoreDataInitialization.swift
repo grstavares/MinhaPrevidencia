@@ -30,7 +30,8 @@ extension AppDelegate {
         }
         let storeURL = docURL.appendingPathComponent("DataModel.sqlite")
         do {
-            try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+            try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
             return managedObjectContext
         } catch { fatalError("Error migrating store: \(error)") }
 

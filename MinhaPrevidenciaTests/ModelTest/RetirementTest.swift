@@ -98,7 +98,7 @@ class RetirementTest: XCTestCase {
             startDate: mockStart.timeIntervalSince1970,
             endDate: mockEnd.timeIntervalSince1970,
             contributions: mockContributions,
-            withdrawals: mockWithDrawals
+            withdrawals: mockWithDrawals, wasDeleted: false
         )
 
     }

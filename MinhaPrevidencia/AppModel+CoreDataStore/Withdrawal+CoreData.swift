@@ -13,7 +13,7 @@ import SwiftSugarKit
 extension Withdrawal: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Withdrawal
-    typealias ObjectBuilder = WithdrawalBuilder
+//    typealias ObjectBuilder = WithdrawalBuilder
     typealias CoreDataModel = WithdrawalCoreData
 
     static var entityName: String { return "WithdrawalCoreData" }
@@ -22,8 +22,9 @@ extension Withdrawal: AbstractCoreDataStoreItem {
 
         guard let uuid = coredataObject.uuid, let date = coredataObject.date, let reference = coredataObject.reference else { return nil }
         let value = coredataObject.value
+        let wasDeleted = coredataObject.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, date: date, value: value, reference: reference).build()
+        let document = ObjectModel.init(uuid: uuid, date: date, value: value, reference: reference, wasDeleted: wasDeleted)
         return document
 
     }

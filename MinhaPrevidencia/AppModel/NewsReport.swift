@@ -15,10 +15,23 @@ struct NewsReport {
     let dateCreation: Date
     let lastUpdate: Date?
     let url: URL?
+    let wasDeleted: Bool
 
 }
 
 extension NewsReport: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, title: String, contents: String, dateCreation: Date, lastUpdate: Date?, url: URL?) {
+
+        self.uuid = uuid
+        self.title = title
+        self.contents = contents
+        self.dateCreation = dateCreation
+        self.lastUpdate = lastUpdate
+        self.url = url
+        self.wasDeleted = false
+
+    }
 
     init?(from data: Data) {
 
@@ -42,6 +55,7 @@ extension NewsReport: Hashable, Equatable, JsonConvertible {
         self.dateCreation = Date(timeIntervalSince1970: raw.dateCreation)
         self.lastUpdate = dateUpdate
         self.url = urlValue
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -61,7 +75,7 @@ extension NewsReport: Hashable, Equatable, JsonConvertible {
         let raw = RawNewsReport(
             uuid: self.uuid, title: self.title, contents: self.contents,
             dateCreation: dateCreation, lastUpdate: dateUpdate,
-            url: self.url?.absoluteString
+            url: self.url?.absoluteString, wasDeleted: self.wasDeleted
         )
 
         return raw
@@ -78,17 +92,19 @@ struct RawNewsReport: Codable, Hashable, Equatable {
     let dateCreation: Double
     let lastUpdate: Double?
     let url: String?
+    let wasDeleted: Bool
 
 }
 
-struct NewsReportBuilder {
-
-    let uuid: String
-    let title: String
-    let contents: String
-    let dateCreation: Date
-    let lastUpdate: Date?
-    let url: URL?
-    func build() -> NewsReport { return NewsReport(uuid: self.uuid, title: self.title, contents: self.contents, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url) }
-
-}
+//struct NewsReportBuilder {
+//
+//    let uuid: String
+//    let title: String
+//    let contents: String
+//    let dateCreation: Date
+//    let lastUpdate: Date?
+//    let url: URL?
+//    let wasDeleted: Bool
+//    func build() -> NewsReport { return NewsReport(uuid: self.uuid, title: self.title, contents: self.contents, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url, wasDeleted: self.wasDeleted) }
+//
+//}

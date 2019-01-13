@@ -11,10 +11,17 @@ struct Institution {
 
     let uuid: String
     let name: String
+    let wasDeleted: Bool
 
 }
 
 extension Institution: Equatable, Hashable, JsonConvertible {
+
+    init(uuid: String, name: String) {
+        self.uuid = uuid
+        self.name = name
+        self.wasDeleted = false
+    }
 
     init?(from data: Data) {
 
@@ -28,6 +35,7 @@ extension Institution: Equatable, Hashable, JsonConvertible {
 
         self.uuid = raw.uuid
         self.name = raw.name
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -41,7 +49,7 @@ extension Institution: Equatable, Hashable, JsonConvertible {
 
     func raw() -> RawInstitution {
 
-        let raw = RawInstitution(uuid: self.uuid, name: self.name)
+        let raw = RawInstitution(uuid: self.uuid, name: self.name, wasDeleted: self.wasDeleted)
         return raw
 
     }
@@ -52,13 +60,15 @@ struct RawInstitution: Codable, Equatable, Hashable {
 
     let uuid: String
     let name: String
+    let wasDeleted: Bool
 
 }
 
-struct InstitutionBuilder {
-
-    let uuid: String
-    let name: String
-    func build() -> Institution { return Institution(uuid: uuid, name: name) }
-
-}
+//struct InstitutionBuilder {
+//
+//    let uuid: String
+//    let name: String
+//    let wasDeleted: Bool
+//    func build() -> Institution { return Institution(uuid: uuid, name: name, wasDeleted: self.wasDeleted) }
+//
+//}

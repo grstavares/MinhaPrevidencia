@@ -13,16 +13,19 @@ import SwiftSugarKit
 extension UserProfile: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = UserProfile
-    typealias ObjectBuilder = UserProfileBuilder
+//    typealias ObjectBuilder = UserProfileBuilder
     typealias CoreDataModel = UserProfileCoreData
 
     static var entityName: String { return "UserProfileCoreData" }
 
     static func parseObject(coredataObject: CoreDataModel) -> ObjectModel? {
 
-        guard let uuid = coredataObject.uuid, let firstname = coredataObject.firstName, let lastname = coredataObject.lastName, let username = coredataObject.username else { return nil }
+        guard let uuid = coredataObject.uuid, let firstname = coredataObject.firstName, let lastname = coredataObject.lastName else { return nil }
+        let username = coredataObject.username
+        let phone = coredataObject.phoneNumber
+        let wasDeleted = coredataObject.wasDeleted
 
-        let document = ObjectBuilder(uuid: uuid, firstName: firstname, lastName: lastname, username: username, birthDate: coredataObject.birthDate, genre: coredataObject.genre).build()
+        let document = ObjectModel(uuid: uuid, firstName: firstname, lastName: lastname, username: username, phoneNumber: phone, birthDate: coredataObject.birthDate, genre: coredataObject.genre, wasDeleted: wasDeleted)
         return document
 
     }

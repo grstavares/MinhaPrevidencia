@@ -76,7 +76,7 @@ class ContributionTest: XCTestCase {
 
     func getRawObject() -> RawContribution {
 
-        return RawContribution(uuid: self.mockUuid, source: self.mockSource, reference: mockCreation.timeIntervalSince1970, value: mockValue)
+        return RawContribution(uuid: self.mockUuid, source: self.mockSource, reference: mockCreation.timeIntervalSince1970, value: mockValue, wasDeleted: false)
 
     }
 

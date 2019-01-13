@@ -51,7 +51,7 @@ enum DataStoreError: AppError {
         switch self {
         case .unableToLoadContainer(let type, let reason): return "UnableToLoadContainer of type \(type): \(reason)"
         case .unableToLoadFromContainer(let type, let reason): return "UnableToLoadFromContainer of type \(type): \(reason)"
-        case .unableToSaveInContainer(let type, let reason): return "UnableToLoadContainer of type \(type): \(reason)"
+        case .unableToSaveInContainer(let type, let reason): return "UnableToSaveInContainer of type \(type): \(reason)"
         case .unableToParseObject(let type, let reason): return "UnableToParseObject of type \(type): \(reason)"
         case .invalidManager(let expected, let actual): return "InvalidPersistenceManager of type \(expected): \(actual)"
         case .invalidEntity(let entityName): return "InvalidEntityName \(entityName)"

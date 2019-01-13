@@ -76,6 +76,7 @@ class AppInjector {
             let persistedMessages: [CommunicationMessage] = try CommunicationMessage.loadCollectionFromDataStore(predicate: oneMonthAgoPredicate, manager: manager)
             let persistedNews: [NewsReport] = try NewsReport.loadCollectionFromDataStore(predicate: twoWeeksAgoPredicate, manager: manager)
             let persistedComplaints: [Complaint] = try Complaint.loadCollectionFromDataStore(predicate: nil, manager: manager)
+            let persistedFinancials: [FinancialEntry] = try FinancialEntry.loadCollectionFromDataStore(predicate: nil, manager: manager)
             let persistedDocuments: [Document] = try Document.loadCollectionFromDataStore(predicate: twoWeeksAgoPredicate, manager: manager)
             let preferedDocuments: [Document] = try Document.loadCollectionFromDataStore(predicate: self.predicateForUserVisibleDocuments(userId: userInfoId), manager: manager)
             let allDocuments = Array(Set(persistedDocuments + preferedDocuments))
@@ -89,6 +90,7 @@ class AppInjector {
                 documents: allDocuments,
                 news: persistedNews,
                 complaints: persistedComplaints,
+                financialEntries: persistedFinancials,
                 retirement: persistedRetirement ?? mocked.retirement
             )
 
@@ -114,6 +116,7 @@ struct InitialData {
     let documents: [Document]
     let news: [NewsReport]
     let complaints: [Complaint]
+    let financialEntries: [FinancialEntry]
     let retirement: Retirement
 
     struct CodableData: Codable {
@@ -123,6 +126,7 @@ struct InitialData {
         let documents: [RawDocument]
         let news: [RawNewsReport]
         let complaints: [RawComplaint]
+        let financialEntries: [RawFinancialEntry]
         let retirement: RawRetirement
     }
 
@@ -141,6 +145,7 @@ extension InitialData {
         let parsedDocuments = rawValues.documents.compactMap { Document(from: $0) }
         let parsedNews = rawValues.news.compactMap { NewsReport(from: $0) }
         let parsedComplaints = rawValues.complaints.compactMap { Complaint(from: $0) }
+        let parsedFinancial = rawValues.financialEntries.compactMap { FinancialEntry(from: $0) }
         guard let parsedRetirement = Retirement(from: rawValues.retirement) else { return nil }
 
         self.institution = parsedInstitution
@@ -149,6 +154,7 @@ extension InitialData {
         self.documents = parsedDocuments
         self.news = parsedNews
         self.complaints = parsedComplaints
+        self.financialEntries = parsedFinancial
         self.retirement = parsedRetirement
 
     }
@@ -161,6 +167,7 @@ extension InitialData {
         let rawDocuments = self.documents.compactMap { $0.raw() }
         let rawNews = self.news.compactMap { $0.raw() }
         let rawComplaints = self.complaints.compactMap { $0.raw() }
+        let rawFinancials = self.financialEntries.compactMap { $0.raw() }
         let rawRetirement = self.retirement.raw()
 
         let rawdata = CodableData(
@@ -170,6 +177,7 @@ extension InitialData {
             documents: rawDocuments,
             news: rawNews,
             complaints: rawComplaints,
+            financialEntries: rawFinancials,
             retirement: rawRetirement
         )
 

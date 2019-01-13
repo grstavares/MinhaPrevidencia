@@ -16,6 +16,7 @@ class UserProfileTest: XCTestCase {
     let mockFirst = "MockTitle"
     let mockLast = "MockSummary"
     let mockUsername = "MockContent"
+    let mockPhone = "MockPhone"
     let mockGenre = "MockOrigin"
 
     let mockBirth = DateComponents(
@@ -86,7 +87,7 @@ class UserProfileTest: XCTestCase {
 
     private func getRawObject() -> RawUserProfile {
 
-        return RawUserProfile(uuid: mockUuid, firstName: mockFirst, lastName: mockLast, username: mockUsername, birthDate: mockBirth.timeIntervalSince1970, genre: mockGenre)
+        return RawUserProfile(uuid: mockUuid, firstName: mockFirst, lastName: mockLast, username: mockUsername, phoneNumber: mockPhone, birthDate: mockBirth.timeIntervalSince1970, genre: mockGenre, wasDeleted: false)
 
     }
 

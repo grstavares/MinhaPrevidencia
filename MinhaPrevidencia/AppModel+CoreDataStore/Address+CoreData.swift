@@ -8,12 +8,13 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 import SwiftSugarKit
 
 extension Address: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Address
-    typealias ObjectBuilder = AddressBuilder
+//    typealias ObjectBuilder = AddressBuilder
     typealias CoreDataModel = AddressCoreData
 
     static var entityName: String { return "AddressCoreData" }
@@ -25,11 +26,17 @@ extension Address: AbstractCoreDataStoreItem {
         let strNumber = object.streetNumber
         let build = object.buildName
         let unit = object.unitNumber
-        let lat: Double? = object.latitude
-        let lon: Double? = object.longitude
-        let isMain = false // object.IsMain         CHANGE
+        let latitude: Double? = object.latitude
+        let longitude: Double? = object.longitude
+        let isMain = object.isMain
+        let wasDeleted = object.wasDeleted
 
-        let document = ObjectBuilder.init(
+        var location: CLLocation?
+        if let lat = latitude, let lon = longitude, lat != 0, lon != 0 {
+            location = CLLocation(latitude: lat, longitude: lon)
+        }
+
+        let document = ObjectModel(
             uuid: uuid,
             country: country,
             region: region,
@@ -39,9 +46,9 @@ extension Address: AbstractCoreDataStoreItem {
             streetNumber: strNumber,
             buildName: build,
             unitNumber: unit,
-            latitude: lat,
-            longitude: lon,
-            isMain: isMain).build()
+            location: location,
+            isMain: isMain,
+            wasDeleted: wasDeleted)
 
         return document
 
@@ -64,6 +71,7 @@ extension Address: AbstractCoreDataStoreItem {
             first.unitNumber = self.unitNumber
             first.latitude = self.location?.coordinate.latitude ?? 0
             first.longitude = self.location?.coordinate.longitude ?? 0
+            first.wasDeleted = self.wasDeleted
             coredata.sync()
             return true
         } else {
@@ -84,6 +92,7 @@ extension Address: AbstractCoreDataStoreItem {
             newObject.unitNumber = self.unitNumber
             newObject.latitude = self.location?.coordinate.latitude ?? 0
             newObject.longitude = self.location?.coordinate.longitude ?? 0
+            newObject.wasDeleted = self.wasDeleted
             return coredata.save(newObject)
 
         }

@@ -76,7 +76,7 @@ class WithdrawalTest: XCTestCase {
 
     func getRawObject() -> RawWithdrawal {
 
-        return RawWithdrawal(uuid: mockUuid, date: mockDate.timeIntervalSince1970, value: mockValue, reference: mockReference)
+        return RawWithdrawal(uuid: mockUuid, date: mockDate.timeIntervalSince1970, value: mockValue, reference: mockReference, wasDeleted: false)
 
     }
 

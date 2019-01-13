@@ -74,6 +74,7 @@ class AppInjectorTest: XCTestCase {
             documents: initial.documents,
             news: initial.news,
             complaints: initial.complaints,
+            financialEntries: initial.financialEntries,
             retirement: initial.retirement
         )
 

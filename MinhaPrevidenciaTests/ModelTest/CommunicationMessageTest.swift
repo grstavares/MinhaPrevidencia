@@ -92,7 +92,8 @@ class CommunicationMessageTest: XCTestCase {
             content: self.mockContent,
             dateCreation: mockCreation.timeIntervalSince1970,
             userOrigin: self.mockOrigin,
-            recipients: self.mockDestiny
+            recipients: self.mockDestiny,
+            wasDeleted: false
         )
 
     }

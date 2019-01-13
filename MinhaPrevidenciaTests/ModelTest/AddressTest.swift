@@ -92,7 +92,7 @@ class AddressTest: XCTestCase {
             streetAddress: self.mockStreet, streetNumber: self.mockNumber,
             buildName: self.mockBuild, unityNumber: self.mockUnity,
             latitude: self.mockLat, longitude: self.mockLong,
-            isMain: self.mockIsMain
+            isMain: self.mockIsMain, wasDeleted: false
         )
 
     }

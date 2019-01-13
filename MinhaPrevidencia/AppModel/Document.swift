@@ -15,10 +15,22 @@ struct Document {
     let dateCreation: Date
     let lastUpdate: Date?
     let url: URL
+    let wasDeleted: Bool
 
 }
 
 extension Document: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, title: String, summary: String, dateCreation: Date, lastUpdate: Date?, url: URL) {
+
+        self.uuid = uuid
+        self.title = title
+        self.summary = summary
+        self.dateCreation = dateCreation
+        self.lastUpdate = lastUpdate
+        self.url = url
+        self.wasDeleted = false
+    }
 
     init?(from data: Data) {
 
@@ -41,6 +53,7 @@ extension Document: Hashable, Equatable, JsonConvertible {
         self.dateCreation = Date(timeIntervalSince1970: raw.dateCreation)
         self.lastUpdate = dateUpdate
         self.url = urlValue
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -60,7 +73,7 @@ extension Document: Hashable, Equatable, JsonConvertible {
         let raw = RawDocument(
             uuid: self.uuid, title: self.title, summary: self.summary,
             dateCreation: dateCreation, lastUpdate: dateUpdate,
-            url: self.url.absoluteString
+            url: self.url.absoluteString, wasDeleted: self.wasDeleted
         )
 
         return raw
@@ -77,17 +90,19 @@ struct RawDocument: Codable, Hashable, Equatable {
     let dateCreation: Double
     let lastUpdate: Double?
     let url: String
+    let wasDeleted: Bool
 
 }
 
-struct DocumentBuilder {
-
-    let uuid: String
-    let title: String
-    let summary: String
-    let dateCreation: Date
-    let lastUpdate: Date?
-    let url: URL
-    func build() -> Document { return Document(uuid: self.uuid, title: self.title, summary: self.summary, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url) }
-
-}
+//struct DocumentBuilder {
+//
+//    let uuid: String
+//    let title: String
+//    let summary: String
+//    let dateCreation: Date
+//    let lastUpdate: Date?
+//    let url: URL
+//    let wasDeleted: Bool
+//    func build() -> Document { return Document(uuid: self.uuid, title: self.title, summary: self.summary, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url, wasDeleted: self.wasDeleted) }
+//
+//}

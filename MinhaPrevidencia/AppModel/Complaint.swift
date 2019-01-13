@@ -19,10 +19,21 @@ struct Complaint {
     let dateCreation: Date
     let dateReception: Date?
     let status: Status
+    let wasDeleted: Bool
 
 }
 
 extension Complaint: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, title: String, content: String, dateCreation: Date, dateReception: Date?, status: Complaint.Status) {
+        self.uuid = uuid
+        self.title = title
+        self.content = content
+        self.dateCreation = dateCreation
+        self.dateReception = dateReception
+        self.status = status
+        self.wasDeleted = false
+    }
 
     init?(from data: Data) {
 
@@ -45,6 +56,7 @@ extension Complaint: Hashable, Equatable, JsonConvertible {
         self.dateCreation = Date(timeIntervalSince1970: raw.dateCreation)
         self.dateReception = dateReception
         self.status = statusValue
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -64,7 +76,7 @@ extension Complaint: Hashable, Equatable, JsonConvertible {
         let raw = RawComplaint(
             uuid: self.uuid, title: self.title, content: self.content,
             dateCreation: dateCreation, dateReception: dateReception,
-            status: self.status.rawValue
+            status: self.status.rawValue, wasDeleted: self.wasDeleted
         )
 
         return raw
@@ -81,17 +93,19 @@ struct RawComplaint: Codable, Hashable, Equatable {
     let dateCreation: Double
     let dateReception: Double?
     let status: String
+    let wasDeleted: Bool
 
 }
 
-struct ComplaintBuilder {
-
-    let uuid: String
-    let title: String
-    let content: String
-    let dateCreation: Date
-    let dateReception: Date?
-    let status: Complaint.Status
-    func build() -> Complaint { return Complaint(uuid: self.uuid, title: self.title, content: self.content, dateCreation: self.dateCreation, dateReception: self.dateReception, status: self.status) }
-
-}
+//struct ComplaintBuilder {
+//
+//    let uuid: String
+//    let title: String
+//    let content: String
+//    let dateCreation: Date
+//    let dateReception: Date?
+//    let status: Complaint.Status
+//    let wasDeleted: Bool
+//    func build() -> Complaint { return Complaint(uuid: self.uuid, title: self.title, content: self.content, dateCreation: self.dateCreation, dateReception: self.dateReception, status: self.status, wasDeleted: self.wasDeleted) }
+//
+//}

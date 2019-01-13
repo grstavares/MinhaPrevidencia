@@ -13,7 +13,7 @@ import SwiftSugarKit
 extension Institution: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Institution
-    typealias ObjectBuilder = InstitutionBuilder
+//    typealias ObjectBuilder = InstitutionBuilder
     typealias CoreDataModel = InstitutionCoreData
 
     static var entityName: String { return "InstitutionCoreData" }
@@ -21,8 +21,9 @@ extension Institution: AbstractCoreDataStoreItem {
     static func parseObject(coredataObject: CoreDataModel) -> ObjectModel? {
 
         guard let uuid = coredataObject.uuid, let name = coredataObject.name else { return nil }
+        let wasDeleted = coredataObject.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, name: name).build()
+        let document = ObjectModel.init(uuid: uuid, name: name, wasDeleted: wasDeleted)
         return document
 
     }

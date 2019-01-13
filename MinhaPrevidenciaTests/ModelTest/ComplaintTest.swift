@@ -101,7 +101,7 @@ class ComplaintTest: XCTestCase {
             content: content,
             dateCreation: mockCreation.timeIntervalSince1970,
             dateReception: mockReception.timeIntervalSince1970,
-            status: status
+            status: status, wasDeleted: false
         )
 
     }

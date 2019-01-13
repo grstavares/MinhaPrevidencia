@@ -50,6 +50,8 @@ class AppState: StateManager {
             }
         }
 
+        var localizedDescription: String { return self.details ?? "NoDetails" }
+
     }
 
     private let bag: DisposeBag = DisposeBag()
@@ -72,6 +74,7 @@ class AppState: StateManager {
     let news: BehaviorSubject<[NewsReport]>
     let complaints: BehaviorSubject<[Complaint]>
     let retirement: BehaviorSubject<Retirement>
+    let financialEntries: BehaviorSubject<[FinancialEntry]>
 
     init(injector: AppInjector) {
 
@@ -94,6 +97,7 @@ class AppState: StateManager {
         self.documents = BehaviorSubject(value: data.documents)
         self.news = BehaviorSubject(value: data.news)
         self.complaints = BehaviorSubject(value: data.complaints)
+        self.financialEntries = BehaviorSubject(value: data.financialEntries)
         self.retirement = BehaviorSubject(value: data.retirement)
 
         if let authService = injector.authManager() {
@@ -113,6 +117,7 @@ class AppState: StateManager {
         self.refreshDocuments(tokenChanged: tokenChanged)
         self.refreshNews(tokenChanged: tokenChanged)
         self.refreshComplaints(tokenChanged: tokenChanged)
+        self.refreshFinancial(tokenChanged: tokenChanged)
         self.refreshRetirement(tokenChanged: tokenChanged)
     }
 
@@ -255,6 +260,25 @@ class AppState: StateManager {
 
     }
 
+    public func refreshFinancial(tokenChanged: Bool = false) {
+
+        let taskKey = AppState.keyFinancial
+        guard self.mustCallURLSessionTask(for: taskKey, tokenChanged: tokenChanged) else { return }
+
+        let api = FinancialEntryApi.getAll(authToken: self.userSession?.token)
+        let task = self.refreshCollection(api: api, objectType: FinancialEntry.self, rawType: RawFinancialEntry.self) { (result) in
+
+            switch result {
+            case .value(let value): self.financialEntries.onNext(value)
+            case .error(let appError): AppDelegate.handleError(error: appError)
+            }
+
+        }
+
+        self.taskBag[taskKey] = (Date(), task)
+
+    }
+
     public func startObservables() {
 
         guard self.poolingTimer == nil else { return }
@@ -280,6 +304,7 @@ class AppState: StateManager {
             let documentsData = try self.documents.value()
             let newsData = try self.news.value()
             let complaintsData = try self.complaints.value()
+            let financials = try self.financialEntries.value()
             let retirementData = try self.retirement.value()
 
             let toBePersisted = InitialData(
@@ -289,6 +314,7 @@ class AppState: StateManager {
                 documents: documentsData,
                 news: newsData,
                 complaints: complaintsData,
+                financialEntries: financials,
                 retirement: retirementData
             )
 
@@ -445,5 +471,6 @@ class AppState: StateManager {
     private static let keyNews = "taskNews"
     private static let keyComplaints = "taskComplaints"
     private static let keyRetirement = "taskRetirement"
+    private static let keyFinancial = "taskFinancialEntries"
 
 }

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11A25BC21EB75A600C30F53 /* FinancialEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25BB21EB75A600C30F53 /* FinancialEntry.swift */; };
+		A11A25BE21EB7A2200C30F53 /* FinancialEntry+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25BD21EB7A2200C30F53 /* FinancialEntry+CoreData.swift */; };
+		A11A25C021EB7CE000C30F53 /* FinancialEntryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25BF21EB7CE000C30F53 /* FinancialEntryTest.swift */; };
+		A11A25C221EB819600C30F53 /* FinancialEntryCoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25C121EB819600C30F53 /* FinancialEntryCoreDataTest.swift */; };
+		A11A25C421EB86EB00C30F53 /* FinancialEntryEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25C321EB86EB00C30F53 /* FinancialEntryEndpoint.swift */; };
+		A11A25C621EB87B400C30F53 /* FinancialEntryEndpointTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25C521EB87B400C30F53 /* FinancialEntryEndpointTest.swift */; };
+		A11A25C921EB8AB600C30F53 /* AppState-FinancialEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A25C821EB8AB600C30F53 /* AppState-FinancialEntry.swift */; };
 		A12F83AB21E00DB7001B1B18 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83AA21E00DB7001B1B18 /* AppDefaults.swift */; };
 		A12F83AD21E00E69001B1B18 /* RetirementEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83AC21E00E69001B1B18 /* RetirementEndpoint.swift */; };
 		A12F83B121E00E84001B1B18 /* UserProfileEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F83B021E00E84001B1B18 /* UserProfileEndpoint.swift */; };
@@ -247,6 +254,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A11A25BB21EB75A600C30F53 /* FinancialEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialEntry.swift; sourceTree = "<group>"; };
+		A11A25BD21EB7A2200C30F53 /* FinancialEntry+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FinancialEntry+CoreData.swift"; sourceTree = "<group>"; };
+		A11A25BF21EB7CE000C30F53 /* FinancialEntryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialEntryTest.swift; sourceTree = "<group>"; };
+		A11A25C121EB819600C30F53 /* FinancialEntryCoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialEntryCoreDataTest.swift; sourceTree = "<group>"; };
+		A11A25C321EB86EB00C30F53 /* FinancialEntryEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialEntryEndpoint.swift; sourceTree = "<group>"; };
+		A11A25C521EB87B400C30F53 /* FinancialEntryEndpointTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialEntryEndpointTest.swift; sourceTree = "<group>"; };
+		A11A25C821EB8AB600C30F53 /* AppState-FinancialEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState-FinancialEntry.swift"; sourceTree = "<group>"; };
 		A12F83AA21E00DB7001B1B18 /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		A12F83AC21E00E69001B1B18 /* RetirementEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetirementEndpoint.swift; sourceTree = "<group>"; };
 		A12F83B021E00E84001B1B18 /* UserProfileEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEndpoint.swift; sourceTree = "<group>"; };
@@ -378,6 +392,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11A25BA21EB757A00C30F53 /* RetirementPlan */ = {
+			isa = PBXGroup;
+			children = (
+				A1829C3521DD5F7800CA903B /* Contribution.swift */,
+				A1829C3C21DD5F7900CA903B /* Retirement.swift */,
+				A1829C3921DD5F7900CA903B /* Withdrawal.swift */,
+			);
+			path = RetirementPlan;
+			sourceTree = "<group>";
+		};
+		A11A25C721EB8A9A00C30F53 /* AppState */ = {
+			isa = PBXGroup;
+			children = (
+				A1829C2321DD5F4400CA903B /* AppState.swift */,
+				A11A25C821EB8AB600C30F53 /* AppState-FinancialEntry.swift */,
+			);
+			path = AppState;
+			sourceTree = "<group>";
+		};
 		A15C36EB21E273EF00F66AB2 /* AppManagementTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,7 +453,7 @@
 				A17FFC6221DE803700B64090 /* AppExtensions */,
 				A1829C2021DD5F0F00CA903B /* AppManagemnt */,
 				A1829C1F21DD5F0500CA903B /* AppModel */,
-				A1CB314321E69EAC00EC046D /* AppModel+DataStore */,
+				A1CB314321E69EAC00EC046D /* AppModel+CoreDataStore */,
 				A17FFC5A21DE734A00B64090 /* AppEndpoints */,
 				A18DD1B221DD64C20066E179 /* AppFunctions */,
 				A17D26E121E66953005AD2A3 /* CoreData */,
@@ -470,6 +503,7 @@
 				A17FFC5B21DE738E00B64090 /* ComplaintEndpoint.swift */,
 				A12F83B621E00ECC001B1B18 /* ComunicationMessageEndpoint.swift */,
 				A17FFC5D21DE73FD00B64090 /* DocumentEndpoint.swift */,
+				A11A25C321EB86EB00C30F53 /* FinancialEntryEndpoint.swift */,
 				A17FFC8421DEB44900B64090 /* InstitutionEndpoint.swift */,
 				A12F83B221E00E93001B1B18 /* NewsReportEndpoint.swift */,
 				A12F83AC21E00E69001B1B18 /* RetirementEndpoint.swift */,
@@ -486,6 +520,7 @@
 				A17FFC6021DE7FA200B64090 /* ComplaintTest.swift */,
 				A17FFC6E21DE88DD00B64090 /* ContributionTest.swift */,
 				A17FFC7021DE88E800B64090 /* DocumentTest.swift */,
+				A11A25BF21EB7CE000C30F53 /* FinancialEntryTest.swift */,
 				A17FFC8021DEA2BA00B64090 /* InstitutionTest.swift */,
 				A17FFC7221DE88F400B64090 /* NewsReportTest.swift */,
 				A17FFC7421DE890100B64090 /* RetirementTest.swift */,
@@ -521,16 +556,15 @@
 		A1829C1F21DD5F0500CA903B /* AppModel */ = {
 			isa = PBXGroup;
 			children = (
+				A11A25BA21EB757A00C30F53 /* RetirementPlan */,
 				A17FFC7C21DE9F0300B64090 /* Address.swift */,
-				A1829C3A21DD5F7900CA903B /* Complaint.swift */,
 				A1829C3821DD5F7800CA903B /* CommunicationMessage.swift */,
-				A1829C3521DD5F7800CA903B /* Contribution.swift */,
+				A1829C3A21DD5F7900CA903B /* Complaint.swift */,
 				A1829C3B21DD5F7900CA903B /* Document.swift */,
+				A11A25BB21EB75A600C30F53 /* FinancialEntry.swift */,
 				A17FFC7A21DE9E2300B64090 /* Institution.swift */,
 				A1829C3721DD5F7800CA903B /* NewsReport.swift */,
-				A1829C3C21DD5F7900CA903B /* Retirement.swift */,
 				A1829C3621DD5F7800CA903B /* UserProfile.swift */,
-				A1829C3921DD5F7900CA903B /* Withdrawal.swift */,
 			);
 			path = AppModel;
 			sourceTree = "<group>";
@@ -538,13 +572,13 @@
 		A1829C2021DD5F0F00CA903B /* AppManagemnt */ = {
 			isa = PBXGroup;
 			children = (
+				A11A25C721EB8A9A00C30F53 /* AppState */,
 				A1829C2221DD5F4400CA903B /* AppDelegate.swift */,
 				A12F83AA21E00DB7001B1B18 /* AppDefaults.swift */,
 				A1FD2C8921E92F6A0077243B /* AppErrorHandling.swift */,
 				A17FFC3C21DE5DFA00B64090 /* AppInjector.swift */,
 				A17FFC8A21DEDA3000B64090 /* AppRouter.swift */,
 				A17D26A021E63812005AD2A3 /* AppSettings.swift */,
-				A1829C2321DD5F4400CA903B /* AppState.swift */,
 				A1829C2121DD5F4400CA903B /* MainCoordinator.swift */,
 			);
 			path = AppManagemnt;
@@ -591,7 +625,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1CB314321E69EAC00EC046D /* AppModel+DataStore */ = {
+		A1CB314321E69EAC00EC046D /* AppModel+CoreDataStore */ = {
 			isa = PBXGroup;
 			children = (
 				A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */,
@@ -601,13 +635,14 @@
 				A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */,
 				A1E4CDA621E788C000397997 /* Contribution+CoreData.swift */,
 				A1E4CDA821E788D100397997 /* Document+CoreData.swift */,
+				A11A25BD21EB7A2200C30F53 /* FinancialEntry+CoreData.swift */,
 				A1CB314421E69EDB00EC046D /* Institution+DataStoreItem.swift */,
 				A1E4CDAA21E788E300397997 /* NewsReport+CoreData.swift */,
 				A1E4CDAC21E788F700397997 /* Retirement+CoreData.swift */,
 				A1E4CDAE21E7890B00397997 /* UserProfile+CoreData.swift */,
 				A1E4CDB021E7891E00397997 /* Withdrawal+CoreData.swift */,
 			);
-			path = "AppModel+DataStore";
+			path = "AppModel+CoreDataStore";
 			sourceTree = "<group>";
 		};
 		A1CD010921E7DB5600C93527 /* Helpers */ = {
@@ -629,6 +664,7 @@
 				A1B15D7F21E37D82008C313D /* CommunicationMessageEndpointTest.swift */,
 				A15C36F021E2A17D00F66AB2 /* ComplaintEndpointTest.swift */,
 				A1B15D8921E37D97008C313D /* DocumentEndpointTest.swift */,
+				A11A25C521EB87B400C30F53 /* FinancialEntryEndpointTest.swift */,
 				A1B15D8B21E37DA7008C313D /* InstitutionEndpointTest.swift */,
 				A1B15D8D21E37DB8008C313D /* NewsReportEndpointTest.swift */,
 				A1B15D8F21E37DC7008C313D /* RetirementEndpointTest.swift */,
@@ -646,6 +682,7 @@
 				A1FD2C7721E924BA0077243B /* ComplaintCoreDataTest.swift */,
 				A1FD2C7921E924D50077243B /* ContributionCoreDataTest.swift */,
 				A1FD2C7B21E924EA0077243B /* DocumentCoreDataTest.swift */,
+				A11A25C121EB819600C30F53 /* FinancialEntryCoreDataTest.swift */,
 				A1FD2C7D21E925000077243B /* InstitutionCoreDataTest.swift */,
 				A1FD2C7F21E925150077243B /* NewsReportCoreDataTest.swift */,
 				A1FD2C8121E925270077243B /* RetirementCoreDataTest.swift */,
@@ -924,6 +961,7 @@
 				A1829C4221DD5F7900CA903B /* Complaint.swift in Sources */,
 				A1829C3021DD5F5600CA903B /* AppCoordinator.swift in Sources */,
 				A1829C2D21DD5F5600CA903B /* DataStoreManager.swift in Sources */,
+				A11A25BC21EB75A600C30F53 /* FinancialEntry.swift in Sources */,
 				A1FD2C8A21E92F6A0077243B /* AppErrorHandling.swift in Sources */,
 				A17FFC5C21DE738E00B64090 /* ComplaintEndpoint.swift in Sources */,
 				A1829C4421DD5F7900CA903B /* Retirement.swift in Sources */,
@@ -938,6 +976,7 @@
 				A17FFC7D21DE9F0300B64090 /* Address.swift in Sources */,
 				A1829C3221DD5F5600CA903B /* StateManager.swift in Sources */,
 				A1829C2521DD5F4400CA903B /* AppDelegate.swift in Sources */,
+				A11A25BE21EB7A2200C30F53 /* FinancialEntry+CoreData.swift in Sources */,
 				A1E4CDAD21E788F700397997 /* Retirement+CoreData.swift in Sources */,
 				A1829C3F21DD5F7900CA903B /* NewsReport.swift in Sources */,
 				A17FFC8521DEB44900B64090 /* InstitutionEndpoint.swift in Sources */,
@@ -946,10 +985,12 @@
 				A1E4CDA921E788D100397997 /* Document+CoreData.swift in Sources */,
 				A164701E21DD3FFA0016A8B3 /* ViewController.swift in Sources */,
 				A1E4CDAB21E788E300397997 /* NewsReport+CoreData.swift in Sources */,
+				A11A25C921EB8AB600C30F53 /* AppState-FinancialEntry.swift in Sources */,
 				A1829C2421DD5F4400CA903B /* MainCoordinator.swift in Sources */,
 				A1829C3E21DD5F7900CA903B /* UserProfile.swift in Sources */,
 				A1E4CDA721E788C000397997 /* Contribution+CoreData.swift in Sources */,
 				A1829C4321DD5F7900CA903B /* Document.swift in Sources */,
+				A11A25C421EB86EB00C30F53 /* FinancialEntryEndpoint.swift in Sources */,
 				A1E4CDB121E7891E00397997 /* Withdrawal+CoreData.swift in Sources */,
 				A1E4CDA321E7889D00397997 /* Complaint+CoreData.swift in Sources */,
 				A1FD2C8C21E92FDD0077243B /* AppError.swift in Sources */,
@@ -969,6 +1010,7 @@
 			files = (
 				A1CD011621E7DBBA00C93527 /* MockedAuthManager.swift in Sources */,
 				A1FD2C7421E920AB0077243B /* CoreDataTest.swift in Sources */,
+				A11A25C221EB819600C30F53 /* FinancialEntryCoreDataTest.swift in Sources */,
 				A15C36E221E26DE100F66AB2 /* MockedURLSession.swift in Sources */,
 				A1FD2C7A21E924D50077243B /* ContributionCoreDataTest.swift in Sources */,
 				A17FFC7921DE892100B64090 /* WithdrawalTest.swift in Sources */,
@@ -999,9 +1041,11 @@
 				A15C36F121E2A17D00F66AB2 /* ComplaintEndpointTest.swift in Sources */,
 				A17FFC7721DE890D00B64090 /* UserProfileTest.swift in Sources */,
 				A1FD2C8821E927390077243B /* AddressCoreDataTest.swift in Sources */,
+				A11A25C021EB7CE000C30F53 /* FinancialEntryTest.swift in Sources */,
 				A1CD011A21E7E36800C93527 /* MockedCoreDataStack.swift in Sources */,
 				A17FFC7521DE890100B64090 /* RetirementTest.swift in Sources */,
 				A1B15D9021E37DC7008C313D /* RetirementEndpointTest.swift in Sources */,
+				A11A25C621EB87B400C30F53 /* FinancialEntryEndpointTest.swift in Sources */,
 				A17FFC7121DE88E800B64090 /* DocumentTest.swift in Sources */,
 				A17FFC6F21DE88DD00B64090 /* ContributionTest.swift in Sources */,
 				A1FD2C8421E925390077243B /* UserProfileCoreDataTest.swift in Sources */,

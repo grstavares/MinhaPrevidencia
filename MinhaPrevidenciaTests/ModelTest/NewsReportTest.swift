@@ -102,7 +102,7 @@ class NewsReportTest: XCTestCase {
             contents: self.mockContent,
             dateCreation: mockCreation.timeIntervalSince1970,
             lastUpdate: mockReception.timeIntervalSince1970,
-            url: mockUrl
+            url: mockUrl, wasDeleted: false
         )
 
     }

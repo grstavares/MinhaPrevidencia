@@ -12,6 +12,7 @@ extension AppDelegate {
 
     static func handleError(error: Swift.Error, file: String = #file, line: Int = #line) {
         print("=================================== ERROR =================================== ")
+        print("ERROR IN \(file), line \(line)")
         print(error.localizedDescription)
     }
 

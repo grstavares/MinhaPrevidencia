@@ -13,10 +13,21 @@ struct Contribution {
     let source: String
     let reference: Date
     let value: Double
+    let wasDeleted: Bool
 
 }
 
 extension Contribution: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, source: String, reference: Date, value: Double) {
+
+        self.uuid = uuid
+        self.source = source
+        self.reference = reference
+        self.value = value
+        self.wasDeleted = false
+
+    }
 
     init?(from data: Data) {
 
@@ -34,6 +45,7 @@ extension Contribution: Hashable, Equatable, JsonConvertible {
         self.source = raw.source
         self.reference = date
         self.value = raw.value
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -48,7 +60,7 @@ extension Contribution: Hashable, Equatable, JsonConvertible {
     func raw() -> RawContribution {
 
         let date = self.reference.timeIntervalSince1970
-        let raw = RawContribution(uuid: self.uuid, source: self.source, reference: date, value: self.value)
+        let raw = RawContribution(uuid: self.uuid, source: self.source, reference: date, value: self.value, wasDeleted: self.wasDeleted)
         return raw
 
     }
@@ -61,6 +73,7 @@ struct RawContribution: Codable, Hashable, Equatable {
     let source: String
     let reference: Double
     let value: Double
+    let wasDeleted: Bool
 
 }
 
@@ -70,6 +83,7 @@ struct ContributionBuilder {
     let source: String
     let reference: Date
     let value: Double
-    func build() -> Contribution { return Contribution(uuid: self.uuid, source: self.source, reference: self.reference, value: self.value) }
+    let wasDeleted: Bool
+    func build() -> Contribution { return Contribution(uuid: self.uuid, source: self.source, reference: self.reference, value: self.value, wasDeleted: wasDeleted) }
 
 }

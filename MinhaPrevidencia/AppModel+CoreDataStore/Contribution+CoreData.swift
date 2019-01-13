@@ -13,7 +13,7 @@ import SwiftSugarKit
 extension Contribution: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Contribution
-    typealias ObjectBuilder = ContributionBuilder
+//    typealias ObjectBuilder = ContributionBuilder
     typealias CoreDataModel = ContributionCoreData
 
     static var entityName: String { return "ContributionCoreData" }
@@ -22,8 +22,9 @@ extension Contribution: AbstractCoreDataStoreItem {
 
         guard let uuid = object.uuid, let source = object.source, let refer = object.reference else { return nil }
         let value = object.value
+        let wasDeleted = object.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, source: source, reference: refer, value: value).build()
+        let document = ObjectModel.init(uuid: uuid, source: source, reference: refer, value: value, wasDeleted: wasDeleted)
         return document
 
     }

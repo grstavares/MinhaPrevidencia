@@ -42,6 +42,7 @@ class AppStateTest: XCTestCase {
         let expectNews = expectation(description: "News Initial Data is available")
         let expectComplaints = expectation(description: "Complaints Initial Data is available")
         let expectRetirement = expectation(description: "Retirement Initial Data is available")
+        let expectFinancial = expectation(description: "Financial Initial Data is available")
 
         self.sut?.institution.subscribe(onNext: { _ in expectInstitution.fulfill() }).disposed(by: bag)
         self.sut?.userInfo.subscribe(onNext: { _ in expectUserInfo.fulfill() }).disposed(by: bag)
@@ -50,6 +51,7 @@ class AppStateTest: XCTestCase {
         self.sut?.news.subscribe(onNext: { _ in expectNews.fulfill() }).disposed(by: bag)
         self.sut?.complaints.subscribe(onNext: { _ in expectComplaints.fulfill() }).disposed(by: bag)
         self.sut?.retirement.subscribe(onNext: { _ in expectRetirement.fulfill() }).disposed(by: bag)
+        self.sut?.financialEntries.subscribe(onNext: { _ in expectFinancial.fulfill() }).disposed(by: bag)
 
         waitForExpectations(timeout: 5.0, handler: nil)
 
@@ -127,6 +129,7 @@ class AppStateTest: XCTestCase {
         let expectNews = expectation(description: "News must be Refreshed")
         let expectComplaints = expectation(description: "Complaints must be Refreshed")
         let expectRetirement = expectation(description: "Retirement must be Refreshed")
+        let expectFinancial = expectation(description: "Financial Entries must be Refreshed")
 
         self.sut?.institution.skip(1).subscribe(onNext: { _ in expectInstitution.fulfill()}).disposed(by: self.bag)
         self.sut?.userInfo.skip(1).subscribe(onNext: { _ in expectUserInfo.fulfill()}).disposed(by: self.bag)
@@ -135,6 +138,7 @@ class AppStateTest: XCTestCase {
         self.sut?.news.skip(1).subscribe(onNext: { _ in expectNews.fulfill()}).disposed(by: self.bag)
         self.sut?.complaints.skip(1).subscribe(onNext: { _ in expectComplaints.fulfill()}).disposed(by: self.bag)
         self.sut?.retirement.skip(1).subscribe(onNext: { _ in expectRetirement.fulfill()}).disposed(by: self.bag)
+        self.sut?.financialEntries.skip(1).subscribe(onNext: { _ in expectFinancial.fulfill()}).disposed(by: self.bag)
 
         sut?.refresh()
 
@@ -153,6 +157,7 @@ class AppStateTest: XCTestCase {
         var counterNews = 0
         var counterComplaints = 0
         var counterRetirement = 0
+        var counterFinancial = 0
 
         let expectInstitution = expectation(description: "Institution must be Refreshed")
         let expectUserInfo = expectation(description: "UserInfo must be Refreshed")
@@ -161,6 +166,7 @@ class AppStateTest: XCTestCase {
         let expectNews = expectation(description: "News must be Refreshed")
         let expectComplaints = expectation(description: "Complaints must be Refreshed")
         let expectRetirement = expectation(description: "Retirement must be Refreshed")
+        let expectFinancial = expectation(description: "Financial Entries must be Refreshed")
 
         isolatedSut.institution.skip(1).subscribe(onNext: { _ in counterInstitution += 1; if counterInstitution == 2 {expectInstitution.fulfill()}}).disposed(by: self.bag)
         isolatedSut.userInfo.skip(1).subscribe(onNext: { _ in counterUserInfo += 1; if counterUserInfo == 2 {expectUserInfo.fulfill()}}).disposed(by: self.bag)
@@ -169,6 +175,7 @@ class AppStateTest: XCTestCase {
         isolatedSut.news.skip(1).subscribe(onNext: { _ in counterNews += 1; if counterNews == 2 {expectNews.fulfill()}}).disposed(by: self.bag)
         isolatedSut.complaints.skip(1).subscribe(onNext: { _ in counterComplaints += 1; if counterComplaints == 2 {expectComplaints.fulfill()}}).disposed(by: self.bag)
         isolatedSut.retirement.skip(1).subscribe(onNext: { _ in counterRetirement += 1; if counterRetirement == 2 {expectRetirement.fulfill()}}).disposed(by: self.bag)
+        isolatedSut.financialEntries.skip(1).subscribe(onNext: { _ in counterFinancial += 1; if counterFinancial == 2 {expectFinancial.fulfill()}}).disposed(by: self.bag)
 
         isolatedSut.startObservables()
 
@@ -211,6 +218,7 @@ class AppStateTest: XCTestCase {
         nsmutable.addEntries(from: NewsReportEndpointTest().stubbedData())
         nsmutable.addEntries(from: RetirementEndpointTest().stubbedData())
         nsmutable.addEntries(from: UserProfileEndpointTest().stubbedData())
+        nsmutable.addEntries(from: FinancialEntryEndpointTest().stubbedData())
 
         // swiftlint:disable identifier_name
         var stubbed: [URL: Data] = [:]

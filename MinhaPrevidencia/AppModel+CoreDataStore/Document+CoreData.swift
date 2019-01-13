@@ -13,7 +13,7 @@ import SwiftSugarKit
 extension Document: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = Document
-    typealias ObjectBuilder = DocumentBuilder
+//    typealias ObjectBuilder = DocumentBuilder
     typealias CoreDataModel = DocumentCoreData
 
     static var entityName: String { return "DocumentCoreData" }
@@ -22,8 +22,9 @@ extension Document: AbstractCoreDataStoreItem {
 
         guard let uuid = object.uuid, let title = object.title, let summary = object.summary, let dateCreation = object.dateCreation, let url = object.url else { return nil }
         let lasUpdate = object.lastUpdate
+        let wasDeleted = object.wasDeleted
 
-        let document = ObjectBuilder.init(uuid: uuid, title: title, summary: summary, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url).build()
+        let document = ObjectModel.init(uuid: uuid, title: title, summary: summary, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url, wasDeleted: wasDeleted)
         return document
 
     }

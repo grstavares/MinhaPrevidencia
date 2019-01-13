@@ -14,10 +14,20 @@ struct Retirement {
     let endDate: Date
     let contributions: [Contribution]
     let withdrawals: [Withdrawal]
+    let wasDeleted: Bool
 
 }
 
 extension Retirement: Hashable, Equatable, JsonConvertible {
+
+    init(uuid: String, startDate: Date, endDate: Date, contributions: [Contribution], withdrawals: [Withdrawal]) {
+        self.uuid = uuid
+        self.startDate = startDate
+        self.endDate = endDate
+        self.contributions = contributions
+        self.withdrawals = withdrawals
+        self.wasDeleted = false
+    }
 
     init?(from data: Data) {
 
@@ -34,6 +44,7 @@ extension Retirement: Hashable, Equatable, JsonConvertible {
         self.endDate = Date(timeIntervalSince1970: raw.endDate)
         self.contributions = raw.contributions.compactMap({ (rawitem) -> Contribution? in Contribution(from: rawitem) })
         self.withdrawals = raw.withdrawals.compactMap({ (rawItem) -> Withdrawal? in Withdrawal(from: rawItem)})
+        self.wasDeleted = raw.wasDeleted
 
     }
 
@@ -53,7 +64,7 @@ extension Retirement: Hashable, Equatable, JsonConvertible {
         let contributions = self.contributions.map { $0.raw() }
         let withdrawals = self.withdrawals.map { $0.raw() }
 
-        let raw = RawRetirement(uuid: self.uuid, startDate: startDate, endDate: endDate, contributions: contributions, withdrawals: withdrawals)
+        let raw = RawRetirement(uuid: self.uuid, startDate: startDate, endDate: endDate, contributions: contributions, withdrawals: withdrawals, wasDeleted: self.wasDeleted)
         return raw
 
     }
@@ -67,6 +78,7 @@ struct RawRetirement: Codable, Hashable, Equatable {
     let endDate: Double
     let contributions: [RawContribution]
     let withdrawals: [RawWithdrawal]
+    let wasDeleted: Bool
 
 }
 
@@ -77,6 +89,8 @@ struct RetirementBuilder {
     let endDate: Date
     let contributions: [Contribution]
     let withdrawals: [Withdrawal]
-    func build() -> Retirement { return Retirement(uuid: self.uuid, startDate: self.startDate, endDate: self.endDate, contributions: self.contributions, withdrawals: self.withdrawals) }
+    let wasDeleted: Bool
+
+    func build() -> Retirement { return Retirement(uuid: self.uuid, startDate: self.startDate, endDate: self.endDate, contributions: self.contributions, withdrawals: self.withdrawals, wasDeleted: self.wasDeleted) }
 
 }
