@@ -1,7 +1,82 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--ComplaintsVC-->
+        <scene sceneID="cqI-04-Hez">
+            <objects>
+                <viewController storyboardIdentifier="ComplaintsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8oj-Iq-d8s" customClass="ComplaintsVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sFI-tj-iHL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jAm-an-yaK">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JEz-Op-Nls" firstAttribute="bottom" secondItem="jAm-an-yaK" secondAttribute="bottom" id="JMd-Du-LR6"/>
+                            <constraint firstItem="JEz-Op-Nls" firstAttribute="trailing" secondItem="jAm-an-yaK" secondAttribute="trailing" id="fEC-7k-ooN"/>
+                            <constraint firstItem="jAm-an-yaK" firstAttribute="top" secondItem="JEz-Op-Nls" secondAttribute="top" id="pn8-Y4-NHG"/>
+                            <constraint firstItem="jAm-an-yaK" firstAttribute="leading" secondItem="JEz-Op-Nls" secondAttribute="leading" id="rGz-5M-Vnu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JEz-Op-Nls"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="jAm-an-yaK" id="o2a-CN-czn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fuY-xR-qon" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-199" y="132"/>
+        </scene>
+        <!--ComplaintVC-->
+        <scene sceneID="Iiq-P2-Q6j">
+            <objects>
+                <viewController storyboardIdentifier="ComplaintVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SoG-YI-Sc6" customClass="ComplaintVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TDY-ki-aY3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cJS-aH-L9x">
+                                <rect key="frame" x="20" y="327" width="335" height="320"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OC-6X-rVD">
+                                <rect key="frame" x="20" y="40" width="335" height="267"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NzX-gX-dA3" firstAttribute="trailing" secondItem="cJS-aH-L9x" secondAttribute="trailing" constant="20" id="6YG-Is-mV0"/>
+                            <constraint firstItem="6OC-6X-rVD" firstAttribute="height" secondItem="TDY-ki-aY3" secondAttribute="height" multiplier="0.4" id="9PD-Fr-P2e"/>
+                            <constraint firstItem="cJS-aH-L9x" firstAttribute="leading" secondItem="NzX-gX-dA3" secondAttribute="leading" constant="20" id="HuU-yN-7ts"/>
+                            <constraint firstItem="6OC-6X-rVD" firstAttribute="leading" secondItem="NzX-gX-dA3" secondAttribute="leading" constant="20" id="IpH-yF-KBY"/>
+                            <constraint firstItem="NzX-gX-dA3" firstAttribute="trailing" secondItem="6OC-6X-rVD" secondAttribute="trailing" constant="20" id="M1Q-8p-M0g"/>
+                            <constraint firstItem="cJS-aH-L9x" firstAttribute="top" secondItem="6OC-6X-rVD" secondAttribute="bottom" constant="20" id="nj4-tA-IdZ"/>
+                            <constraint firstItem="6OC-6X-rVD" firstAttribute="top" secondItem="NzX-gX-dA3" secondAttribute="top" constant="20" id="yZT-9i-O7Q"/>
+                            <constraint firstItem="NzX-gX-dA3" firstAttribute="bottom" secondItem="cJS-aH-L9x" secondAttribute="bottom" constant="20" id="znR-Dh-JGt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NzX-gX-dA3"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="cJS-aH-L9x" id="3T1-O0-Dqw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SS4-c9-Rgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="516" y="132"/>
+        </scene>
+    </scenes>
 </document>

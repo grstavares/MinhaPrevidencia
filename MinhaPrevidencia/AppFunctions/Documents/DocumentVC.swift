@@ -7,24 +7,34 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import PDFKit
+import WebKit
 
-class DocumentVC: UIViewController {
+class DocumentVC: AppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.addAcessoryButtons()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    @IBOutlet weak var labelDate: UILabel!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var textView: UITextView!
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    let disposeBag = DisposeBag()
+    var dataSource: Document?
+
+    func addAcessoryButtons() {
+
+        let shareButton = UIBarButtonItem(image: UIImage(named: "iconShare"), style: .plain, target: self, action: #selector(self.shareDocument(sender:)))
+        self.navigationItem.rightBarButtonItems = [shareButton]
+
     }
-    */
+
+    @objc func shareDocument(sender: Any) {}
 
 }

@@ -7,24 +7,35 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class NewsReportVC: UIViewController {
+class NewsReportVC: AppViewController {
+
+    static func instantiate(with coordinator: AppCoordinator, state: AppState) -> UIViewController? {
+
+        let storyboard = UIStoryboard(name: "NewsReportSB", bundle: Bundle.main)
+        let controller = storyboard.instantiateViewController(type: NewsReportVC.self)
+        controller?.coordinator = coordinator
+        controller?.state = state
+        return controller
+
+    }
+
+    @IBOutlet weak var newsImage: UIImageView!
+    @IBOutlet weak var labelDate: UILabel!
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var newsContent: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.addAcessoryButtons()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func addAcessoryButtons() { }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    @IBAction func buttonTagTapped(sender: UIButton) { }
+    @IBAction func buttonPrintTapped(sender: UIButton) { }
+    @IBAction func buttonShareTapped(sender: UIButton) { }
 
 }

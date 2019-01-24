@@ -92,31 +92,3 @@ struct RawComunicationMessage: Codable, Hashable, Equatable {
     let wasDeleted: Bool
 
 }
-
-//struct CommunicationMessageBuilder {
-//
-//    let uuid: String
-//    let title: String
-//    let summary: String?
-//    let content: String
-//    let dateCreation: Date
-//    let userOrigin: String
-//    let recipients: [String]
-//    let wasDeleted: Bool
-//
-//    func build() -> CommunicationMessage {
-//
-//        return CommunicationMessage(
-//            uuid: self.uuid,
-//            title: self.title,
-//            summary: self.summary,
-//            content: self.content,
-//            dateCreation: self.dateCreation,
-//            userOrigin: self.userOrigin,
-//            recipients: self.recipients,
-//            wasDeleted: self.wasDeleted
-//        )
-//
-//    }
-//
-//}

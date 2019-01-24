@@ -10,21 +10,25 @@ import UIKit
 
 class AppViewController: UIViewController {
 
+    var coordinator: AppCoordinator?
+    var state: AppState?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func performAppAction(action: AppCoordinatorAction) { self.coordinator?.perform(action: action, from: self) }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func performAppAction(action: AppCoordinatorAction, completion: (Bool) -> Void) { self.coordinator?.perform(action: action, from: self, with: completion)}
+
+    func addMenuButton() {
+
+        let menuImage = UIImage(named: "iconMenu")
+        let menuButton = UIBarButtonItem(image: menuImage, style: .plain, target: self, action: #selector(self.menuButtonTapped(sender:)))
+        self.navigationItem.leftBarButtonItem = menuButton
+
     }
-    */
+
+    @objc func menuButtonTapped(sender: Any) { self.coordinator?.perform(action: AppNavigation.toggleMenu, from: self) }
 
 }

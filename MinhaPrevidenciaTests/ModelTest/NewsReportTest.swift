@@ -16,6 +16,7 @@ class NewsReportTest: XCTestCase {
     let mockTitle = "MockTitle"
     let mockContent = "MockContent"
     let mockUrl = "http://www.google.com"
+    let mockImgUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
 
     let mockCreation = DateComponents(
         calendar: Calendar.current, timeZone: TimeZone.current,
@@ -102,7 +103,7 @@ class NewsReportTest: XCTestCase {
             contents: self.mockContent,
             dateCreation: mockCreation.timeIntervalSince1970,
             lastUpdate: mockReception.timeIntervalSince1970,
-            url: mockUrl, wasDeleted: false
+            url: mockUrl, imageUrl: mockImgUrl, wasDeleted: false
         )
 
     }

@@ -10,6 +10,12 @@ import UIKit
 
 class NewsReportCell: UITableViewCell {
 
+    static let cellId = "NewsReportCell"
+
+    @IBOutlet weak var newsImage: UIImageView!
+    @IBOutlet weak var newsTitle: UILabel!
+    @IBOutlet weak var newsSummary: UITextView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +26,14 @@ class NewsReportCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    func configure(with newsReport: NewsReport) {
+
+        let uiImage = UIImage(named: "imageNewsReport")
+        self.newsImage.image = uiImage
+        self.newsTitle.text = newsReport.title
+        self.newsSummary.text = newsReport.contents
+
+    }
+
 }

@@ -1,7 +1,109 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--ActivitiesVC-->
+        <scene sceneID="Gi2-Jb-vGd">
+            <objects>
+                <viewController storyboardIdentifier="ActivitiesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cAN-Lx-46p" customClass="ActivitiesVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fy7-b7-ta4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HSl-Ff-Z8l">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qvk-pL-jib" firstAttribute="bottom" secondItem="HSl-Ff-Z8l" secondAttribute="bottom" id="4Oj-Of-F0J"/>
+                            <constraint firstItem="HSl-Ff-Z8l" firstAttribute="top" secondItem="qvk-pL-jib" secondAttribute="top" id="F8N-7W-umu"/>
+                            <constraint firstItem="HSl-Ff-Z8l" firstAttribute="leading" secondItem="qvk-pL-jib" secondAttribute="leading" id="RuW-46-BiW"/>
+                            <constraint firstItem="qvk-pL-jib" firstAttribute="trailing" secondItem="HSl-Ff-Z8l" secondAttribute="trailing" id="c1J-Ay-pb7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qvk-pL-jib"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WhQ-eh-A4b"/>
+                    <connections>
+                        <outlet property="tableView" destination="HSl-Ff-Z8l" id="Jyo-pN-tT7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehX-kj-Xb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="122" y="-35"/>
+        </scene>
+        <!--ActivityVC-->
+        <scene sceneID="PYi-8c-psp">
+            <objects>
+                <viewController storyboardIdentifier="ActivityVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mla-m6-60x" customClass="ActivityVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Lw-Hd-a74">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s1u-3j-CMk">
+                                <rect key="frame" x="0.0" y="20" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="WH1-zw-o3a">
+                                <rect key="frame" x="20" y="617" width="335" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2v-bS-B7C">
+                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="30"/>
+                                        <state key="normal" image="iconTag"/>
+                                        <connections>
+                                            <action selector="buttonTagTappedWithSender:" destination="Mla-m6-60x" eventType="touchUpInside" id="9ge-6d-gbz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCC-Kl-DEp">
+                                        <rect key="frame" x="111.5" y="0.0" width="112" height="30"/>
+                                        <state key="normal" image="iconAlarm"/>
+                                        <connections>
+                                            <action selector="buttonAlarmTappedWithSender:" destination="Mla-m6-60x" eventType="touchUpInside" id="ZN5-3w-7tz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPO-dg-lf7">
+                                        <rect key="frame" x="223.5" y="0.0" width="111.5" height="30"/>
+                                        <state key="normal" image="iconFoward"/>
+                                        <connections>
+                                            <action selector="buttonFowardTappedWithSender:" destination="Mla-m6-60x" eventType="touchUpInside" id="a8b-Dd-3Fj"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WH1-zw-o3a" firstAttribute="top" secondItem="s1u-3j-CMk" secondAttribute="bottom" constant="20" id="540-Gb-2bN"/>
+                            <constraint firstItem="WH1-zw-o3a" firstAttribute="leading" secondItem="mQN-SE-7VN" secondAttribute="leading" constant="20" id="MYM-pv-V4v"/>
+                            <constraint firstItem="mQN-SE-7VN" firstAttribute="bottom" secondItem="WH1-zw-o3a" secondAttribute="bottom" constant="20" id="VOC-ny-5Bk"/>
+                            <constraint firstItem="mQN-SE-7VN" firstAttribute="trailing" secondItem="WH1-zw-o3a" secondAttribute="trailing" constant="20" id="Z3j-7f-i1y"/>
+                            <constraint firstItem="s1u-3j-CMk" firstAttribute="top" secondItem="mQN-SE-7VN" secondAttribute="top" id="bPQ-IG-jYw"/>
+                            <constraint firstItem="mQN-SE-7VN" firstAttribute="trailing" secondItem="s1u-3j-CMk" secondAttribute="trailing" id="k75-X3-zRR"/>
+                            <constraint firstItem="s1u-3j-CMk" firstAttribute="leading" secondItem="mQN-SE-7VN" secondAttribute="leading" id="n0S-dm-iHF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mQN-SE-7VN"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="s1u-3j-CMk" id="I0p-xV-9bW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lda-4e-5qN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="881" y="-36"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="iconAlarm" width="30" height="30"/>
+        <image name="iconFoward" width="30" height="30"/>
+        <image name="iconTag" width="30" height="30"/>
+    </resources>
 </document>

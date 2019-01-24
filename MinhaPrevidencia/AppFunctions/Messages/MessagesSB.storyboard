@@ -1,7 +1,108 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--MessagesVC-->
+        <scene sceneID="yg9-Ac-vv6">
+            <objects>
+                <viewController storyboardIdentifier="MessagesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GCG-9J-JOX" customClass="MessagesVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="d9A-LY-aim">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-8b-x2r">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JxN-8b-x2r" firstAttribute="leading" secondItem="pDX-aU-S1p" secondAttribute="leading" id="JY2-Pk-bAH"/>
+                            <constraint firstItem="pDX-aU-S1p" firstAttribute="trailing" secondItem="JxN-8b-x2r" secondAttribute="trailing" id="Wr8-Iv-Ij0"/>
+                            <constraint firstItem="JxN-8b-x2r" firstAttribute="top" secondItem="pDX-aU-S1p" secondAttribute="top" id="Yja-Gm-nNo"/>
+                            <constraint firstItem="pDX-aU-S1p" firstAttribute="bottom" secondItem="JxN-8b-x2r" secondAttribute="bottom" id="iNC-T2-40q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pDX-aU-S1p"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="JxN-8b-x2r" id="PSL-t0-WiZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uRj-k1-LNA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-278" y="129"/>
+        </scene>
+        <!--MessageVC-->
+        <scene sceneID="cZa-XB-Zou">
+            <objects>
+                <viewController storyboardIdentifier="MessageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ibx-BQ-Psn" customClass="MessageVC" customModule="MinhaPrevidencia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hXP-0v-6nS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gD5-7Q-Y11">
+                                <rect key="frame" x="20" y="617" width="335" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kG-2U-ddc">
+                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="30"/>
+                                        <state key="normal" image="iconTag"/>
+                                        <connections>
+                                            <action selector="buttonTagTappedWithSender:" destination="Ibx-BQ-Psn" eventType="touchUpInside" id="QK5-qC-ffU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyl-Ad-8lQ">
+                                        <rect key="frame" x="111.5" y="0.0" width="112" height="30"/>
+                                        <state key="normal" image="iconReply"/>
+                                        <connections>
+                                            <action selector="buttonReplyTappedWithSender:" destination="Ibx-BQ-Psn" eventType="touchUpInside" id="DR5-2l-68W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zs6-jM-Br2">
+                                        <rect key="frame" x="223.5" y="0.0" width="111.5" height="30"/>
+                                        <state key="normal" image="iconFoward"/>
+                                        <connections>
+                                            <action selector="buttonFowardTappedWithSender:" destination="Ibx-BQ-Psn" eventType="touchUpInside" id="bq2-M2-TiX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Dn-zn-GTa">
+                                <rect key="frame" x="0.0" y="20" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1Dn-zn-GTa" firstAttribute="top" secondItem="z6h-8I-PqF" secondAttribute="top" id="7lX-rG-vzl"/>
+                            <constraint firstItem="z6h-8I-PqF" firstAttribute="trailing" secondItem="1Dn-zn-GTa" secondAttribute="trailing" id="dSU-nA-DAy"/>
+                            <constraint firstItem="gD5-7Q-Y11" firstAttribute="top" secondItem="1Dn-zn-GTa" secondAttribute="bottom" constant="20" id="fFn-rg-0UQ"/>
+                            <constraint firstItem="1Dn-zn-GTa" firstAttribute="leading" secondItem="z6h-8I-PqF" secondAttribute="leading" id="ome-Oh-Cw4"/>
+                            <constraint firstItem="z6h-8I-PqF" firstAttribute="trailing" secondItem="gD5-7Q-Y11" secondAttribute="trailing" constant="20" id="veu-fu-fp1"/>
+                            <constraint firstItem="z6h-8I-PqF" firstAttribute="bottom" secondItem="gD5-7Q-Y11" secondAttribute="bottom" constant="20" id="x2k-FQ-0Jg"/>
+                            <constraint firstItem="gD5-7Q-Y11" firstAttribute="leading" secondItem="z6h-8I-PqF" secondAttribute="leading" constant="20" id="xlO-Te-PLs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="z6h-8I-PqF"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="1Dn-zn-GTa" id="xJ3-hy-VPT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Dq-9b-pZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="535" y="128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="iconFoward" width="30" height="30"/>
+        <image name="iconReply" width="30" height="30"/>
+        <image name="iconTag" width="30" height="30"/>
+    </resources>
 </document>

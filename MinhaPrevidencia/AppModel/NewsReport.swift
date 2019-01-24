@@ -15,23 +15,24 @@ struct NewsReport {
     let dateCreation: Date
     let lastUpdate: Date?
     let url: URL?
+    let imageUrl: URL?
     let wasDeleted: Bool
 
 }
 
 extension NewsReport: Hashable, Equatable, JsonConvertible {
 
-    init(uuid: String, title: String, contents: String, dateCreation: Date, lastUpdate: Date?, url: URL?) {
-
-        self.uuid = uuid
-        self.title = title
-        self.contents = contents
-        self.dateCreation = dateCreation
-        self.lastUpdate = lastUpdate
-        self.url = url
-        self.wasDeleted = false
-
-    }
+//    init(uuid: String, title: String, contents: String, dateCreation: Date, lastUpdate: Date?, url: URL?) {
+//
+//        self.uuid = uuid
+//        self.title = title
+//        self.contents = contents
+//        self.dateCreation = dateCreation
+//        self.lastUpdate = lastUpdate
+//        self.url = url
+//        self.wasDeleted = false
+//
+//    }
 
     init?(from data: Data) {
 
@@ -45,8 +46,10 @@ extension NewsReport: Hashable, Equatable, JsonConvertible {
 
         var dateUpdate: Date?
         var urlValue: URL?
+        var imgUrlValue: URL?
 
         if let notEmpty = raw.url {urlValue = URL(string: notEmpty)}
+        if let notEmptyImg = raw.imageUrl {imgUrlValue = URL(string: notEmptyImg)}
         if let updatedValue = raw.lastUpdate {dateUpdate = Date(timeIntervalSince1970: updatedValue)}
 
         self.uuid = raw.uuid
@@ -55,6 +58,7 @@ extension NewsReport: Hashable, Equatable, JsonConvertible {
         self.dateCreation = Date(timeIntervalSince1970: raw.dateCreation)
         self.lastUpdate = dateUpdate
         self.url = urlValue
+        self.imageUrl = imgUrlValue
         self.wasDeleted = raw.wasDeleted
 
     }
@@ -75,7 +79,8 @@ extension NewsReport: Hashable, Equatable, JsonConvertible {
         let raw = RawNewsReport(
             uuid: self.uuid, title: self.title, contents: self.contents,
             dateCreation: dateCreation, lastUpdate: dateUpdate,
-            url: self.url?.absoluteString, wasDeleted: self.wasDeleted
+            url: self.url?.absoluteString, imageUrl: self.imageUrl?.absoluteString,
+            wasDeleted: self.wasDeleted
         )
 
         return raw
@@ -92,19 +97,7 @@ struct RawNewsReport: Codable, Hashable, Equatable {
     let dateCreation: Double
     let lastUpdate: Double?
     let url: String?
+    let imageUrl: String?
     let wasDeleted: Bool
 
 }
-
-//struct NewsReportBuilder {
-//
-//    let uuid: String
-//    let title: String
-//    let contents: String
-//    let dateCreation: Date
-//    let lastUpdate: Date?
-//    let url: URL?
-//    let wasDeleted: Bool
-//    func build() -> NewsReport { return NewsReport(uuid: self.uuid, title: self.title, contents: self.contents, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url, wasDeleted: self.wasDeleted) }
-//
-//}

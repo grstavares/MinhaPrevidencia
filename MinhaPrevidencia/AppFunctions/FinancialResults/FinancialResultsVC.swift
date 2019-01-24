@@ -7,24 +7,42 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class FinancialResultsVC: UIViewController {
+class FinancialResultsVC: AppViewController {
+
+    static func instantiate(with coordinator: AppCoordinator, state: AppState) -> UIViewController? {
+
+        let storyboard = UIStoryboard(name: "FinancialResultsSB", bundle: Bundle.main)
+        let controller = storyboard.instantiateViewController(type: FinancialResultsVC.self)
+        controller?.coordinator = coordinator
+        controller?.state = state
+        return controller
+
+    }
+
+    @IBOutlet weak var viewGraph: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var buttonPrevious: UIButton!
+    @IBOutlet weak var buttonNext: UIButton!
+    @IBOutlet weak var buttonPeriod: UIButton!
+
+    let disposeBag = DisposeBag()
+    var dataSource: [FinancialEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.addMenuButton()
+        self.addAcessoryButtons()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func addAcessoryButtons() { }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    @IBAction func buttonPreviousTapped(sender: UIButton) { }
+
+    @IBAction func buttonNextTapped(sender: UIButton) { }
+
+    @IBAction func buttonPeriodTapped(sender: UIButton) { }
 
 }

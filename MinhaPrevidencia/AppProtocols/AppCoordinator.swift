@@ -8,7 +8,13 @@
 
 import UIKit
 
-protocol AppCoordinatorAction { }
+protocol AppCoordinatorAction {
+
+    var mustBeAsync: Bool { get }
+    var mustBeSync: Bool { get }
+    var debugName: String { get }
+
+}
 
 protocol AppCoordinator {
 

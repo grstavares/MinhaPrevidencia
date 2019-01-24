@@ -96,30 +96,3 @@ struct RawUserProfile: Codable, Hashable, Equatable {
     let wasDeleted: Bool
 
 }
-
-//struct UserProfileBuilder {
-//
-//    let uuid: String
-//    let firstName: String
-//    let lastName: String
-//    let username: String?
-//    let phoneNumber: String?
-//    let birthDate: Date?
-//    let genre: String?
-//    let wasDeleted: Bool
-//
-//    func build() -> UserProfile {
-//
-//        return UserProfile(
-//            uuid: self.uuid,
-//            firstName: self.firstName,
-//            lastName: self.lastName,
-//            username: self.username,
-//            phoneNumber: self.phoneNumber,
-//            birthDate: self.birthDate,
-//            genre: self.genre,
-//            wasDeleted: self.wasDeleted
-//        )
-//
-//    }
-//}

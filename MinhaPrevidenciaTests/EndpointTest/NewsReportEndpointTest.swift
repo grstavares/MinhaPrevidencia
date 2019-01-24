@@ -92,7 +92,7 @@ class NewsReportEndpointTest: XCTestCase {
         guard let router = self.router else { XCTFail("Backend System not Configured!"); return }
 
         let expectGet = expectation(description: "Get 201 Status Code Return")
-        let mockObject = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
+        let mockObject = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil, imageUrl: nil, wasDeleted: false)
         _ = try router.request(NewsReportApi.markReaded(object: mockObject, authToken: nil)) { (data, response, error) in
 
             guard error == nil else { XCTFail("AppRouter Error -> \(String(describing: error))"); return }
@@ -128,7 +128,7 @@ class NewsReportEndpointTest: XCTestCase {
 
      static let uuidAOnDb = "123akj121ahsfkjdshu6543"
      static let uuidBOnDb = "1asdasjahfdsfkjdshu6543"
-     static let objectA = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
-     static let objectB = NewsReport(uuid: NewsReportEndpointTest.uuidBOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil)
+    static let objectA = NewsReport(uuid: NewsReportEndpointTest.uuidAOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil, imageUrl: nil, wasDeleted: false)
+     static let objectB = NewsReport(uuid: NewsReportEndpointTest.uuidBOnDb, title: "Title", contents: "contents", dateCreation: Date(), lastUpdate: nil, url: nil, imageUrl: nil, wasDeleted: false)
 
 }

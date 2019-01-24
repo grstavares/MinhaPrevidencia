@@ -63,12 +63,3 @@ struct RawInstitution: Codable, Equatable, Hashable {
     let wasDeleted: Bool
 
 }
-
-//struct InstitutionBuilder {
-//
-//    let uuid: String
-//    let name: String
-//    let wasDeleted: Bool
-//    func build() -> Institution { return Institution(uuid: uuid, name: name, wasDeleted: self.wasDeleted) }
-//
-//}

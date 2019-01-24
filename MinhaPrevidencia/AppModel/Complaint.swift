@@ -96,16 +96,3 @@ struct RawComplaint: Codable, Hashable, Equatable {
     let wasDeleted: Bool
 
 }
-
-//struct ComplaintBuilder {
-//
-//    let uuid: String
-//    let title: String
-//    let content: String
-//    let dateCreation: Date
-//    let dateReception: Date?
-//    let status: Complaint.Status
-//    let wasDeleted: Bool
-//    func build() -> Complaint { return Complaint(uuid: self.uuid, title: self.title, content: self.content, dateCreation: self.dateCreation, dateReception: self.dateReception, status: self.status, wasDeleted: self.wasDeleted) }
-//
-//}

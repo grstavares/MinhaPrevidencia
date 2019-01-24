@@ -92,32 +92,3 @@ struct RawFinancialEntry: Codable, Hashable, Equatable {
     let wasDeleted: Bool
 
 }
-
-//struct FinancialEntryBuilder {
-//
-//    let uuid: String
-//    let date: Date
-//    let startDate: Date
-//    let endDate: Date
-//    let subject: String
-//    let description: String?
-//    let value: Double
-//    let details: URL?
-//    let wasDeleted: Bool
-//
-//    func build() -> FinancialEntry {
-//
-//        return FinancialEntry(
-//            uuid: self.uuid,
-//            date: self.date,
-//            period: self.startDate...self.endDate,
-//            subject: self.subject,
-//            description: self.description,
-//            value: self.value,
-//            details: self.details,
-//            wasDeleted: self.wasDeleted
-//        )
-//
-//    }
-//
-//}

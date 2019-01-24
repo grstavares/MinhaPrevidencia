@@ -93,16 +93,3 @@ struct RawDocument: Codable, Hashable, Equatable {
     let wasDeleted: Bool
 
 }
-
-//struct DocumentBuilder {
-//
-//    let uuid: String
-//    let title: String
-//    let summary: String
-//    let dateCreation: Date
-//    let lastUpdate: Date?
-//    let url: URL
-//    let wasDeleted: Bool
-//    func build() -> Document { return Document(uuid: self.uuid, title: self.title, summary: self.summary, dateCreation: self.dateCreation, lastUpdate: self.lastUpdate, url: self.url, wasDeleted: self.wasDeleted) }
-//
-//}

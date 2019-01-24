@@ -88,7 +88,7 @@ class AppInjector {
                 userInfo: persistedUserInfo ?? mocked.userInfo,
                 messages: persistedMessages,
                 documents: allDocuments,
-                news: persistedNews,
+                news: persistedNews.count == 0 ? mocked.news : persistedNews,
                 complaints: persistedComplaints,
                 financialEntries: persistedFinancials,
                 retirement: persistedRetirement ?? mocked.retirement

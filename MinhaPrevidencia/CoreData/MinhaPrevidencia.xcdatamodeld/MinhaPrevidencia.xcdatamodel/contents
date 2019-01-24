@@ -72,6 +72,7 @@
     <entity name="NewsReportCoreData" representedClassName="NewsReportCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="contents" attributeType="String" syncable="YES"/>
         <attribute name="dateCreation" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="URI" syncable="YES"/>
@@ -111,11 +112,11 @@
         <element name="ComplaintCoreData" positionX="-368.390625" positionY="96.06640625" width="128" height="150"/>
         <element name="ContributionCoreData" positionX="-301.69140625" positionY="349.6640625" width="128" height="135"/>
         <element name="DocumentCoreData" positionX="308.9453125" positionY="189.65234375" width="128" height="150"/>
+        <element name="FinancialEntryCoreData" positionX="-54" positionY="81" width="128" height="210"/>
         <element name="InstitutionCoreData" positionX="-206.04296875" positionY="-148.1875" width="128" height="90"/>
-        <element name="NewsReportCoreData" positionX="207.10546875" positionY="-293.078125" width="128" height="165"/>
+        <element name="NewsReportCoreData" positionX="207.10546875" positionY="-293.078125" width="128" height="180"/>
         <element name="RetirementCoreData" positionX="-99.8984375" positionY="223.70703125" width="128" height="135"/>
         <element name="UserProfileCoreData" positionX="231.87109375" positionY="-14.140625" width="128" height="165"/>
         <element name="WithdrawalCoreData" positionX="76.72265625" positionY="128.44140625" width="128" height="135"/>
-        <element name="FinancialEntryCoreData" positionX="-54" positionY="81" width="128" height="210"/>
     </elements>
 </model>

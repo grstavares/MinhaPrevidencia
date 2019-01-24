@@ -13,7 +13,6 @@ import SwiftSugarKit
 extension NewsReport: AbstractCoreDataStoreItem {
 
     typealias ObjectModel = NewsReport
-//    typealias ObjectBuilder = NewsReportBuilder
     typealias CoreDataModel = NewsReportCoreData
 
     static var entityName: String { return "NewsReportCoreData" }
@@ -23,9 +22,10 @@ extension NewsReport: AbstractCoreDataStoreItem {
         guard let uuid = object.uuid, let title = object.title, let contents = object.contents, let dateCreation = object.dateCreation else { return nil }
         let lasUpdate = object.lastUpdate
         let url = object.url
+        let imageUrl = object.imageUrl
         let wasDeleted = object.wasDeleted
 
-        let document = ObjectModel.init(uuid: uuid, title: title, contents: contents, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url, wasDeleted: wasDeleted)
+        let document = ObjectModel.init(uuid: uuid, title: title, contents: contents, dateCreation: dateCreation, lastUpdate: lasUpdate, url: url, imageUrl: imageUrl, wasDeleted: wasDeleted)
         return document
 
     }
@@ -39,11 +39,7 @@ extension NewsReport: AbstractCoreDataStoreItem {
 
         if let first: NewsReportCoreData = try NewsReport.loadManagedObject(uuid: uuid, entityName: NewsReport.entityName, manager: coredata) {
 
-            first.title = self.title
-            first.contents = self.contents
-            first.dateCreation = self.dateCreation
-            first.lastUpdate = self.lastUpdate
-            first.url = self.url
+            first.update(with: self)
             coredata.sync()
             return true
 
@@ -56,14 +52,25 @@ extension NewsReport: AbstractCoreDataStoreItem {
 
             let newObject = CoreDataModel.init(entity: entityDescription, insertInto: coredata.managedObjectContext)
             newObject.uuid = self.uuid
-            newObject.title = self.title
-            newObject.contents = self.contents
-            newObject.dateCreation = self.dateCreation
-            newObject.lastUpdate = self.lastUpdate
-            newObject.url = self.url
+            newObject.update(with: self)
             return coredata.save(newObject)
 
         }
+
+    }
+
+}
+
+extension NewsReportCoreData {
+
+    func update(with object: NewsReport) {
+
+        if object.title != self.title {self.title = object.title}
+        if object.contents != self.contents {self.contents = object.contents}
+        if object.dateCreation != self.dateCreation { self.dateCreation = object.dateCreation }
+        if object.lastUpdate != self.lastUpdate { self.lastUpdate = object.lastUpdate }
+        if object.imageUrl != self.imageUrl { self.imageUrl = object.imageUrl }
+        if object.url != self.url { self.url = object.url }
 
     }
 
