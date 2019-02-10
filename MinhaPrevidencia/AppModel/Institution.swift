@@ -33,7 +33,7 @@ extension Institution: Equatable, Hashable, JsonConvertible {
 
     init?(from raw: RawInstitution) {
 
-        self.uuid = raw.uuid
+        self.uuid = raw.institutionId
         self.name = raw.name
         self.wasDeleted = raw.wasDeleted
 
@@ -49,7 +49,7 @@ extension Institution: Equatable, Hashable, JsonConvertible {
 
     func raw() -> RawInstitution {
 
-        let raw = RawInstitution(uuid: self.uuid, name: self.name, wasDeleted: self.wasDeleted)
+        let raw = RawInstitution(institutionId: self.uuid, name: self.name, wasDeleted: self.wasDeleted)
         return raw
 
     }
@@ -58,8 +58,19 @@ extension Institution: Equatable, Hashable, JsonConvertible {
 
 struct RawInstitution: Codable, Equatable, Hashable {
 
-    let uuid: String
+    let institutionId: String
     let name: String
     let wasDeleted: Bool
+
+}
+
+extension RawInstitution {
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.institutionId = try container.decode(String.self, forKey: .institutionId)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.wasDeleted = try container.decodeIfPresent(Bool.self, forKey: .wasDeleted) ?? false
+    }
 
 }

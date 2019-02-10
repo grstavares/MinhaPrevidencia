@@ -11,13 +11,13 @@ import SwiftSugarKit
 
 extension AppDelegate {
 
-    static let devUrl = "https://dev.endpoint.com"
-    static let qaUrl = "https://qa.endpoint.com"
-    static let stageUrl = "https://stage.endpoint.com"
-    static let prodUrl = "https://prod.endpoint.com"
+    static let devUrl = "https://j4j2c48op0.execute-api.us-east-1.amazonaws.com/v111111111/"
+    static let qaUrl = "https://j4j2c48op0.execute-api.us-east-1.amazonaws.com/v111111111/"
+    static let stageUrl = "https://j4j2c48op0.execute-api.us-east-1.amazonaws.com/v111111111/"
+    static let prodUrl = "https://j4j2c48op0.execute-api.us-east-1.amazonaws.com/v111111111/"
 
     static let initialDataKey = "InitialData"
-    static let institutionId = "9876567d"
+    static let institutionId = "177ac1f4-a78d-407b-b002-461f2ac55950"
 
     static func mockedInitialData() -> InitialData {
 
@@ -33,12 +33,7 @@ extension AppDelegate {
         let userprofile = UserProfile(uuid: "anonymous", firstName: "Usuário", lastName: "Anônimo", username: "anonymous", phoneNumber: nil, birthDate: nil, genre: nil)
         let retirement = Retirement(uuid: "anonymous", startDate: institutoCreation, endDate: Date(), contributions: [], withdrawals: [])
 
-        let rawNews1 = RawNewsReport.init(uuid: "asdasd", title: "Novo Convênio", contents: "Este é o conteúdo da notícia", dateCreation: Date().timeIntervalSince1970, lastUpdate: nil, url: nil, imageUrl: nil, wasDeleted: false)
-        let rawNews2 = RawNewsReport.init(uuid: "fdsfds", title: "Ganhamos o Bolão", contents: "Este é o conteúdo da notícia", dateCreation: Date().timeIntervalSince1970, lastUpdate: nil, url: nil, imageUrl: nil, wasDeleted: false)
-
-        let news: [NewsReport] = [NewsReport(from: rawNews1)!, NewsReport(from: rawNews2)! ]
-
-        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: news, complaints: [], financialEntries: [], retirement: retirement)
+        return InitialData(institution: institution, userInfo: userprofile, messages: [], documents: [], news: [], complaints: [], financialEntries: [], retirement: retirement)
 
     }
 

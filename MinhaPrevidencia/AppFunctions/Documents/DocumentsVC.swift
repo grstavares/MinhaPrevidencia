@@ -28,9 +28,15 @@ class DocumentsVC: AppViewController {
     var dataSource: [Document] = []
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
+
         self.addMenuButton()
         self.addAcessoryButtons()
+
+        self.registerCell()
+        self.configureDataSource()
+
     }
 
     func addAcessoryButtons() {
@@ -46,5 +52,44 @@ class DocumentsVC: AppViewController {
     @objc func showTagged(sender: Any) {}
 
     @objc func createNew(sender: Any) {}
+
+    private func registerCell() {
+
+        let nib = UINib(nibName: DocumentCell.cellId, bundle: Bundle.main)
+        self.tableView.register(nib, forCellReuseIdentifier: DocumentCell.cellId)
+
+    }
+
+    private func configureDataSource() {
+
+        self.tableView.dataSource = self
+        self.state?.documents.asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { values in
+                self.dataSource = values
+                self.tableView.reloadData()
+            }).disposed(by: self.disposeBag)
+
+    }
+
+}
+
+extension DocumentsVC: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int { return 1 }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return self.dataSource.count }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if let cell = tableView.dequeueReusableCell(withIdentifier: DocumentCell.cellId, for: indexPath) as? DocumentCell {
+
+            let object = self.dataSource[indexPath.row]
+            cell.configure(with: object)
+            return cell
+
+        } else { return UITableViewCell() }
+
+    }
 
 }

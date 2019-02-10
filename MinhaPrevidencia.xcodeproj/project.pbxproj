@@ -125,6 +125,8 @@
 		A1CD011621E7DBBA00C93527 /* MockedAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011521E7DBBA00C93527 /* MockedAuthManager.swift */; };
 		A1CD011821E7DC0A00C93527 /* MockedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011721E7DC0A00C93527 /* MockedSettings.swift */; };
 		A1CD011A21E7E36800C93527 /* MockedCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CD011921E7E36800C93527 /* MockedCoreDataStack.swift */; };
+		A1DA1FF5220E0AA000ABDBB1 /* DocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA1FF3220E0AA000ABDBB1 /* DocumentCell.swift */; };
+		A1DA1FF6220E0AA000ABDBB1 /* DocumentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1DA1FF4220E0AA000ABDBB1 /* DocumentCell.xib */; };
 		A1E4CD9821E7888900397997 /* Address+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CD9721E7888900397997 /* Address+CoreData.swift */; };
 		A1E4CDA321E7889D00397997 /* Complaint+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */; };
 		A1E4CDA521E788AE00397997 /* CommunicationMessage+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDA421E788AE00397997 /* CommunicationMessage+CoreData.swift */; };
@@ -137,6 +139,7 @@
 		A1E4CDB321E7992A00397997 /* CoreDataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */; };
 		A1E4CDB521E7C09D00397997 /* AbstractCoreDataStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4CDB421E7C09D00397997 /* AbstractCoreDataStoreItem.swift */; };
 		A1E92AD421E2649B00A10DE6 /* URLSessionMockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */; };
+		A1FB37C021FFDF4500DB2FCB /* RetirementSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FB37BF21FFDF4500DB2FCB /* RetirementSliderView.swift */; };
 		A1FD2C7421E920AB0077243B /* CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD2C7321E920AB0077243B /* CoreDataTest.swift */; };
 		A1FD2C7621E921710077243B /* CommunicationMessageCoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD2C7521E921710077243B /* CommunicationMessageCoreDataTest.swift */; };
 		A1FD2C7821E924BA0077243B /* ComplaintCoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD2C7721E924BA0077243B /* ComplaintCoreDataTest.swift */; };
@@ -412,6 +415,8 @@
 		A1CD011521E7DBBA00C93527 /* MockedAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedAuthManager.swift; sourceTree = "<group>"; };
 		A1CD011721E7DC0A00C93527 /* MockedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSettings.swift; sourceTree = "<group>"; };
 		A1CD011921E7E36800C93527 /* MockedCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedCoreDataStack.swift; sourceTree = "<group>"; };
+		A1DA1FF3220E0AA000ABDBB1 /* DocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCell.swift; sourceTree = "<group>"; };
+		A1DA1FF4220E0AA000ABDBB1 /* DocumentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DocumentCell.xib; sourceTree = "<group>"; };
 		A1E4CD9721E7888900397997 /* Address+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+CoreData.swift"; sourceTree = "<group>"; };
 		A1E4CDA221E7889D00397997 /* Complaint+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Complaint+CoreData.swift"; sourceTree = "<group>"; };
 		A1E4CDA421E788AE00397997 /* CommunicationMessage+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommunicationMessage+CoreData.swift"; sourceTree = "<group>"; };
@@ -424,6 +429,7 @@
 		A1E4CDB221E7992A00397997 /* CoreDataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStoreItem.swift; sourceTree = "<group>"; };
 		A1E4CDB421E7C09D00397997 /* AbstractCoreDataStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractCoreDataStoreItem.swift; sourceTree = "<group>"; };
 		A1E92AD321E2649B00A10DE6 /* URLSessionMockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMockTest.swift; sourceTree = "<group>"; };
+		A1FB37BF21FFDF4500DB2FCB /* RetirementSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetirementSliderView.swift; sourceTree = "<group>"; };
 		A1FD2C7321E920AB0077243B /* CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTest.swift; sourceTree = "<group>"; };
 		A1FD2C7521E921710077243B /* CommunicationMessageCoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationMessageCoreDataTest.swift; sourceTree = "<group>"; };
 		A1FD2C7721E924BA0077243B /* ComplaintCoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCoreDataTest.swift; sourceTree = "<group>"; };
@@ -754,6 +760,8 @@
 				A190513321ED147D00223479 /* DocumentsSB.storyboard */,
 				A190511321ECF52700223479 /* DocumentsVC.swift */,
 				A190511521ECF53400223479 /* DocumentVC.swift */,
+				A1DA1FF3220E0AA000ABDBB1 /* DocumentCell.swift */,
+				A1DA1FF4220E0AA000ABDBB1 /* DocumentCell.xib */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -764,6 +772,7 @@
 				A190514521ED1E7E00223479 /* RetirementCoordinator.swift */,
 				A190513921ED14DC00223479 /* RetirementSB.storyboard */,
 				A190512121ECF5A600223479 /* RetirementVC.swift */,
+				A1FB37BF21FFDF4500DB2FCB /* RetirementSliderView.swift */,
 			);
 			path = Retirement;
 			sourceTree = "<group>";
@@ -1090,6 +1099,7 @@
 				A190513A21ED14DC00223479 /* RetirementSB.storyboard in Resources */,
 				A190513C21ED14EE00223479 /* UserProfileSB.storyboard in Resources */,
 				A190513421ED147D00223479 /* DocumentsSB.storyboard in Resources */,
+				A1DA1FF6220E0AA000ABDBB1 /* DocumentCell.xib in Resources */,
 				A190512C21ECF71500223479 /* ActivitiesSB.storyboard in Resources */,
 				A14CDFDE21F1178000A15E85 /* ComplaintsSB.storyboard in Resources */,
 				A11AA10C21EE4A370030B6B3 /* SideMenuItemCell.xib in Resources */,
@@ -1169,7 +1179,9 @@
 				A1FD2C8A21E92F6A0077243B /* AppErrorHandling.swift in Sources */,
 				A17FFC5C21DE738E00B64090 /* ComplaintEndpoint.swift in Sources */,
 				A1829C4421DD5F7900CA903B /* Retirement.swift in Sources */,
+				A1DA1FF5220E0AA000ABDBB1 /* DocumentCell.swift in Sources */,
 				A190514E21ED20CD00223479 /* ActivitiesCoordinator.swift in Sources */,
+				A1FB37C021FFDF4500DB2FCB /* RetirementSliderView.swift in Sources */,
 				A17FFC8921DED7B700B64090 /* NetworkManager.swift in Sources */,
 				A1B15DE321E4023B008C313D /* ResultType.swift in Sources */,
 				A190512021ECF58300223479 /* UserProfileVC.swift in Sources */,

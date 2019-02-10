@@ -23,12 +23,39 @@ class MainVC: AppViewController {
     }
 
     @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var contentEffect: UIView!
+    @IBOutlet weak var effectTrailing: NSLayoutConstraint!
     @IBOutlet weak var menuViewLeading: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
 
-    var sideMenuOpen = false
     var injector: AppInjector?
     var navigator: UINavigationController?
+
+    var sideMenuOpen = false { didSet {
+
+        if sideMenuOpen {
+
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 2, animations: {
+                    self.menuViewLeading.constant = 0
+                    self.effectTrailing.constant = 0
+                    self.contentEffect.isHidden = false
+                })
+            }
+
+        } else {
+
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 2, animations: {
+                    self.menuViewLeading.constant = -260
+                    self.contentEffect.isHidden = true
+                    self.effectTrailing.constant = UIScreen.main.bounds.width - 1
+                })
+            }
+
+        }
+
+    } }
 
     override func viewDidLoad() {
 
@@ -45,16 +72,13 @@ class MainVC: AppViewController {
         if let navigator = self.navigator {self.addNavigator(navigator: navigator)
         } else { fatalError("Unable to Load Navigator")}
 
-        self.menuViewLeading.constant = -250
+        self.sideMenuOpen = false
 
     }
 
-    func toggleSideMenu() {
+    @objc func toggleSideMenu() { self.sideMenuOpen = !self.sideMenuOpen }
 
-        self.menuViewLeading.constant = self.sideMenuOpen ? -250 : 0
-        self.sideMenuOpen = !self.sideMenuOpen
-
-    }
+    @IBAction func contentEffectTapped(sender: UIGestureRecognizer) { self.toggleSideMenu() }
 
     func setNavigationRoot(navigator: UINavigationController) {
 

@@ -16,11 +16,21 @@ enum DocumentApi {
 
 extension DocumentApi: RemoteEndpoint {
 
+     var resourcePath: String { return "documents" }
+
     var path: URL {
 
         switch self {
-        case .getAll: return self.baseURL
-        case .get(let uuid, _): return self.baseURL.appendingPathComponent(uuid)
+        case .getAll:
+
+            return self.baseURL.appendingPathComponent(self.resourcePath)
+
+        case .get(let uuid, _):
+
+            return self.baseURL
+                .appendingPathComponent(self.resourcePath)
+                .appendingPathComponent(uuid)
+
         case .getContent(let document, _): return document.url
         }
 

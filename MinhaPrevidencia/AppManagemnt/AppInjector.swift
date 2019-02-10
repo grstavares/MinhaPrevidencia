@@ -25,7 +25,7 @@ class AppInjector {
     func authManager() -> AuthenticationManager? { return nil }
     func appRouter() -> NetworkManager? { return self._appRouter }
 
-    //Synchronous Function to be returned with Initial Data from Settings, Cache or Stup in the caso of first execution
+    //Synchronous Function to be returned with Initial Data from Settings, Cache or Setup in the case of first execution
     func initialData() -> InitialData {
 
         if let store = self.localStore() as? CoreDataManager, let initial = self.fromCoreData(using: store) { return initial

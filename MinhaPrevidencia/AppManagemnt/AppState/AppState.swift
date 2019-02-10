@@ -108,6 +108,10 @@ class AppState: StateManager {
 
         }
 
+        self.refreshInstitution()
+        self.refreshNews()
+        self.refreshDocuments()
+
     }
 
     public func refresh(tokenChanged: Bool = false) {
@@ -425,10 +429,9 @@ class AppState: StateManager {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
 
-        guard let parsedRaw = try? decoder.decode([U].self, from: data) else { return Result.error(AppStateError.invalidObjectData(type: "", data: data)) }
-
         do {
 
+            let parsedRaw = try decoder.decode([U].self, from: data)
             let parsedDat = try parsedRaw.compactMap { try encoder.encode($0) }
             let parsedObjects = parsedDat.compactMap { T.init(from: $0) }
 
@@ -443,7 +446,10 @@ class AppState: StateManager {
 
             return Result.value(parsedObjects)
 
-        } catch { return Result.error(AppStateError.invalidObjectData(type: String(describing: U.self), data: data)) }
+        } catch {
+/** DEBUG ONLY**/ print(error)
+            return Result.error(AppStateError.invalidObjectData(type: String(describing: U.self), data: data))
+        }
 
     }
 

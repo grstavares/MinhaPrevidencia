@@ -110,8 +110,8 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let selected = MenuItens.allCases[indexPath.row]
-        self.coordinator?.perform(action: selected.appAction, from: self)
         self.coordinator?.perform(action: AppNavigation.toggleMenu, from: self)
+        self.coordinator?.perform(action: selected.appAction, from: self)
 
     }
 

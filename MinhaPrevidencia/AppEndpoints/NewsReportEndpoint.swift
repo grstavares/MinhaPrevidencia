@@ -16,7 +16,7 @@ enum NewsReportApi {
 
 extension NewsReportApi: RemoteEndpoint {
 
-    var resourcePath: String { return "newsmessage" }
+    var resourcePath: String { return "newsreports" }
 
     var path: URL {
 

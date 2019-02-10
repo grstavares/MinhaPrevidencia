@@ -82,15 +82,15 @@ struct RawRetirement: Codable, Hashable, Equatable {
 
 }
 
-struct RetirementBuilder {
-
-    let uuid: String
-    let startDate: Date
-    let endDate: Date
-    let contributions: [Contribution]
-    let withdrawals: [Withdrawal]
-    let wasDeleted: Bool
-
-    func build() -> Retirement { return Retirement(uuid: self.uuid, startDate: self.startDate, endDate: self.endDate, contributions: self.contributions, withdrawals: self.withdrawals, wasDeleted: self.wasDeleted) }
-
-}
+//struct RetirementBuilder {
+//
+//    let uuid: String
+//    let startDate: Date
+//    let endDate: Date
+//    let contributions: [Contribution]
+//    let withdrawals: [Withdrawal]
+//    let wasDeleted: Bool
+//
+//    func build() -> Retirement { return Retirement(uuid: self.uuid, startDate: self.startDate, endDate: self.endDate, contributions: self.contributions, withdrawals: self.withdrawals, wasDeleted: self.wasDeleted) }
+//
+//}

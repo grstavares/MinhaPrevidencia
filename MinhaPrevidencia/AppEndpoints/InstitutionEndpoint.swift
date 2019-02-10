@@ -15,7 +15,7 @@ enum InstitutionApi {
 
 extension InstitutionApi: RemoteEndpoint {
 
-    var resourcePath: String { return "institution" }
+    var resourcePath: String { return "intitutions" }
 
     var path: URL {
 

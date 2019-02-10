@@ -77,13 +77,13 @@ struct RawContribution: Codable, Hashable, Equatable {
 
 }
 
-struct ContributionBuilder {
-
-    let uuid: String
-    let source: String
-    let reference: Date
-    let value: Double
-    let wasDeleted: Bool
-    func build() -> Contribution { return Contribution(uuid: self.uuid, source: self.source, reference: self.reference, value: self.value, wasDeleted: wasDeleted) }
-
-}
+//struct ContributionBuilder {
+//
+//    let uuid: String
+//    let source: String
+//    let reference: Date
+//    let value: Double
+//    let wasDeleted: Bool
+//    func build() -> Contribution { return Contribution(uuid: self.uuid, source: self.source, reference: self.reference, value: self.value, wasDeleted: wasDeleted) }
+//
+//}

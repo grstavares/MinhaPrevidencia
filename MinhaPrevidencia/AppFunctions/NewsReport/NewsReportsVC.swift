@@ -36,6 +36,7 @@ class NewsReportsVC: AppViewController {
 
         self.registerCell()
         self.configureDataSource()
+
     }
 
     func addAcessoryButtons() {
@@ -59,7 +60,9 @@ class NewsReportsVC: AppViewController {
     private func configureDataSource() {
 
         self.tableView.dataSource = self
-        self.state?.news.asObservable().subscribe(onNext: { values in
+        self.state?.news.asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { values in
             self.dataSource = values
             self.tableView.reloadData()
         }).disposed(by: self.disposeBag)

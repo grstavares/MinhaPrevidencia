@@ -77,14 +77,14 @@ struct RawWithdrawal: Codable, Hashable, Equatable {
 
 }
 
-struct WithdrawalBuilder {
-
-    let uuid: String
-    let date: Date
-    let value: Double
-    let reference: String
-    let wasDeleted: Bool
-
-    func build() -> Withdrawal { return Withdrawal(uuid: self.uuid, date: self.date, value: self.value, reference: self.reference, wasDeleted: self.wasDeleted) }
-
-}
+//struct WithdrawalBuilder {
+//
+//    let uuid: String
+//    let date: Date
+//    let value: Double
+//    let reference: String
+//    let wasDeleted: Bool
+//
+//    func build() -> Withdrawal { return Withdrawal(uuid: self.uuid, date: self.date, value: self.value, reference: self.reference, wasDeleted: self.wasDeleted) }
+//
+//}
